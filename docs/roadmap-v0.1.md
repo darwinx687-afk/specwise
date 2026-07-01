@@ -28,11 +28,13 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 14: GitHub repo page polish and first public announcement drafts
 - Phase 15: License decision and v0.1 preview tag planning
 - Phase 16: MIT license application and v0.1.0-preview.0 tag/release
+- Phase 17: First feedback loop and public announcement pack
 
 ## Next
 
-- Phase 17: First feedback loop and issue triage
-- Phase 18: v0.2 planning
+- Phase 18: v0.2 scope selection from feedback
+- Phase 19: v0.2 implementation planning
+- Phase 20: v0.2 development
 
 ## Current Boundary
 
@@ -59,3 +61,5 @@ Phase 14 polishes the public GitHub repo page, community templates, announcement
 Phase 15 prepares license decision support, v0.1 preview tag planning, release notes draft, and release gates. It does not add a `LICENSE` file, modify `package.json` license metadata, force push, tag, release, publish to npm, call a real AI provider, call a coding agent, or generate final spec-packs.
 
 Phase 16 applies MIT License, updates package license metadata, creates the `v0.1.0-preview.0` tag, and creates the matching GitHub release after validation. It does not force push, publish to npm, add dependencies, call a real AI provider, call a coding agent, or generate final spec-packs.
+
+Phase 17 prepares first feedback loop docs, GitHub feedback labels, public announcement copy, and v0.2 planning input. It does not start v0.2 implementation, create new tags, create new releases, publish to npm, add dependencies, call a real AI provider, call a coding agent, or generate final spec-packs.

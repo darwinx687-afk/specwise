@@ -181,6 +181,12 @@ License: MIT.
 
 Release marker: `v0.1.0-preview.0`.
 
+SpecWise v0.1.0-preview.0 is now available as a GitHub pre-release.
+
+SpecWise v0.1.0-preview.0 已作为 GitHub pre-release 发布。欢迎通过 GitHub Issues 提交早期反馈，但请不要在公开 issue 中分享敏感业务数据或私密截图。
+
+Early feedback is welcome through GitHub Issues. Please do not share sensitive business data or private screenshots in public issues.
+
 ## Documentation
 
 Start with [Docs Index](docs/docs-index-v0.1.md).
@@ -194,6 +200,9 @@ Key docs:
 - [License Decision](docs/license-decision-v0.1.md)
 - [v0.1 Preview Tag Plan](docs/v0.1-preview-tag-plan.md)
 - [Release Notes Draft](docs/release-notes-draft-v0.1.md)
+- [Feedback Guide](docs/feedback-guide-v0.1.md)
+- [First Feedback Loop](docs/first-feedback-loop-v0.1.md)
+- [v0.2 Planning Draft](docs/v0.2-planning-draft.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
 - [Roadmap](docs/roadmap-v0.1.md)
@@ -201,11 +210,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 16 MIT License Application & v0.1.0-preview.0 Tag/Release.
+Completed through Phase 17 First Feedback Loop & Public Announcement Pack.
 
 Next candidate phase:
 
-- Phase 17: First Feedback Loop & Issue Triage
+- Phase 18: v0.2 Scope Selection From Feedback
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
