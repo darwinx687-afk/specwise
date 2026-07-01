@@ -1,6 +1,6 @@
 # Release Readiness Checklist v0.1
 
-Status: Phase 11 preview-release checklist. Not a release action.
+Status: Phase 15 preview-release checklist. Not a release action.
 
 ## Documentation
 
@@ -73,14 +73,27 @@ Status: Phase 11 preview-release checklist. Not a release action.
 
 - [ ] License decision pending user confirmation.
 - [ ] Choose license before public release.
+- [ ] License selected.
+- [ ] `LICENSE` file added only after owner confirmation.
+- [ ] `package.json` license field updated only after owner confirmation.
 
 This is not legal advice.
+
+Do not create tag before license is chosen.
 
 ## Release Notes
 
 - [ ] `CHANGELOG.md` has an unreleased preview entry.
 - [ ] Safety boundaries are listed in changelog.
 - [ ] Known limitations are linked or summarized.
+- [ ] Release notes draft reviewed.
+- [ ] `v0.1.0-preview.0` tag approved.
+- [ ] GitHub release approved.
+- [ ] npm publish intentionally skipped.
+
+Do not create GitHub release before release notes are approved.
+
+Do not npm publish while package is private.
 
 ## Known Limitations
 

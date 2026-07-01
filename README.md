@@ -175,6 +175,10 @@ SpecWise v0.1 currently includes:
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
+License status: pending project owner confirmation.
+
+许可证状态：等待项目所有者确认。当前尚未创建 GitHub release 或 git tag。许可证确认后，下一步计划是 `v0.1.0-preview.0`。
+
 ## Documentation
 
 Start with [Docs Index](docs/docs-index-v0.1.md).
@@ -185,6 +189,9 @@ Key docs:
 - [Examples Guide](docs/examples-guide-v0.1.md)
 - [Full Workflow Guide](docs/full-workflow-guide-v0.1.md)
 - [Release Readiness Checklist](docs/release-readiness-checklist-v0.1.md)
+- [License Decision](docs/license-decision-v0.1.md)
+- [v0.1 Preview Tag Plan](docs/v0.1-preview-tag-plan.md)
+- [Release Notes Draft](docs/release-notes-draft-v0.1.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
 - [Roadmap](docs/roadmap-v0.1.md)
@@ -192,13 +199,13 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 14 GitHub Repo Page Polish & First Public Announcement Drafts.
+Completed through Phase 15 License Decision & v0.1 Preview Tag Planning.
 
 Next candidate phase:
 
-- Phase 15: License Decision & v0.1 Preview Tag Planning
+- Phase 16: License Application & v0.1.0-preview.0 Tag/Release
 
-Phase 15 should still avoid tagging, releasing, or npm publishing until the license decision is explicit.
+Phase 16 should only happen after explicit owner confirmation for the license, tag, and GitHub release.
 
 ## Release Readiness
 
@@ -207,6 +214,8 @@ This repo is prepared for a v0.1 preview-readiness review.
 Before public release:
 
 - confirm license choice
+- add `LICENSE` only after owner confirmation
+- update `package.json` license field only after owner confirmation, if appropriate
 - review package metadata
 - rerun `npm test`
 - rerun `npm run smoke`
@@ -216,3 +225,4 @@ Before public release:
 - review public announcement copy
 
 Phase 14 does not create git tags, GitHub releases, npm publications, or a license decision.
+Phase 15 does not add a `LICENSE` file, modify `package.json` license metadata, create tags, create GitHub releases, or publish npm packages.

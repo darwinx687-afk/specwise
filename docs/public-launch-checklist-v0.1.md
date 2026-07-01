@@ -1,6 +1,6 @@
 # Public Launch Checklist v0.1
 
-Status: Phase 14 public sharing checklist. This is not a release checklist, tag checklist, or npm publish checklist.
+Status: Phase 15 public sharing checklist. This is not a release checklist, tag checklist, or npm publish checklist.
 
 ## Before Sharing Publicly
 
@@ -12,6 +12,12 @@ Status: Phase 14 public sharing checklist. This is not a release checklist, tag 
 - [ ] No secrets.
 - [ ] No `node_modules`, `tmp`, or `.DS_Store`.
 - [ ] License decision still pending.
+- [ ] License selected before tag/release.
+- [ ] `LICENSE` file added only after owner confirmation.
+- [ ] `package.json` license field updated only after owner confirmation.
+- [ ] `v0.1.0-preview.0` tag approved.
+- [ ] GitHub release approved.
+- [ ] npm publish intentionally skipped.
 - [ ] No tag, GitHub release, or npm publish yet.
 - [ ] Public announcement copy reviewed.
 - [ ] Known limitations are visible.
@@ -19,7 +25,9 @@ Status: Phase 14 public sharing checklist. This is not a release checklist, tag 
 ## Do Not Do Yet
 
 - [ ] Do not create a GitHub release.
-- [ ] Do not tag `v0.1.0` until license is decided.
+- [ ] Do not tag `v0.1.0-preview.0` until license is decided.
+- [ ] Do not create tag before license is chosen.
+- [ ] Do not create GitHub release before release notes are approved.
 - [ ] Do not npm publish while `package.json` is private.
 - [ ] Do not claim real AI extraction is implemented.
 
