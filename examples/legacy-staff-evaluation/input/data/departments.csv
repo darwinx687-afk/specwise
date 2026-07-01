@@ -1,0 +1,5 @@
+department_id,company,name,manager_id,status
+DEP001,Northwind Ops,Operations,EMP004,active
+DEP002,Northwind Ops,Finance,,active
+DEP003,Northwind Ops,Customer Support,,inactive
+

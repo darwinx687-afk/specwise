@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceItems": [
+    {
+      "id": "ev_fixture",
+      "sourceMaterialId": "src_fixture_notes",
+      "type": "business_note",
+      "quoteOrDescription": "Fixture evidence.",
+      "location": {
+        "file": "input/fixture.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "low"
+    }
+  ],
+  "claimMappings": [
+    {
+      "claimId": "mod_fixture",
+      "claimType": "module",
+      "claim": "Fixture module exists.",
+      "evidenceIds": ["ev_fixture"],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Fixture mapping."
+    }
+  ],
+  "coverageSummary": {
+    "totalClaims": 1,
+    "claimsWithEvidence": 1,
+    "claimsWithoutEvidence": 0,
+    "highConfidenceClaims": 0,
+    "mediumConfidenceClaims": 0,
+    "lowConfidenceClaims": 1,
+    "unknownConfidenceClaims": 0,
+    "evidenceCoverageRate": 1
+  }
+}
+

@@ -1,0 +1,15 @@
+{
+  "schemaVersion": "0.1.0",
+  "provider": "openai-compatible-placeholder",
+  "mode": "disabled",
+  "model": "future-openai-compatible-model",
+  "apiKeyEnv": "SPECWISE_API_KEY",
+  "baseUrl": "https://example.invalid/v1",
+  "temperature": 0.1,
+  "safety": {
+    "evidenceFirst": true,
+    "reviewRequiredByDefault": true,
+    "allowNetworkCalls": false,
+    "allowLocalAbsolutePathsInOutput": false
+  }
+}

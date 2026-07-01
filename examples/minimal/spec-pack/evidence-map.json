@@ -1,0 +1,251 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceItems": [
+    {
+      "id": "ev_employee_list_title",
+      "sourceMaterialId": "src_screenshot_employee_list",
+      "type": "ui_text",
+      "quoteOrDescription": "The screenshot title indicates an employee list page.",
+      "location": {
+        "file": "input/screenshots/employee-list.png",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employee_table_columns",
+      "sourceMaterialId": "src_screenshot_employee_list",
+      "type": "table_header",
+      "quoteOrDescription": "The employee list table shows columns for name, department, role, and status.",
+      "location": {
+        "file": "input/screenshots/employee-list.png",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employee_list_filters",
+      "sourceMaterialId": "src_screenshot_employee_list",
+      "type": "ui_text",
+      "quoteOrDescription": "The employee list includes a department filter.",
+      "location": {
+        "file": "input/screenshots/employee-list.png",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_employee_edit_button",
+      "sourceMaterialId": "src_screenshot_employee_list",
+      "type": "button_label",
+      "quoteOrDescription": "The employee list includes an edit action.",
+      "location": {
+        "file": "input/screenshots/employee-list.png",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_employee_export_button",
+      "sourceMaterialId": "src_screenshot_employee_list",
+      "type": "button_label",
+      "quoteOrDescription": "The employee list includes an export action.",
+      "location": {
+        "file": "input/screenshots/employee-list.png",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_employee_status_values",
+      "sourceMaterialId": "src_screenshot_employee_list",
+      "type": "status_label",
+      "quoteOrDescription": "The screenshot contains active, inactive, and pending status values.",
+      "location": {
+        "file": "input/screenshots/employee-list.png",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_roles_md_manager",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "Role notes mention managers and group-level data responsibility.",
+      "location": {
+        "file": "input/roles.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    }
+  ],
+  "claimMappings": [
+    {
+      "claimId": "mod_staff_management",
+      "claimType": "module",
+      "claim": "The system contains a Staff Management module.",
+      "evidenceIds": ["ev_employee_list_title", "ev_employee_table_columns"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "The employee list page title and table columns directly support a staff management area."
+    },
+    {
+      "claimId": "page_employee_list",
+      "claimType": "page",
+      "claim": "The Staff Management module includes an Employee List page.",
+      "evidenceIds": ["ev_employee_list_title"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "The screenshot title identifies the page as an employee list."
+    },
+    {
+      "claimId": "ent_employee",
+      "claimType": "entity",
+      "claim": "Employee is a core entity.",
+      "evidenceIds": ["ev_employee_table_columns"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "The table columns describe employee records."
+    },
+    {
+      "claimId": "ent_department",
+      "claimType": "entity",
+      "claim": "Department is likely a related entity.",
+      "evidenceIds": ["ev_employee_table_columns", "ev_employee_list_filters"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Department appears as a field and filter, but a standalone department management page is not shown."
+    },
+    {
+      "claimId": "field_employee_status",
+      "claimType": "field",
+      "claim": "Employee status is an enum-like field.",
+      "evidenceIds": ["ev_employee_status_values"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Multiple status labels are visible, but the complete allowed value set is not confirmed."
+    },
+    {
+      "claimId": "role_manager",
+      "claimType": "permission",
+      "claim": "Manager is a role with group-level responsibility.",
+      "evidenceIds": ["ev_roles_md_manager"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Role notes mention managers and group data responsibility, but exact data scope is not confirmed."
+    },
+    {
+      "claimId": "perm_manager_view_group_employees",
+      "claimType": "permission",
+      "claim": "Managers can view group-level employee records.",
+      "evidenceIds": ["ev_roles_md_manager", "ev_employee_list_filters"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Role notes and department filters support group or department scoping, but cross-department access is unconfirmed."
+    },
+    {
+      "claimId": "perm_manager_edit_employee",
+      "claimType": "permission",
+      "claim": "Managers may edit employee records in their scope.",
+      "evidenceIds": ["ev_employee_edit_button", "ev_roles_md_manager"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "The edit action is visible and manager responsibility is noted, but role-specific edit access is not directly confirmed."
+    },
+    {
+      "claimId": "wf_employee_status_maintenance",
+      "claimType": "workflow",
+      "claim": "Employee status maintenance is an inferred workflow.",
+      "evidenceIds": ["ev_employee_edit_button", "ev_employee_status_values"],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Edit action and status values imply a maintenance workflow, but transition rules are not shown."
+    },
+    {
+      "claimId": "ac_manager_scope",
+      "claimType": "acceptance",
+      "claim": "Manager data scope must be enforced.",
+      "evidenceIds": ["ev_roles_md_manager", "ev_employee_list_filters"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Scope enforcement follows from the manager role notes and department filter, but exact scope requires confirmation."
+    },
+    {
+      "claimId": "ac_employee_status_values",
+      "claimType": "acceptance",
+      "claim": "Employee status values must be validated.",
+      "evidenceIds": ["ev_employee_status_values"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Visible status values suggest validation requirements, but the full value set is unconfirmed."
+    },
+    {
+      "claimId": "q_manager_cross_department_access",
+      "claimType": "question",
+      "claim": "Manager cross-department access needs confirmation.",
+      "evidenceIds": ["ev_roles_md_manager", "ev_employee_list_filters"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Evidence suggests scoped access, but does not settle cross-department visibility."
+    },
+    {
+      "claimId": "q_employee_status_enum",
+      "claimType": "question",
+      "claim": "Employee status enum values need confirmation.",
+      "evidenceIds": ["ev_employee_status_values"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Some values are visible, but not enough to claim a complete enum."
+    },
+    {
+      "claimId": "q_employee_status_workflow",
+      "claimType": "question",
+      "claim": "Employee status workflow needs confirmation.",
+      "evidenceIds": ["ev_employee_edit_button", "ev_employee_status_values"],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "The workflow is inferred from UI signals without explicit transition rules."
+    },
+    {
+      "claimId": "asm_soft_delete",
+      "claimType": "assumption",
+      "claim": "Employee records may require soft deletion.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "This is a common auditability assumption but has no direct evidence."
+    }
+  ],
+  "coverageSummary": {
+    "totalClaims": 15,
+    "claimsWithEvidence": 14,
+    "claimsWithoutEvidence": 1,
+    "highConfidenceClaims": 3,
+    "mediumConfidenceClaims": 9,
+    "lowConfidenceClaims": 3,
+    "unknownConfidenceClaims": 0,
+    "evidenceCoverageRate": 0.93
+  }
+}
+

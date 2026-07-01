@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "0.1.0",
+  "mode": "agent_handoff_pack_skeleton",
+  "packId": "handoff_legacy_staff_evaluation_001",
+  "source": {
+    "draftSpecPackPath": "./tmp/draft-test/spec-pack",
+    "manualApplyPlanPath": "./tmp/apply-plan/manual-apply-plan.json",
+    "specPackStatus": "review_required",
+    "buildabilityScore": 72,
+    "hasEvidenceMap": true,
+    "hasManualApplyPlan": true
+  },
+  "targetAgents": ["codex", "claude-code", "cursor", "spec-kit"],
+  "safety": {
+    "noAgentCallsMade": true,
+    "noAutoImplementation": true,
+    "noFinalSpecPackGenerated": true,
+    "openQuestionsMustRemainVisible": true,
+    "assumptionsMustRemainMarked": true,
+    "permissionsRequireReview": true
+  },
+  "gates": {
+    "handoffType": "discovery_handoff",
+    "implementationAllowed": false,
+    "blockedByOpenQuestions": true,
+    "blockedByManualApplyPlan": true,
+    "blockedByLowBuildability": false,
+    "blockedByHighRiskPermissions": true
+  },
+  "status": "review_required",
+  "createdAt": "2026-07-01T00:00:00.000Z"
+}

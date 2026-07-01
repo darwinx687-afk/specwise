@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "0.1.0",
+  "provider": "openai-compatible-preview",
+  "mode": "ai_preview_design_only",
+  "model": "replace-with-your-model",
+  "apiKeyEnv": "SPECWISE_API_KEY",
+  "baseUrl": "https://example.invalid/v1",
+  "temperature": 0.1,
+  "safety": {
+    "evidenceFirst": true,
+    "reviewRequiredByDefault": true,
+    "emitPatchOnly": true,
+    "allowNetworkCalls": false,
+    "allowLocalAbsolutePathsInOutput": false,
+    "noAutoApply": true
+  }
+}

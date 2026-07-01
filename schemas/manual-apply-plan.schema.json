@@ -1,0 +1,118 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specwise.local/schemas/manual-apply-plan.schema.json",
+  "title": "SpecWise Manual Apply Plan v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "planId", "mode", "source", "summary", "manualSteps", "blockedItems", "revisionChecklist", "status", "createdAt"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "planId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "mode": {
+      "type": "string",
+      "const": "manual_apply_plan_only"
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewReportPath", "draftSpecPackPath"],
+      "properties": {
+        "reviewReportPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "draftSpecPackPath": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["totalReviewedItems", "safeToApplyManually", "needsBusinessConfirmation", "deferred", "doNotApply", "blocksFinalSpec"],
+      "properties": {
+        "totalReviewedItems": { "type": "integer", "minimum": 0 },
+        "safeToApplyManually": { "type": "integer", "minimum": 0 },
+        "needsBusinessConfirmation": { "type": "integer", "minimum": 0 },
+        "deferred": { "type": "integer", "minimum": 0 },
+        "doNotApply": { "type": "integer", "minimum": 0 },
+        "blocksFinalSpec": { "type": "boolean" }
+      }
+    },
+    "manualSteps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/manualStep" }
+    },
+    "blockedItems": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/blockedItem" }
+    },
+    "revisionChecklist": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/checklistItem" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["manual_revision_required", "blocked"]
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "manualStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "sourceCandidateId", "decision", "acceptedAs", "targetFile", "targetSection", "action", "description", "requiresBusinessConfirmation", "requiresDeveloperReview", "autoApplyAllowed"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "sourceCandidateId": { "type": "string", "minLength": 1 },
+        "decision": { "type": "string", "enum": ["accepted", "rejected", "needs_more_info", "deferred"] },
+        "acceptedAs": { "type": ["string", "null"], "enum": ["fact", "assumption", "question", "acceptance_criterion", null] },
+        "targetFile": { "type": "string", "minLength": 1 },
+        "targetSection": { "type": "string", "minLength": 1 },
+        "action": {
+          "type": "string",
+          "enum": ["manually_add", "manually_update", "convert_to_question", "convert_to_assumption", "keep_blocked", "defer", "do_not_apply"]
+        },
+        "description": { "type": "string", "minLength": 1 },
+        "requiresBusinessConfirmation": { "type": "boolean" },
+        "requiresDeveloperReview": { "type": "boolean" },
+        "autoApplyAllowed": {
+          "type": "boolean",
+          "const": false
+        }
+      }
+    },
+    "blockedItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sourceCandidateId", "priority", "reason", "requiredOwner", "suggestedFollowUpQuestion"],
+      "properties": {
+        "sourceCandidateId": { "type": "string", "minLength": 1 },
+        "priority": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 },
+        "requiredOwner": { "type": "string", "minLength": 1 },
+        "suggestedFollowUpQuestion": { "type": ["string", "null"] }
+      }
+    },
+    "checklistItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "group", "text", "checked"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "group": { "type": "string", "minLength": 1 },
+        "text": { "type": "string", "minLength": 1 },
+        "checked": { "type": "boolean", "const": false }
+      }
+    }
+  }
+}

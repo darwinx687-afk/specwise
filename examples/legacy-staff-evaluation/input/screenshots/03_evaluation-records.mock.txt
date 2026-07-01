@@ -1,0 +1,47 @@
+Screen: Evaluation Records
+Language: Chinese
+
+Visible page title:
+- 评估记录
+
+Visible filters:
+- 评估周期
+- 部门
+- 小组
+- 状态
+- 评分区间
+
+Visible table columns:
+- 记录编号
+- 员工姓名
+- 部门
+- 小组
+- 评估周期
+- 评分
+- 状态
+- 提交人
+- 审核人
+- 提交时间
+- 审核时间
+
+Visible status labels:
+- 草稿
+- 已提交
+- 审核中
+- 已通过
+- 已退回
+
+Visible actions:
+- 查看详情
+- 编辑
+- 提交
+- 审核
+- 导出
+
+Detected business signals:
+- EvaluationRecord is a core entity.
+- The record has workflow states.
+- Submission and review are separate actions.
+- Some users may edit records before or after submission, but the rule is unclear.
+- Export permission needs confirmation.
+

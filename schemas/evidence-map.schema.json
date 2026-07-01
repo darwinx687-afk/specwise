@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specwise.dev/schemas/evidence-map.schema.json",
+  "title": "SpecWise Evidence Map",
+  "description": "Claim-to-evidence map for SpecWise Spec Pack Standard v0.1.",
+  "type": "object",
+  "required": ["schemaVersion", "evidenceItems", "claimMappings", "coverageSummary"],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1.0"
+    },
+    "evidenceItems": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidenceItem"
+      }
+    },
+    "claimMappings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/claimMapping"
+      }
+    },
+    "coverageSummary": {
+      "$ref": "#/$defs/coverageSummary"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "confidence": {
+      "enum": ["high", "medium", "low", "unknown"]
+    },
+    "evidenceItem": {
+      "type": "object",
+      "required": ["id", "sourceMaterialId", "type", "quoteOrDescription", "location", "reliability"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "sourceMaterialId": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "ui_text",
+            "table_header",
+            "table_value",
+            "sheet_name",
+            "business_note",
+            "role_description",
+            "workflow_note",
+            "button_label",
+            "menu_label",
+            "status_label",
+            "inferred_pattern",
+            "unknown"
+          ]
+        },
+        "quoteOrDescription": {
+          "type": "string"
+        },
+        "location": {
+          "type": "object",
+          "required": ["file"],
+          "properties": {
+            "file": {
+              "type": "string"
+            },
+            "page": {},
+            "sheet": {},
+            "row": {},
+            "column": {}
+          },
+          "additionalProperties": true
+        },
+        "reliability": {
+          "enum": ["high", "medium", "low", "unknown"]
+        }
+      },
+      "additionalProperties": true
+    },
+    "claimMapping": {
+      "type": "object",
+      "required": ["claimId", "claimType", "claim", "evidenceIds", "confidence", "needsReview", "reasoningSummary"],
+      "properties": {
+        "claimId": {
+          "type": "string"
+        },
+        "claimType": {
+          "enum": ["module", "page", "entity", "field", "permission", "workflow", "acceptance", "assumption", "question"]
+        },
+        "claim": {
+          "type": "string"
+        },
+        "evidenceIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "confidence": {
+          "$ref": "#/$defs/confidence"
+        },
+        "needsReview": {
+          "type": "boolean"
+        },
+        "reasoningSummary": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "coverageSummary": {
+      "type": "object",
+      "required": [
+        "totalClaims",
+        "claimsWithEvidence",
+        "claimsWithoutEvidence",
+        "highConfidenceClaims",
+        "mediumConfidenceClaims",
+        "lowConfidenceClaims",
+        "evidenceCoverageRate"
+      ],
+      "properties": {
+        "totalClaims": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "claimsWithEvidence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "claimsWithoutEvidence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "highConfidenceClaims": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "mediumConfidenceClaims": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "lowConfidenceClaims": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unknownConfidenceClaims": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "evidenceCoverageRate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
+

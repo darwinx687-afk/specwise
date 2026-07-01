@@ -1,0 +1,1846 @@
+{
+  "schemaVersion": "0.1.0",
+  "project": {
+    "name": "Legacy Staff Evaluation Admin System",
+    "domain": "staff-evaluation",
+    "description": "A legacy internal admin system for staff evaluation records, review reports, organizational scopes, role permissions, and audit-oriented workflow tracking.",
+    "primaryLanguage": "zh-CN",
+    "targetUsers": ["FDE", "AI full-stack developer", "business analyst"],
+    "status": "review_required"
+  },
+  "sourceMaterials": [
+    {
+      "id": "src_dashboard_mock",
+      "type": "txt",
+      "path": "input/screenshots/01_dashboard.mock.txt",
+      "language": "mixed",
+      "summary": "Mock dashboard screenshot text with navigation, summary cards, filters, and export action.",
+      "detectedSignals": ["dashboard module", "review reports module", "company filter", "department filter", "export action", "risk records"]
+    },
+    {
+      "id": "src_employee_list_mock",
+      "type": "txt",
+      "path": "input/screenshots/02_employee-list.mock.txt",
+      "language": "zh-CN",
+      "summary": "Mock employee list screenshot text with organization filters, employee table columns, and employee actions.",
+      "detectedSignals": ["staff management module", "employee entity", "department scope", "group scope", "supervisor relationship", "deactivate action"]
+    },
+    {
+      "id": "src_evaluation_records_mock",
+      "type": "txt",
+      "path": "input/screenshots/03_evaluation-records.mock.txt",
+      "language": "zh-CN",
+      "summary": "Mock evaluation records screenshot text with filters, status labels, table columns, and workflow actions.",
+      "detectedSignals": ["evaluation record entity", "workflow status", "submit action", "review action", "export action"]
+    },
+    {
+      "id": "src_evaluation_detail_mock",
+      "type": "txt",
+      "path": "input/screenshots/04_evaluation-detail.mock.txt",
+      "language": "zh-CN",
+      "summary": "Mock evaluation detail screenshot text with review comments, risk level, actions, and operation log section.",
+      "detectedSignals": ["audit log", "review comment", "risk level", "approve action", "reject action"]
+    },
+    {
+      "id": "src_permission_settings_mock",
+      "type": "txt",
+      "path": "input/screenshots/05_permission-settings.mock.txt",
+      "language": "mixed",
+      "summary": "Mock permission settings screenshot text with roles, permission columns, and data scopes.",
+      "detectedSignals": ["role-based access control", "permission entity", "data scope", "export permission", "configure permission"]
+    },
+    {
+      "id": "src_employees_csv",
+      "type": "csv",
+      "path": "input/data/employees.csv",
+      "language": "en",
+      "summary": "Employee sample data with company, department, group, role, status, joined date, and supervisor relationship.",
+      "detectedSignals": ["employee entity", "supervisor relationship", "active status", "inactive status", "group field"]
+    },
+    {
+      "id": "src_departments_csv",
+      "type": "csv",
+      "path": "input/data/departments.csv",
+      "language": "en",
+      "summary": "Department sample data with company, manager, and status fields.",
+      "detectedSignals": ["department entity", "company scope", "manager relationship", "missing manager data"]
+    },
+    {
+      "id": "src_evaluation_records_csv",
+      "type": "csv",
+      "path": "input/data/evaluation_records.csv",
+      "language": "en",
+      "summary": "Evaluation record sample data with employee, period, score, status, submitter, reviewer, and timestamps.",
+      "detectedSignals": ["evaluation record entity", "workflow states", "submitted_by relation", "reviewed_by relation", "missing draft score"]
+    },
+    {
+      "id": "src_business_notes",
+      "type": "markdown",
+      "path": "input/notes/business-notes.md",
+      "language": "mixed",
+      "summary": "Bilingual business notes describing system use, organizational scopes, permission uncertainty, and auditability.",
+      "detectedSignals": ["business context", "company scope", "department manager uncertainty", "auditability requirement"]
+    },
+    {
+      "id": "src_roles_notes",
+      "type": "markdown",
+      "path": "input/notes/roles.md",
+      "language": "mixed",
+      "summary": "Role notes for President, Company Admin, Department Manager, Group Leader, Evaluator, and Viewer.",
+      "detectedSignals": ["six roles", "role scope", "export uncertainty", "approval uncertainty", "viewer read-only"]
+    },
+    {
+      "id": "src_workflow_notes",
+      "type": "markdown",
+      "path": "input/notes/workflow-notes.md",
+      "language": "mixed",
+      "summary": "Workflow notes for draft, submitted, reviewed, approved, and rejected states with unresolved transition rules.",
+      "detectedSignals": ["evaluation review workflow", "workflow states", "unclear approval authority", "unclear edit after submit", "unclear audit log visibility"]
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod_dashboard",
+      "name": "Dashboard",
+      "nameZh": "首页",
+      "description": "Provide filtered evaluation summaries and pending-review shortcuts.",
+      "pages": ["page_dashboard"],
+      "confidence": "high",
+      "evidenceIds": ["ev_dashboard_navigation", "ev_dashboard_summary_cards", "ev_dashboard_filters"],
+      "needsReview": false
+    },
+    {
+      "id": "mod_staff_management",
+      "name": "Staff Management",
+      "nameZh": "员工管理",
+      "description": "Manage employee records, organizational scopes, status, import, and export.",
+      "pages": ["page_employee_list"],
+      "confidence": "high",
+      "evidenceIds": ["ev_employee_list_title", "ev_employee_table_columns", "ev_employees_csv_headers"],
+      "needsReview": false
+    },
+    {
+      "id": "mod_evaluation_records",
+      "name": "Evaluation Records",
+      "nameZh": "评估记录",
+      "description": "Create, submit, review, approve, reject, and audit evaluation records.",
+      "pages": ["page_evaluation_records", "page_evaluation_detail"],
+      "confidence": "high",
+      "evidenceIds": ["ev_evaluation_records_title", "ev_evaluation_records_columns", "ev_evaluation_detail_sections"],
+      "needsReview": true,
+      "openQuestionIds": ["q_group_leader_edit_submitted", "q_approval_authority", "q_approval_required_final"]
+    },
+    {
+      "id": "mod_review_reports",
+      "name": "Review Reports",
+      "nameZh": "报告复核",
+      "description": "Review and export evaluation report summaries.",
+      "pages": ["page_review_reports"],
+      "confidence": "medium",
+      "evidenceIds": ["ev_dashboard_navigation", "ev_dashboard_export_action", "ev_business_notes_scope"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission", "q_approval_required_final"]
+    },
+    {
+      "id": "mod_permission_settings",
+      "name": "Permission Settings",
+      "nameZh": "权限设置",
+      "description": "Configure role-based action permissions and data scopes.",
+      "pages": ["page_permission_settings"],
+      "confidence": "high",
+      "evidenceIds": ["ev_permission_roles", "ev_permission_columns", "ev_permission_scopes"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission", "q_approval_authority"]
+    }
+  ],
+  "pages": [
+    {
+      "id": "page_dashboard",
+      "moduleId": "mod_dashboard",
+      "name": "Dashboard",
+      "nameZh": "首页",
+      "purpose": "Show evaluation summary cards and navigation into review work.",
+      "mainActions": ["view", "filter", "export"],
+      "visibleFields": ["field_record_status", "field_record_risk_level", "field_employee_department", "field_employee_company"],
+      "evidenceIds": ["ev_dashboard_navigation", "ev_dashboard_summary_cards", "ev_dashboard_filters", "ev_dashboard_export_action"],
+      "confidence": "high",
+      "needsReview": false
+    },
+    {
+      "id": "page_employee_list",
+      "moduleId": "mod_staff_management",
+      "name": "Employee List",
+      "nameZh": "员工列表",
+      "purpose": "View, filter, create, edit, deactivate, import, and export employee records.",
+      "mainActions": ["view", "filter", "create", "edit", "deactivate", "import", "export"],
+      "visibleFields": [
+        "field_employee_id",
+        "field_employee_name",
+        "field_employee_company",
+        "field_employee_department",
+        "field_employee_group",
+        "field_employee_role",
+        "field_employee_status",
+        "field_employee_joined_at",
+        "field_employee_supervisor_id",
+        "field_employee_latest_evaluation_date"
+      ],
+      "evidenceIds": ["ev_employee_list_title", "ev_employee_list_filters", "ev_employee_table_columns", "ev_employee_row_actions", "ev_employee_top_actions"],
+      "confidence": "high",
+      "needsReview": false
+    },
+    {
+      "id": "page_evaluation_records",
+      "moduleId": "mod_evaluation_records",
+      "name": "Evaluation Records",
+      "nameZh": "评估记录",
+      "purpose": "List, filter, submit, review, and export evaluation records.",
+      "mainActions": ["view", "filter", "edit", "submit", "review", "export"],
+      "visibleFields": [
+        "field_record_id",
+        "field_employee_name",
+        "field_employee_department",
+        "field_employee_group",
+        "field_record_evaluation_period",
+        "field_record_score",
+        "field_record_status",
+        "field_record_submitted_by",
+        "field_record_reviewed_by",
+        "field_record_submitted_at",
+        "field_record_reviewed_at"
+      ],
+      "evidenceIds": ["ev_evaluation_records_title", "ev_evaluation_records_filters", "ev_evaluation_records_columns", "ev_evaluation_status_labels", "ev_evaluation_actions"],
+      "confidence": "high",
+      "needsReview": true,
+      "openQuestionIds": ["q_group_leader_edit_submitted", "q_export_permission"]
+    },
+    {
+      "id": "page_evaluation_detail",
+      "moduleId": "mod_evaluation_records",
+      "name": "Evaluation Detail",
+      "nameZh": "评估详情",
+      "purpose": "Review evaluation details, comments, risk level, history, and operation logs.",
+      "mainActions": ["save_draft", "submit", "approve", "reject", "view_audit_log"],
+      "visibleFields": [
+        "field_employee_name",
+        "field_employee_department",
+        "field_employee_group",
+        "field_record_evaluation_period",
+        "field_record_score",
+        "field_record_risk_level",
+        "field_record_submitted_by",
+        "field_record_reviewed_by",
+        "field_record_review_comment"
+      ],
+      "evidenceIds": ["ev_evaluation_detail_sections", "ev_evaluation_detail_fields", "ev_evaluation_detail_actions"],
+      "confidence": "high",
+      "needsReview": true,
+      "openQuestionIds": ["q_approval_authority", "q_operation_log_visibility", "q_risk_level_derivation"]
+    },
+    {
+      "id": "page_review_reports",
+      "moduleId": "mod_review_reports",
+      "name": "Review Reports",
+      "nameZh": "报告复核",
+      "purpose": "Review report summaries for evaluation records.",
+      "mainActions": ["view", "review", "export"],
+      "visibleFields": ["field_record_status", "field_record_evaluation_period", "field_record_score"],
+      "evidenceIds": ["ev_dashboard_navigation", "ev_dashboard_export_action", "ev_business_notes_scope"],
+      "confidence": "medium",
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission", "q_approval_required_final"]
+    },
+    {
+      "id": "page_permission_settings",
+      "moduleId": "mod_permission_settings",
+      "name": "Permission Settings",
+      "nameZh": "权限设置",
+      "purpose": "View and configure roles, actions, and data scopes.",
+      "mainActions": ["view", "configure"],
+      "visibleFields": ["field_role_name", "field_role_scope", "field_permission_action", "field_permission_data_scope"],
+      "evidenceIds": ["ev_permission_roles", "ev_permission_columns", "ev_permission_scopes"],
+      "confidence": "high",
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission", "q_approval_authority"]
+    }
+  ],
+  "entities": [
+    {
+      "id": "ent_employee",
+      "name": "Employee",
+      "nameZh": "员工",
+      "description": "A staff member included in evaluation and organizational management.",
+      "fields": [
+        "field_employee_id",
+        "field_employee_name",
+        "field_employee_company",
+        "field_employee_department",
+        "field_employee_group",
+        "field_employee_role",
+        "field_employee_status",
+        "field_employee_joined_at",
+        "field_employee_supervisor_id",
+        "field_employee_latest_evaluation_date"
+      ],
+      "relations": [
+        {
+          "type": "belongs_to",
+          "targetEntityId": "ent_department",
+          "confidence": "high",
+          "needsReview": false
+        },
+        {
+          "type": "belongs_to",
+          "targetEntityId": "ent_group",
+          "confidence": "medium",
+          "needsReview": true
+        },
+        {
+          "type": "reports_to",
+          "targetEntityId": "ent_employee",
+          "confidence": "high",
+          "needsReview": false
+        }
+      ],
+      "evidenceIds": ["ev_employee_table_columns", "ev_employees_csv_headers", "ev_employees_csv_supervisor"],
+      "confidence": "high",
+      "needsReview": false,
+      "openQuestionIds": ["q_inactive_employee_reports", "q_employee_deletion_behavior"]
+    },
+    {
+      "id": "ent_department",
+      "name": "Department",
+      "nameZh": "部门",
+      "description": "A company-level organizational unit with manager and status fields.",
+      "fields": ["field_department_id", "field_department_company", "field_department_name", "field_department_manager_id", "field_department_status"],
+      "relations": [
+        {
+          "type": "has_many",
+          "targetEntityId": "ent_employee",
+          "confidence": "high",
+          "needsReview": false
+        },
+        {
+          "type": "managed_by",
+          "targetEntityId": "ent_user_account",
+          "confidence": "medium",
+          "needsReview": true
+        }
+      ],
+      "evidenceIds": ["ev_departments_csv_headers", "ev_employee_list_filters", "ev_business_notes_scope"],
+      "confidence": "high",
+      "needsReview": false,
+      "openQuestionIds": ["q_department_manager_cross_department_view"]
+    },
+    {
+      "id": "ent_group",
+      "name": "Group",
+      "nameZh": "小组",
+      "description": "A department-level team scope used for filtering and group leader responsibilities.",
+      "fields": ["field_group_name", "field_group_department", "field_group_company", "field_group_leader_id"],
+      "relations": [
+        {
+          "type": "belongs_to",
+          "targetEntityId": "ent_department",
+          "confidence": "medium",
+          "needsReview": true
+        },
+        {
+          "type": "has_many",
+          "targetEntityId": "ent_employee",
+          "confidence": "medium",
+          "needsReview": true
+        }
+      ],
+      "evidenceIds": ["ev_employee_list_filters", "ev_employees_csv_headers", "ev_roles_group_leader"],
+      "confidence": "medium",
+      "needsReview": true
+    },
+    {
+      "id": "ent_evaluation_record",
+      "name": "EvaluationRecord",
+      "nameZh": "评估记录",
+      "description": "A performance or inspection record for an employee during an evaluation period.",
+      "fields": [
+        "field_record_id",
+        "field_record_employee_id",
+        "field_record_evaluation_period",
+        "field_record_score",
+        "field_record_status",
+        "field_record_risk_level",
+        "field_record_submitted_by",
+        "field_record_reviewed_by",
+        "field_record_submitted_at",
+        "field_record_reviewed_at",
+        "field_record_review_comment"
+      ],
+      "relations": [
+        {
+          "type": "belongs_to",
+          "targetEntityId": "ent_employee",
+          "confidence": "high",
+          "needsReview": false
+        },
+        {
+          "type": "submitted_by",
+          "targetEntityId": "ent_user_account",
+          "confidence": "high",
+          "needsReview": false
+        },
+        {
+          "type": "reviewed_by",
+          "targetEntityId": "ent_user_account",
+          "confidence": "high",
+          "needsReview": false
+        }
+      ],
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_headers", "ev_evaluation_records_csv_states", "ev_evaluation_detail_fields"],
+      "confidence": "high",
+      "needsReview": true,
+      "openQuestionIds": ["q_group_leader_edit_submitted", "q_approval_authority", "q_approval_required_final", "q_rejected_return_to_draft"]
+    },
+    {
+      "id": "ent_role",
+      "name": "Role",
+      "nameZh": "角色",
+      "description": "A named access profile assigned to a user account.",
+      "fields": ["field_role_id", "field_role_name", "field_role_scope"],
+      "relations": [
+        {
+          "type": "has_many",
+          "targetEntityId": "ent_permission",
+          "confidence": "high",
+          "needsReview": false
+        }
+      ],
+      "evidenceIds": ["ev_permission_roles", "ev_roles_president", "ev_roles_company_admin", "ev_roles_department_manager", "ev_roles_group_leader", "ev_roles_evaluator", "ev_roles_viewer"],
+      "confidence": "high",
+      "needsReview": false
+    },
+    {
+      "id": "ent_permission",
+      "name": "Permission",
+      "nameZh": "权限",
+      "description": "A role/action/data-scope rule controlling what users may do.",
+      "fields": [
+        "field_permission_id",
+        "field_permission_role_id",
+        "field_permission_resource_type",
+        "field_permission_action",
+        "field_permission_data_scope",
+        "field_permission_condition"
+      ],
+      "relations": [
+        {
+          "type": "belongs_to",
+          "targetEntityId": "ent_role",
+          "confidence": "high",
+          "needsReview": false
+        }
+      ],
+      "evidenceIds": ["ev_permission_columns", "ev_permission_scopes", "ev_roles_department_manager", "ev_roles_group_leader"],
+      "confidence": "high",
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission", "q_approval_authority"]
+    },
+    {
+      "id": "ent_user_account",
+      "name": "User / Account",
+      "nameZh": "用户账号",
+      "description": "A login account or actor associated with employees, submitters, reviewers, and approvers.",
+      "fields": ["field_account_id", "field_account_employee_id", "field_account_role_id", "field_account_status"],
+      "relations": [
+        {
+          "type": "may_map_to",
+          "targetEntityId": "ent_employee",
+          "confidence": "medium",
+          "needsReview": true
+        },
+        {
+          "type": "has_role",
+          "targetEntityId": "ent_role",
+          "confidence": "high",
+          "needsReview": false
+        }
+      ],
+      "evidenceIds": ["ev_roles_president", "ev_roles_company_admin", "ev_evaluation_records_csv_headers", "ev_business_notes_scope"],
+      "confidence": "medium",
+      "needsReview": true,
+      "openQuestionIds": ["q_approval_authority"]
+    },
+    {
+      "id": "ent_audit_log",
+      "name": "AuditLog",
+      "nameZh": "操作日志",
+      "description": "A record of who submitted, reviewed, approved, rejected, or edited an evaluation record.",
+      "fields": [
+        "field_audit_log_id",
+        "field_audit_record_id",
+        "field_audit_actor_id",
+        "field_audit_action",
+        "field_audit_action_at",
+        "field_audit_previous_state",
+        "field_audit_next_state"
+      ],
+      "relations": [
+        {
+          "type": "belongs_to",
+          "targetEntityId": "ent_evaluation_record",
+          "confidence": "medium",
+          "needsReview": true
+        },
+        {
+          "type": "performed_by",
+          "targetEntityId": "ent_user_account",
+          "confidence": "medium",
+          "needsReview": true
+        }
+      ],
+      "evidenceIds": ["ev_evaluation_detail_sections", "ev_evaluation_detail_actions", "ev_business_notes_audit"],
+      "confidence": "medium",
+      "needsReview": true,
+      "openQuestionIds": ["q_operation_log_visibility"]
+    }
+  ],
+  "fields": [
+    {
+      "id": "field_employee_id",
+      "entityId": "ent_employee",
+      "name": "employee_id",
+      "nameZh": "员工编号",
+      "type": "string",
+      "required": true,
+      "examples": ["EMP001"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_employee_name",
+      "entityId": "ent_employee",
+      "name": "name",
+      "nameZh": "姓名",
+      "type": "string",
+      "required": true,
+      "examples": ["Alice Chen"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employee_table_columns", "ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_employee_company",
+      "entityId": "ent_employee",
+      "name": "company",
+      "nameZh": "公司",
+      "type": "string",
+      "required": true,
+      "examples": ["Northwind Ops"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employee_list_filters", "ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_employee_department",
+      "entityId": "ent_employee",
+      "name": "department",
+      "nameZh": "部门",
+      "type": "relation",
+      "required": true,
+      "examples": ["Operations", "Finance"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employee_list_filters", "ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_employee_group",
+      "entityId": "ent_employee",
+      "name": "group",
+      "nameZh": "小组",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["Group A", "Group B"],
+      "source": "input/data/employees.csv",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_list_filters", "ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_employee_role",
+      "entityId": "ent_employee",
+      "name": "role",
+      "nameZh": "岗位角色",
+      "type": "string",
+      "required": "unknown",
+      "examples": ["Group Leader", "Staff"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employee_table_columns", "ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_employee_status",
+      "entityId": "ent_employee",
+      "name": "status",
+      "nameZh": "员工状态",
+      "type": "enum",
+      "required": true,
+      "examples": ["active", "inactive"],
+      "possibleValues": ["active", "inactive"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employees_csv_status_values"]
+    },
+    {
+      "id": "field_employee_joined_at",
+      "entityId": "ent_employee",
+      "name": "joined_at",
+      "nameZh": "入职日期",
+      "type": "date",
+      "required": "unknown",
+      "examples": ["2024-02-12"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_employee_supervisor_id",
+      "entityId": "ent_employee",
+      "name": "supervisor_id",
+      "nameZh": "直属上级",
+      "type": "relation",
+      "required": false,
+      "examples": ["EMP004"],
+      "source": "input/data/employees.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employees_csv_supervisor"]
+    },
+    {
+      "id": "field_employee_latest_evaluation_date",
+      "entityId": "ent_employee",
+      "name": "latest_evaluation_date",
+      "nameZh": "最近评估日期",
+      "type": "date",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/02_employee-list.mock.txt",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_table_columns"]
+    },
+    {
+      "id": "field_department_id",
+      "entityId": "ent_department",
+      "name": "department_id",
+      "nameZh": "部门编号",
+      "type": "string",
+      "required": true,
+      "examples": ["DEP001"],
+      "source": "input/data/departments.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_departments_csv_headers"]
+    },
+    {
+      "id": "field_department_company",
+      "entityId": "ent_department",
+      "name": "company",
+      "nameZh": "公司",
+      "type": "string",
+      "required": true,
+      "examples": ["Northwind Ops"],
+      "source": "input/data/departments.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_departments_csv_headers"]
+    },
+    {
+      "id": "field_department_name",
+      "entityId": "ent_department",
+      "name": "name",
+      "nameZh": "部门名称",
+      "type": "string",
+      "required": true,
+      "examples": ["Operations"],
+      "source": "input/data/departments.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_departments_csv_headers"]
+    },
+    {
+      "id": "field_department_manager_id",
+      "entityId": "ent_department",
+      "name": "manager_id",
+      "nameZh": "部门经理",
+      "type": "relation",
+      "required": false,
+      "examples": ["EMP004"],
+      "source": "input/data/departments.csv",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_departments_csv_headers", "ev_departments_csv_missing_manager"]
+    },
+    {
+      "id": "field_department_status",
+      "entityId": "ent_department",
+      "name": "status",
+      "nameZh": "部门状态",
+      "type": "enum",
+      "required": true,
+      "examples": ["active", "inactive"],
+      "possibleValues": ["active", "inactive"],
+      "source": "input/data/departments.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_departments_csv_headers"]
+    },
+    {
+      "id": "field_group_name",
+      "entityId": "ent_group",
+      "name": "group_name",
+      "nameZh": "小组名称",
+      "type": "string",
+      "required": "unknown",
+      "examples": ["Group A", "Group B"],
+      "source": "input/data/employees.csv",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_list_filters", "ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_group_department",
+      "entityId": "ent_group",
+      "name": "department",
+      "nameZh": "所属部门",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["Operations"],
+      "source": "input/data/employees.csv",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_group_company",
+      "entityId": "ent_group",
+      "name": "company",
+      "nameZh": "所属公司",
+      "type": "string",
+      "required": "unknown",
+      "examples": ["Northwind Ops"],
+      "source": "input/data/employees.csv",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employees_csv_headers"]
+    },
+    {
+      "id": "field_group_leader_id",
+      "entityId": "ent_group",
+      "name": "leader_id",
+      "nameZh": "组长",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["EMP001"],
+      "source": "input/notes/roles.md",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_roles_group_leader"]
+    },
+    {
+      "id": "field_record_id",
+      "entityId": "ent_evaluation_record",
+      "name": "record_id",
+      "nameZh": "记录编号",
+      "type": "string",
+      "required": true,
+      "examples": ["EVR001"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "field_record_employee_id",
+      "entityId": "ent_evaluation_record",
+      "name": "employee_id",
+      "nameZh": "员工编号",
+      "type": "relation",
+      "required": true,
+      "examples": ["EMP002"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "field_record_evaluation_period",
+      "entityId": "ent_evaluation_record",
+      "name": "evaluation_period",
+      "nameZh": "评估周期",
+      "type": "string",
+      "required": true,
+      "examples": ["2026-06"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "field_record_score",
+      "entityId": "ent_evaluation_record",
+      "name": "score",
+      "nameZh": "评分",
+      "type": "number",
+      "required": false,
+      "examples": [82, 74, 55],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_missing_values"]
+    },
+    {
+      "id": "field_record_status",
+      "entityId": "ent_evaluation_record",
+      "name": "status",
+      "nameZh": "状态",
+      "type": "enum",
+      "required": true,
+      "examples": ["draft", "submitted", "reviewed", "approved", "rejected"],
+      "possibleValues": ["draft", "submitted", "reviewed", "approved", "rejected"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_status_labels", "ev_evaluation_records_csv_states"],
+      "openQuestionIds": ["q_approval_required_final", "q_rejected_return_to_draft"]
+    },
+    {
+      "id": "field_record_risk_level",
+      "entityId": "ent_evaluation_record",
+      "name": "risk_level",
+      "nameZh": "风险等级",
+      "type": "enum",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/04_evaluation-detail.mock.txt",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_detail_fields", "ev_dashboard_summary_cards"],
+      "openQuestionIds": ["q_risk_level_derivation"]
+    },
+    {
+      "id": "field_record_submitted_by",
+      "entityId": "ent_evaluation_record",
+      "name": "submitted_by",
+      "nameZh": "提交人",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["EMP001"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "field_record_reviewed_by",
+      "entityId": "ent_evaluation_record",
+      "name": "reviewed_by",
+      "nameZh": "审核人",
+      "type": "relation",
+      "required": false,
+      "examples": ["EMP004"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_missing_values"]
+    },
+    {
+      "id": "field_record_submitted_at",
+      "entityId": "ent_evaluation_record",
+      "name": "submitted_at",
+      "nameZh": "提交时间",
+      "type": "datetime",
+      "required": false,
+      "examples": ["2026-06-15T10:20:00Z"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "field_record_reviewed_at",
+      "entityId": "ent_evaluation_record",
+      "name": "reviewed_at",
+      "nameZh": "审核时间",
+      "type": "datetime",
+      "required": false,
+      "examples": ["2026-06-16T09:30:00Z"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_evaluation_records_csv_missing_values"]
+    },
+    {
+      "id": "field_record_review_comment",
+      "entityId": "ent_evaluation_record",
+      "name": "review_comment",
+      "nameZh": "审核意见",
+      "type": "text",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/04_evaluation-detail.mock.txt",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_detail_fields"]
+    },
+    {
+      "id": "field_role_id",
+      "entityId": "ent_role",
+      "name": "role_id",
+      "nameZh": "角色编号",
+      "type": "string",
+      "required": true,
+      "examples": ["role_department_manager"],
+      "source": "input/screenshots/05_permission-settings.mock.txt",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_permission_roles"]
+    },
+    {
+      "id": "field_role_name",
+      "entityId": "ent_role",
+      "name": "name",
+      "nameZh": "角色名称",
+      "type": "string",
+      "required": true,
+      "examples": ["Department Manager"],
+      "source": "input/notes/roles.md",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_permission_roles"]
+    },
+    {
+      "id": "field_role_scope",
+      "entityId": "ent_role",
+      "name": "scope",
+      "nameZh": "数据范围",
+      "type": "enum",
+      "required": true,
+      "examples": ["all", "company", "department", "group", "assigned", "self"],
+      "source": "input/screenshots/05_permission-settings.mock.txt",
+      "confidence": "high",
+      "needsReview": true,
+      "evidenceIds": ["ev_permission_scopes"]
+    },
+    {
+      "id": "field_permission_id",
+      "entityId": "ent_permission",
+      "name": "permission_id",
+      "nameZh": "权限编号",
+      "type": "string",
+      "required": true,
+      "examples": ["perm_department_manager_review_records"],
+      "source": "input/screenshots/05_permission-settings.mock.txt",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_permission_columns"]
+    },
+    {
+      "id": "field_permission_role_id",
+      "entityId": "ent_permission",
+      "name": "role_id",
+      "nameZh": "角色编号",
+      "type": "relation",
+      "required": true,
+      "examples": ["role_department_manager"],
+      "source": "input/screenshots/05_permission-settings.mock.txt",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_permission_roles"]
+    },
+    {
+      "id": "field_permission_resource_type",
+      "entityId": "ent_permission",
+      "name": "resource_type",
+      "nameZh": "资源类型",
+      "type": "string",
+      "required": true,
+      "examples": ["EvaluationRecord"],
+      "source": "input/screenshots/05_permission-settings.mock.txt",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_permission_columns"]
+    },
+    {
+      "id": "field_permission_action",
+      "entityId": "ent_permission",
+      "name": "action",
+      "nameZh": "操作",
+      "type": "enum",
+      "required": true,
+      "examples": ["view", "create", "edit", "review", "approve", "export", "import", "configure"],
+      "source": "input/screenshots/05_permission-settings.mock.txt",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_permission_columns"]
+    },
+    {
+      "id": "field_permission_data_scope",
+      "entityId": "ent_permission",
+      "name": "data_scope",
+      "nameZh": "数据范围",
+      "type": "enum",
+      "required": true,
+      "examples": ["all", "company", "department", "group", "assigned", "self"],
+      "source": "input/screenshots/05_permission-settings.mock.txt",
+      "confidence": "high",
+      "needsReview": true,
+      "evidenceIds": ["ev_permission_scopes"],
+      "openQuestionIds": ["q_department_manager_cross_department_view"]
+    },
+    {
+      "id": "field_permission_condition",
+      "entityId": "ent_permission",
+      "name": "condition",
+      "nameZh": "条件",
+      "type": "text",
+      "required": "unknown",
+      "examples": ["Own department only"],
+      "source": "input/notes/roles.md",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_roles_department_manager"]
+    },
+    {
+      "id": "field_account_id",
+      "entityId": "ent_user_account",
+      "name": "account_id",
+      "nameZh": "账号编号",
+      "type": "string",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/notes/roles.md",
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_roles_president"]
+    },
+    {
+      "id": "field_account_employee_id",
+      "entityId": "ent_user_account",
+      "name": "employee_id",
+      "nameZh": "员工编号",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["EMP004"],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "field_account_role_id",
+      "entityId": "ent_user_account",
+      "name": "role_id",
+      "nameZh": "角色编号",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["role_department_manager"],
+      "source": "input/notes/roles.md",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_permission_roles"]
+    },
+    {
+      "id": "field_account_status",
+      "entityId": "ent_user_account",
+      "name": "status",
+      "nameZh": "账号状态",
+      "type": "enum",
+      "required": "unknown",
+      "examples": ["active", "inactive"],
+      "source": "input/data/employees.csv",
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_employees_csv_status_values"]
+    },
+    {
+      "id": "field_audit_log_id",
+      "entityId": "ent_audit_log",
+      "name": "audit_log_id",
+      "nameZh": "日志编号",
+      "type": "string",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/04_evaluation-detail.mock.txt",
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_detail_sections"]
+    },
+    {
+      "id": "field_audit_record_id",
+      "entityId": "ent_audit_log",
+      "name": "record_id",
+      "nameZh": "记录编号",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["EVR001"],
+      "source": "input/notes/business-notes.md",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_business_notes_audit"]
+    },
+    {
+      "id": "field_audit_actor_id",
+      "entityId": "ent_audit_log",
+      "name": "actor_id",
+      "nameZh": "操作人",
+      "type": "relation",
+      "required": "unknown",
+      "examples": ["EMP004"],
+      "source": "input/notes/business-notes.md",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_business_notes_audit"]
+    },
+    {
+      "id": "field_audit_action",
+      "entityId": "ent_audit_log",
+      "name": "action",
+      "nameZh": "操作",
+      "type": "enum",
+      "required": "unknown",
+      "examples": ["submit", "review", "approve", "reject", "edit"],
+      "source": "input/notes/business-notes.md",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_business_notes_audit", "ev_workflow_states"]
+    },
+    {
+      "id": "field_audit_action_at",
+      "entityId": "ent_audit_log",
+      "name": "action_at",
+      "nameZh": "操作时间",
+      "type": "datetime",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/data/evaluation_records.csv",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "field_audit_previous_state",
+      "entityId": "ent_audit_log",
+      "name": "previous_state",
+      "nameZh": "前状态",
+      "type": "enum",
+      "required": "unknown",
+      "examples": ["draft", "submitted"],
+      "source": "input/notes/workflow-notes.md",
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_workflow_states"]
+    },
+    {
+      "id": "field_audit_next_state",
+      "entityId": "ent_audit_log",
+      "name": "next_state",
+      "nameZh": "后状态",
+      "type": "enum",
+      "required": "unknown",
+      "examples": ["submitted", "reviewed", "approved", "rejected"],
+      "source": "input/notes/workflow-notes.md",
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_workflow_states"]
+    }
+  ],
+  "roles": [
+    {
+      "id": "role_president",
+      "name": "President",
+      "nameZh": "总裁",
+      "description": "Executive account with all-company visibility; export and direct edit authority need confirmation.",
+      "scope": "global",
+      "confidence": "high",
+      "evidenceIds": ["ev_permission_roles", "ev_roles_president", "ev_business_notes_scope"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission", "q_approval_authority"]
+    },
+    {
+      "id": "role_company_admin",
+      "name": "Company Admin",
+      "nameZh": "公司管理员",
+      "description": "Company-level administrator for records, employee import, and possibly company-level role configuration.",
+      "scope": "company",
+      "confidence": "high",
+      "evidenceIds": ["ev_permission_roles", "ev_roles_company_admin", "ev_business_notes_scope"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission"]
+    },
+    {
+      "id": "role_department_manager",
+      "name": "Department Manager",
+      "nameZh": "部门主管",
+      "description": "Department-level reviewer for evaluation records; cross-department visibility and export need confirmation.",
+      "scope": "department",
+      "confidence": "high",
+      "evidenceIds": ["ev_permission_roles", "ev_roles_department_manager"],
+      "needsReview": true,
+      "openQuestionIds": ["q_department_manager_cross_department_view", "q_export_permission", "q_approval_authority"]
+    },
+    {
+      "id": "role_group_leader",
+      "name": "Group Leader",
+      "nameZh": "组长",
+      "description": "Group-level actor that submits evaluation records for group members.",
+      "scope": "group",
+      "confidence": "high",
+      "evidenceIds": ["ev_permission_roles", "ev_roles_group_leader"],
+      "needsReview": true,
+      "openQuestionIds": ["q_group_leader_edit_submitted"]
+    },
+    {
+      "id": "role_evaluator",
+      "name": "Evaluator",
+      "nameZh": "评估专员",
+      "description": "Actor that can create and submit evaluation records; review or approval permission is unclear.",
+      "scope": "custom",
+      "confidence": "medium",
+      "evidenceIds": ["ev_permission_roles", "ev_roles_evaluator"],
+      "needsReview": true,
+      "openQuestionIds": ["q_approval_authority"]
+    },
+    {
+      "id": "role_viewer",
+      "name": "Viewer",
+      "nameZh": "只读账号",
+      "description": "Read-only account for assigned records.",
+      "scope": "custom",
+      "confidence": "high",
+      "evidenceIds": ["ev_permission_roles", "ev_roles_viewer"],
+      "needsReview": false
+    }
+  ],
+  "permissions": [
+    {
+      "id": "perm_president_view_all",
+      "roleId": "role_president",
+      "resourceType": "EvaluationRecord",
+      "action": "view",
+      "dataScope": "all",
+      "condition": "President can view all company, department, group, and employee records.",
+      "confidence": "high",
+      "evidenceIds": ["ev_roles_president", "ev_business_notes_scope", "ev_permission_scopes"],
+      "needsReview": false
+    },
+    {
+      "id": "perm_president_export_reports",
+      "roleId": "role_president",
+      "resourceType": "ReviewReport",
+      "action": "export",
+      "dataScope": "all",
+      "condition": "President may export reports, but this must be confirmed.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_president", "ev_dashboard_export_action"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission"]
+    },
+    {
+      "id": "perm_company_admin_manage_company_records",
+      "roleId": "role_company_admin",
+      "resourceType": "EvaluationRecord",
+      "action": "edit",
+      "dataScope": "company",
+      "condition": "Company Admin usually manages records within own company.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_company_admin", "ev_business_notes_scope"],
+      "needsReview": true
+    },
+    {
+      "id": "perm_company_admin_import_employees",
+      "roleId": "role_company_admin",
+      "resourceType": "Employee",
+      "action": "import",
+      "dataScope": "company",
+      "condition": "Company Admin can import employee data for their company.",
+      "confidence": "high",
+      "evidenceIds": ["ev_roles_company_admin", "ev_employee_top_actions"],
+      "needsReview": false
+    },
+    {
+      "id": "perm_company_admin_configure_company_roles",
+      "roleId": "role_company_admin",
+      "resourceType": "Permission",
+      "action": "configure",
+      "dataScope": "company",
+      "condition": "Company-level role configuration boundary requires review.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_company_admin", "ev_permission_columns"],
+      "needsReview": true
+    },
+    {
+      "id": "perm_department_manager_view_department_records",
+      "roleId": "role_department_manager",
+      "resourceType": "EvaluationRecord",
+      "action": "view",
+      "dataScope": "department",
+      "condition": "Department Manager usually reviews records within their department; cross-department view access is unclear.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_department_manager", "ev_business_notes_scope", "ev_permission_scopes"],
+      "needsReview": true,
+      "openQuestionIds": ["q_department_manager_cross_department_view"]
+    },
+    {
+      "id": "perm_department_manager_review_records",
+      "roleId": "role_department_manager",
+      "resourceType": "EvaluationRecord",
+      "action": "approve",
+      "dataScope": "department",
+      "condition": "Department Manager usually reviews records; final approval authority is unclear.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_department_manager", "ev_workflow_states", "ev_evaluation_actions"],
+      "needsReview": true,
+      "openQuestionIds": ["q_approval_authority"]
+    },
+    {
+      "id": "perm_department_manager_export_records",
+      "roleId": "role_department_manager",
+      "resourceType": "EvaluationRecord",
+      "action": "export",
+      "dataScope": "department",
+      "condition": "Department Manager export permission is unclear.",
+      "confidence": "low",
+      "evidenceIds": ["ev_roles_department_manager", "ev_evaluation_actions"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission"]
+    },
+    {
+      "id": "perm_department_manager_approve_records",
+      "roleId": "role_department_manager",
+      "resourceType": "EvaluationRecord",
+      "action": "approve",
+      "dataScope": "department",
+      "condition": "Final approval after review may or may not be held by Department Manager.",
+      "confidence": "low",
+      "evidenceIds": ["ev_permission_columns", "ev_workflow_unclear_rules"],
+      "needsReview": true,
+      "openQuestionIds": ["q_approval_authority"]
+    },
+    {
+      "id": "perm_group_leader_create_records",
+      "roleId": "role_group_leader",
+      "resourceType": "EvaluationRecord",
+      "action": "create",
+      "dataScope": "group",
+      "condition": "Group Leaders submit evaluation notes for group members.",
+      "confidence": "high",
+      "evidenceIds": ["ev_roles_group_leader", "ev_workflow_states"],
+      "needsReview": false
+    },
+    {
+      "id": "perm_group_leader_edit_draft_records",
+      "roleId": "role_group_leader",
+      "resourceType": "EvaluationRecord",
+      "action": "edit",
+      "dataScope": "group",
+      "condition": "Group Leaders may edit draft records before submission; edit after submission is unclear.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_group_leader", "ev_workflow_unclear_rules"],
+      "needsReview": true,
+      "openQuestionIds": ["q_group_leader_edit_submitted"]
+    },
+    {
+      "id": "perm_group_leader_submit_records",
+      "roleId": "role_group_leader",
+      "resourceType": "EvaluationRecord",
+      "action": "create",
+      "dataScope": "group",
+      "condition": "Group Leaders can submit evaluation records for group members.",
+      "confidence": "high",
+      "evidenceIds": ["ev_roles_group_leader", "ev_evaluation_actions"],
+      "needsReview": false
+    },
+    {
+      "id": "perm_evaluator_create_records",
+      "roleId": "role_evaluator",
+      "resourceType": "EvaluationRecord",
+      "action": "create",
+      "dataScope": "assigned",
+      "condition": "Evaluators can create evaluation records.",
+      "confidence": "high",
+      "evidenceIds": ["ev_roles_evaluator"],
+      "needsReview": false
+    },
+    {
+      "id": "perm_evaluator_submit_records",
+      "roleId": "role_evaluator",
+      "resourceType": "EvaluationRecord",
+      "action": "create",
+      "dataScope": "assigned",
+      "condition": "Evaluators can submit records for review; review or approval permission is unclear.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_evaluator", "ev_workflow_states"],
+      "needsReview": true,
+      "openQuestionIds": ["q_approval_authority"]
+    },
+    {
+      "id": "perm_viewer_view_assigned_records",
+      "roleId": "role_viewer",
+      "resourceType": "EvaluationRecord",
+      "action": "view",
+      "dataScope": "assigned",
+      "condition": "Viewer can view assigned records and should not mutate records.",
+      "confidence": "high",
+      "evidenceIds": ["ev_roles_viewer", "ev_permission_columns"],
+      "needsReview": false
+    }
+  ],
+  "workflows": [
+    {
+      "id": "wf_evaluation_review",
+      "name": "Evaluation Review Workflow",
+      "nameZh": "评估复核流程",
+      "trigger": "A Group Leader or Evaluator creates a draft evaluation record for an employee.",
+      "actors": ["role_group_leader", "role_evaluator", "role_department_manager", "role_president", "role_company_admin"],
+      "steps": [
+        {
+          "id": "step_save_draft",
+          "name": "Save draft",
+          "actor": "role_group_leader",
+          "action": "save_draft",
+          "fromState": "none",
+          "toState": "draft",
+          "confidence": "high"
+        },
+        {
+          "id": "step_submit_for_review",
+          "name": "Submit for review",
+          "actor": "role_group_leader",
+          "action": "submit",
+          "fromState": "draft",
+          "toState": "submitted",
+          "confidence": "high"
+        },
+        {
+          "id": "step_department_review",
+          "name": "Department review",
+          "actor": "role_department_manager",
+          "action": "review",
+          "fromState": "submitted",
+          "toState": "reviewed",
+          "confidence": "medium"
+        },
+        {
+          "id": "step_approve_record",
+          "name": "Approve reviewed record",
+          "actor": "role_department_manager",
+          "action": "approve",
+          "fromState": "reviewed",
+          "toState": "approved",
+          "confidence": "low"
+        },
+        {
+          "id": "step_reject_record",
+          "name": "Reject record",
+          "actor": "role_department_manager",
+          "action": "reject",
+          "fromState": "submitted_or_reviewed",
+          "toState": "rejected",
+          "confidence": "medium"
+        }
+      ],
+      "states": ["draft", "submitted", "reviewed", "approved", "rejected"],
+      "evidenceIds": ["ev_evaluation_status_labels", "ev_evaluation_records_csv_states", "ev_workflow_states", "ev_workflow_unclear_rules"],
+      "confidence": "medium",
+      "needsReview": true,
+      "openQuestionIds": [
+        "q_group_leader_edit_submitted",
+        "q_approval_authority",
+        "q_approval_required_final",
+        "q_rejected_return_to_draft"
+      ]
+    }
+  ],
+  "acceptanceCriteria": [
+    {
+      "id": "ac_department_manager_scope",
+      "title": "Department Manager scope is enforced",
+      "description": "A Department Manager should only see records within their department unless cross-department access is confirmed.",
+      "category": "permission",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records", "mod_review_reports"],
+      "relatedQuestionIds": ["q_department_manager_cross_department_view"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_roles_department_manager", "ev_business_notes_scope"]
+    },
+    {
+      "id": "ac_export_permission",
+      "title": "Export permission is explicit",
+      "description": "Only roles confirmed to have export permission can export evaluation records or monthly summaries.",
+      "category": "permission",
+      "priority": "high",
+      "relatedModuleIds": ["mod_dashboard", "mod_evaluation_records", "mod_review_reports"],
+      "relatedQuestionIds": ["q_export_permission"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_dashboard_export_action", "ev_evaluation_actions"]
+    },
+    {
+      "id": "ac_viewer_read_only",
+      "title": "Viewer role remains read-only",
+      "description": "Viewer can view assigned records but cannot create, edit, approve, import, export, or configure permissions.",
+      "category": "permission",
+      "priority": "medium",
+      "relatedModuleIds": ["mod_permission_settings"],
+      "relatedQuestionIds": [],
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_roles_viewer"]
+    },
+    {
+      "id": "ac_draft_submit_review",
+      "title": "Draft records can be submitted and reviewed",
+      "description": "A draft evaluation record can be submitted and then reviewed.",
+      "category": "workflow",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records"],
+      "relatedQuestionIds": ["q_group_leader_edit_submitted"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_workflow_states", "ev_evaluation_actions"]
+    },
+    {
+      "id": "ac_submitted_record_edit_lock",
+      "title": "Submitted-record edit behavior is confirmed",
+      "description": "Submitted records should only be editable according to the confirmed workflow rule.",
+      "category": "workflow",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records"],
+      "relatedQuestionIds": ["q_group_leader_edit_submitted"],
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_workflow_unclear_rules"]
+    },
+    {
+      "id": "ac_rejected_record_not_final",
+      "title": "Rejected records do not become final",
+      "description": "A rejected record should not become final or appear as approved in reports.",
+      "category": "workflow",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records", "mod_review_reports"],
+      "relatedQuestionIds": ["q_rejected_return_to_draft"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_status_labels", "ev_workflow_unclear_rules"]
+    },
+    {
+      "id": "ac_final_approval_authority",
+      "title": "Final approval authority is enforced",
+      "description": "Only the confirmed approver role can approve reviewed evaluation records.",
+      "category": "permission",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records", "mod_permission_settings"],
+      "relatedQuestionIds": ["q_approval_authority"],
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_permission_columns", "ev_workflow_unclear_rules"]
+    },
+    {
+      "id": "ac_final_record_state",
+      "title": "Final record state is explicit",
+      "description": "The implementation must not treat reviewed, approved, and final records as equivalent until the final-state rule is confirmed.",
+      "category": "workflow",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records", "mod_review_reports"],
+      "relatedQuestionIds": ["q_approval_required_final"],
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_workflow_unclear_rules"]
+    },
+    {
+      "id": "ac_employee_required_fields",
+      "title": "Employee records include required organizational fields",
+      "description": "Employee records include company, department, group, role, status, joined date, and supervisor relationship where available.",
+      "category": "entity",
+      "priority": "high",
+      "relatedModuleIds": ["mod_staff_management"],
+      "relatedQuestionIds": ["q_inactive_employee_reports"],
+      "confidence": "high",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_table_columns", "ev_employees_csv_headers"]
+    },
+    {
+      "id": "ac_employee_deactivation",
+      "title": "Employee deactivation is preserved until deletion rules are confirmed",
+      "description": "The implementation should support deactivation and should not assume permanent deletion.",
+      "category": "audit",
+      "priority": "medium",
+      "relatedModuleIds": ["mod_staff_management"],
+      "relatedQuestionIds": ["q_employee_deletion_behavior"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_row_actions"]
+    },
+    {
+      "id": "ac_evaluation_lifecycle_fields",
+      "title": "Evaluation records preserve lifecycle fields",
+      "description": "Evaluation records include employee, period, score, status, submitted_by, reviewed_by, submitted_at, and reviewed_at fields.",
+      "category": "entity",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records"],
+      "relatedQuestionIds": ["q_approval_required_final"],
+      "confidence": "high",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_headers"]
+    },
+    {
+      "id": "ac_audit_log_retention",
+      "title": "Evaluation actions retain actor history",
+      "description": "The system retains who submitted, reviewed, approved, rejected, or edited an evaluation record.",
+      "category": "audit",
+      "priority": "high",
+      "relatedModuleIds": ["mod_evaluation_records"],
+      "relatedQuestionIds": ["q_operation_log_visibility"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_business_notes_audit", "ev_evaluation_detail_sections"]
+    },
+    {
+      "id": "ac_audit_visibility",
+      "title": "Audit log visibility follows role rules",
+      "description": "Operation logs are visible only to roles confirmed to have audit visibility.",
+      "category": "security",
+      "priority": "medium",
+      "relatedModuleIds": ["mod_evaluation_records", "mod_permission_settings"],
+      "relatedQuestionIds": ["q_operation_log_visibility"],
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_evaluation_detail_sections", "ev_workflow_unclear_rules"]
+    },
+    {
+      "id": "ac_dashboard_filter_summaries",
+      "title": "Dashboard summaries respect active filters",
+      "description": "Dashboard cards update when Company, Department, or Evaluation Period filters change.",
+      "category": "ui",
+      "priority": "low",
+      "relatedModuleIds": ["mod_dashboard"],
+      "relatedQuestionIds": ["q_dashboard_card_config"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_dashboard_summary_cards", "ev_dashboard_filters"]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "q_department_manager_cross_department_view",
+      "question": "Can Department Managers view records outside their own department?",
+      "questionZh": "部门主管是否可以查看本部门以外的记录？",
+      "category": "permission",
+      "priority": "high",
+      "blockedItems": ["perm_department_manager_view_department_records", "ac_department_manager_scope"],
+      "suggestedOwner": "business_owner",
+      "whyItMatters": "This determines API filtering, report access, and acceptance tests for department-level roles.",
+      "evidenceIds": ["ev_roles_department_manager", "ev_business_notes_scope", "ev_permission_scopes"]
+    },
+    {
+      "id": "q_group_leader_edit_submitted",
+      "question": "Can Group Leaders edit submitted records after review has started?",
+      "questionZh": "组长是否可以在审核开始后编辑已提交记录？",
+      "category": "workflow",
+      "priority": "high",
+      "blockedItems": ["perm_group_leader_edit_draft_records", "wf_evaluation_review", "ac_submitted_record_edit_lock"],
+      "suggestedOwner": "product_manager",
+      "whyItMatters": "This changes workflow state transitions, edit permissions, and audit requirements.",
+      "evidenceIds": ["ev_roles_group_leader", "ev_workflow_unclear_rules", "ev_evaluation_actions"]
+    },
+    {
+      "id": "q_approval_authority",
+      "question": "Who can approve reviewed evaluation records?",
+      "questionZh": "谁可以最终通过已复核的评估记录？",
+      "category": "permission",
+      "priority": "high",
+      "blockedItems": ["perm_department_manager_approve_records", "wf_evaluation_review", "ac_final_approval_authority"],
+      "suggestedOwner": "business_owner",
+      "whyItMatters": "Final approval authority affects role design, workflow transitions, and audit logs.",
+      "evidenceIds": ["ev_permission_columns", "ev_workflow_unclear_rules", "ev_evaluation_detail_actions"]
+    },
+    {
+      "id": "q_export_permission",
+      "question": "Who can export evaluation records?",
+      "questionZh": "谁可以导出评估记录？",
+      "category": "permission",
+      "priority": "high",
+      "blockedItems": ["perm_president_export_reports", "perm_department_manager_export_records", "ac_export_permission"],
+      "suggestedOwner": "admin",
+      "whyItMatters": "Export can expose sensitive employee evaluation data and needs strict access control.",
+      "evidenceIds": ["ev_dashboard_export_action", "ev_evaluation_actions", "ev_roles_president", "ev_roles_department_manager"]
+    },
+    {
+      "id": "q_approval_required_final",
+      "question": "Is approval required before an evaluation record becomes final?",
+      "questionZh": "评估记录成为最终记录前是否必须经过 approval？",
+      "category": "workflow",
+      "priority": "high",
+      "blockedItems": ["wf_evaluation_review", "ac_final_record_state"],
+      "suggestedOwner": "product_manager",
+      "whyItMatters": "This determines final-state logic, reporting eligibility, and acceptance criteria.",
+      "evidenceIds": ["ev_workflow_states", "ev_workflow_unclear_rules", "ev_evaluation_records_csv_states"]
+    },
+    {
+      "id": "q_rejected_return_to_draft",
+      "question": "Can rejected records return to draft?",
+      "questionZh": "被退回的记录是否可以回到草稿状态？",
+      "category": "workflow",
+      "priority": "medium",
+      "blockedItems": ["wf_evaluation_review", "ac_rejected_record_not_final"],
+      "suggestedOwner": "product_manager",
+      "whyItMatters": "This affects state machine design and edit permissions after rejection.",
+      "evidenceIds": ["ev_workflow_unclear_rules", "ev_evaluation_status_labels"]
+    },
+    {
+      "id": "q_operation_log_visibility",
+      "question": "Are operation logs visible to all roles or only admins?",
+      "questionZh": "操作日志是否所有角色可见，还是仅管理员可见？",
+      "category": "audit",
+      "priority": "medium",
+      "blockedItems": ["ent_audit_log", "ac_audit_log_retention", "ac_audit_visibility"],
+      "suggestedOwner": "admin",
+      "whyItMatters": "Log visibility affects privacy, compliance, and UI permissions.",
+      "evidenceIds": ["ev_evaluation_detail_sections", "ev_business_notes_audit"]
+    },
+    {
+      "id": "q_inactive_employee_reports",
+      "question": "Are inactive employees included in evaluation reports?",
+      "questionZh": "停用员工是否进入评估报表？",
+      "category": "business_rule",
+      "priority": "medium",
+      "blockedItems": ["ent_employee", "ac_employee_required_fields"],
+      "suggestedOwner": "business_owner",
+      "whyItMatters": "Reporting counts and filters may change based on inactive employee inclusion.",
+      "evidenceIds": ["ev_employees_csv_status_values", "ev_departments_csv_missing_manager"]
+    },
+    {
+      "id": "q_employee_deletion_behavior",
+      "question": "Should employee records be soft-deleted or only deactivated?",
+      "questionZh": "员工记录应软删除，还是只允许停用？",
+      "category": "audit",
+      "priority": "medium",
+      "blockedItems": ["asm_employee_deactivate_not_delete", "ac_employee_deactivation"],
+      "suggestedOwner": "admin",
+      "whyItMatters": "Delete/deactivate behavior affects retention, auditability, and UI actions.",
+      "evidenceIds": ["ev_employee_row_actions", "ev_business_notes_audit"]
+    },
+    {
+      "id": "q_dashboard_card_config",
+      "question": "Should Dashboard summary cards be configurable?",
+      "questionZh": "Dashboard 汇总卡片是否需要可配置？",
+      "category": "ui",
+      "priority": "low",
+      "blockedItems": ["mod_dashboard", "ac_dashboard_filter_summaries"],
+      "suggestedOwner": "product_manager",
+      "whyItMatters": "Configurability affects dashboard settings and admin configuration scope.",
+      "evidenceIds": ["ev_dashboard_summary_cards"]
+    },
+    {
+      "id": "q_risk_level_derivation",
+      "question": "Should risk level be manually assigned or calculated from score?",
+      "questionZh": "风险等级应手动指定，还是根据评分计算？",
+      "category": "business_rule",
+      "priority": "low",
+      "blockedItems": ["asm_risk_level_derivation"],
+      "suggestedOwner": "product_manager",
+      "whyItMatters": "Risk-level design affects data modeling and evaluation detail behavior.",
+      "evidenceIds": ["ev_evaluation_detail_fields", "ev_dashboard_summary_cards"]
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "asm_employee_deactivate_not_delete",
+      "statement": "Employee records should be deactivated rather than permanently deleted.",
+      "statementZh": "员工记录应停用而不是永久删除。",
+      "reason": "The employee list shows a deactivate action and does not show delete; auditability notes also favor retention.",
+      "confidence": "medium",
+      "needsReview": true,
+      "relatedQuestionIds": ["q_employee_deletion_behavior"],
+      "evidenceIds": ["ev_employee_row_actions", "ev_business_notes_audit"]
+    },
+    {
+      "id": "asm_risk_level_derivation",
+      "statement": "Risk level may be derived from score or reviewer judgment.",
+      "statementZh": "风险等级可能由评分或审核人判断生成。",
+      "reason": "Risk level appears on dashboard/detail materials, but no source confirms whether it is calculated or manually assigned.",
+      "confidence": "low",
+      "needsReview": true,
+      "relatedQuestionIds": ["q_risk_level_derivation"],
+      "evidenceIds": ["ev_dashboard_summary_cards", "ev_evaluation_detail_fields"]
+    },
+    {
+      "id": "asm_operation_logs_required",
+      "statement": "Operation logs are required for auditability.",
+      "statementZh": "为了审计性，系统需要操作日志。",
+      "reason": "Business notes explicitly require knowing who submitted, reviewed, approved, rejected, or edited a record, and the detail mock contains an operation log section.",
+      "confidence": "medium",
+      "needsReview": true,
+      "relatedQuestionIds": ["q_operation_log_visibility"],
+      "evidenceIds": ["ev_business_notes_audit", "ev_evaluation_detail_sections"]
+    }
+  ],
+  "buildability": {
+    "score": 72,
+    "status": "review_required",
+    "dimensionScores": {
+      "moduleClarity": 13,
+      "entityClarity": 13,
+      "fieldClarity": 11,
+      "permissionClarity": 8,
+      "workflowClarity": 9,
+      "evidenceCoverage": 11,
+      "ambiguityControl": 7
+    },
+    "mainBlockers": [
+      "Permission scope requires confirmation",
+      "Export permission is not clearly defined",
+      "Approval authority is unclear",
+      "Submitted-record edit behavior is unclear",
+      "Audit log visibility is unclear"
+    ],
+    "recommendedNextActions": [
+      "Confirm role-based data scopes with the business owner",
+      "Confirm whether submitted records can be edited",
+      "Confirm who can approve and export evaluation records",
+      "Confirm audit log visibility by role",
+      "Regenerate the final handoff pack after review"
+    ]
+  },
+  "handoff": {
+    "recommendedNextStep": "human_review_before_implementation",
+    "codingAgentReadiness": "review_required",
+    "suggestedImplementationOrder": [
+      "Define Employee, Department, Group, EvaluationRecord, Role, Permission, UserAccount, and AuditLog models",
+      "Implement role and data-scope scaffolding with explicit review flags",
+      "Build Staff Management and Evaluation Records modules",
+      "Implement the Evaluation Review Workflow with guarded uncertain transitions",
+      "Add acceptance tests for permissions, workflow, data import, and audit behavior"
+    ],
+    "blockedByQuestions": [
+      "q_department_manager_cross_department_view",
+      "q_group_leader_edit_submitted",
+      "q_approval_authority",
+      "q_export_permission",
+      "q_approval_required_final"
+    ]
+  },
+  "generatedAt": "2026-07-01T00:00:00.000Z",
+  "generator": {
+    "name": "specwise-phase-2-hand-crafted-example",
+    "version": "0.1.0"
+  }
+}
+

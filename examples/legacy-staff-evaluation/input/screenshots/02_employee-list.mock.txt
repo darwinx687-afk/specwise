@@ -1,0 +1,42 @@
+Screen: Employee List
+Language: Chinese
+
+Visible page title:
+- 员工列表
+
+Visible filters:
+- 公司
+- 部门
+- 小组
+- 员工状态
+- 岗位角色
+
+Visible table columns:
+- 员工编号
+- 姓名
+- 公司
+- 部门
+- 小组
+- 岗位角色
+- 员工状态
+- 入职日期
+- 直属上级
+- 最近评估日期
+
+Visible row actions:
+- 查看
+- 编辑
+- 停用
+
+Visible top actions:
+- 新增员工
+- 批量导入
+- 导出
+
+Detected business signals:
+- Employee is a core entity.
+- Department and group are important organizational scopes.
+- Employees have supervisors.
+- Employee records may support import and export.
+- Delete behavior is not visible; only "deactivate" is shown.
+

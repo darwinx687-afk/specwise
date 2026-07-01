@@ -1,0 +1,381 @@
+{
+  "schemaVersion": "0.1.0",
+  "project": {
+    "name": "Legacy Staff Evaluation Admin System",
+    "domain": "staff-evaluation",
+    "description": "A legacy internal admin system for staff management, evaluation signals, and role-based access.",
+    "primaryLanguage": "zh-CN",
+    "targetUsers": ["FDE", "AI full-stack developer", "business analyst"],
+    "status": "review_required"
+  },
+  "sourceMaterials": [
+    {
+      "id": "src_screenshot_employee_list",
+      "type": "screenshot",
+      "path": "input/screenshots/employee-list.png",
+      "language": "zh-CN",
+      "summary": "Employee list page with department filter, role column, status column, edit button, and export button.",
+      "detectedSignals": [
+        "employee entity",
+        "department field",
+        "role field",
+        "status field",
+        "edit action",
+        "export action"
+      ]
+    },
+    {
+      "id": "src_roles_notes",
+      "type": "markdown",
+      "path": "input/roles.md",
+      "language": "zh-CN",
+      "summary": "Role notes mention managers and group-level data responsibility.",
+      "detectedSignals": ["manager role", "group data responsibility"]
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod_staff_management",
+      "name": "Staff Management",
+      "nameZh": "员工管理",
+      "description": "Manage employee profiles, departments, roles, and employment status.",
+      "pages": ["page_employee_list"],
+      "confidence": "high",
+      "evidenceIds": ["ev_employee_list_title", "ev_employee_table_columns"],
+      "needsReview": false
+    }
+  ],
+  "pages": [
+    {
+      "id": "page_employee_list",
+      "moduleId": "mod_staff_management",
+      "name": "Employee List",
+      "nameZh": "员工列表",
+      "purpose": "View, filter, edit, and export employee records.",
+      "mainActions": ["view", "filter", "edit", "export"],
+      "visibleFields": [
+        "field_employee_name",
+        "field_employee_department",
+        "field_employee_role",
+        "field_employee_status"
+      ],
+      "evidenceIds": ["ev_employee_list_title", "ev_employee_table_columns", "ev_employee_edit_button", "ev_employee_export_button"],
+      "confidence": "high",
+      "needsReview": false
+    }
+  ],
+  "entities": [
+    {
+      "id": "ent_employee",
+      "name": "Employee",
+      "nameZh": "员工",
+      "description": "A staff member evaluated or managed within the system.",
+      "fields": [
+        "field_employee_name",
+        "field_employee_department",
+        "field_employee_role",
+        "field_employee_status"
+      ],
+      "relations": [
+        {
+          "type": "belongs_to",
+          "targetEntityId": "ent_department",
+          "confidence": "medium",
+          "needsReview": true
+        }
+      ],
+      "evidenceIds": ["ev_employee_table_columns"],
+      "confidence": "high",
+      "needsReview": false
+    },
+    {
+      "id": "ent_department",
+      "name": "Department",
+      "nameZh": "部门",
+      "description": "An organizational unit used to group employees.",
+      "fields": ["field_department_name"],
+      "relations": [
+        {
+          "type": "has_many",
+          "targetEntityId": "ent_employee",
+          "confidence": "medium",
+          "needsReview": true
+        }
+      ],
+      "evidenceIds": ["ev_employee_table_columns", "ev_employee_list_filters"],
+      "confidence": "medium",
+      "needsReview": true,
+      "openQuestionIds": ["q_manager_cross_department_access"]
+    }
+  ],
+  "fields": [
+    {
+      "id": "field_employee_name",
+      "entityId": "ent_employee",
+      "name": "name",
+      "nameZh": "姓名",
+      "type": "string",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/employee-list.png",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employee_table_columns"]
+    },
+    {
+      "id": "field_employee_department",
+      "entityId": "ent_employee",
+      "name": "department",
+      "nameZh": "部门",
+      "type": "relation",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/employee-list.png",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employee_table_columns", "ev_employee_list_filters"]
+    },
+    {
+      "id": "field_employee_role",
+      "entityId": "ent_employee",
+      "name": "role",
+      "nameZh": "角色",
+      "type": "string",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/employee-list.png",
+      "confidence": "high",
+      "needsReview": false,
+      "evidenceIds": ["ev_employee_table_columns"]
+    },
+    {
+      "id": "field_employee_status",
+      "entityId": "ent_employee",
+      "name": "status",
+      "nameZh": "状态",
+      "type": "enum",
+      "required": "unknown",
+      "examples": ["active", "inactive", "pending"],
+      "possibleValues": ["active", "inactive", "pending"],
+      "source": "input/screenshots/employee-list.png",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_status_values"],
+      "openQuestionIds": ["q_employee_status_enum", "q_employee_status_workflow"]
+    },
+    {
+      "id": "field_department_name",
+      "entityId": "ent_department",
+      "name": "name",
+      "nameZh": "部门名称",
+      "type": "string",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/screenshots/employee-list.png",
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_table_columns"]
+    }
+  ],
+  "roles": [
+    {
+      "id": "role_manager",
+      "name": "Manager",
+      "nameZh": "主管",
+      "description": "A department or group-level manager responsible for reviewing staff records.",
+      "scope": "group",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_md_manager"],
+      "needsReview": true
+    }
+  ],
+  "permissions": [
+    {
+      "id": "perm_manager_view_group_employees",
+      "roleId": "role_manager",
+      "resourceType": "Employee",
+      "action": "view",
+      "dataScope": "group",
+      "condition": "Managers may view employee records belonging to their group; cross-department access is unconfirmed.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_roles_md_manager", "ev_employee_list_filters"],
+      "needsReview": true,
+      "openQuestionIds": ["q_manager_cross_department_access"]
+    },
+    {
+      "id": "perm_manager_edit_employee",
+      "roleId": "role_manager",
+      "resourceType": "Employee",
+      "action": "edit",
+      "dataScope": "group",
+      "condition": "The list includes an edit action; role-specific edit access still needs confirmation.",
+      "confidence": "medium",
+      "evidenceIds": ["ev_employee_edit_button", "ev_roles_md_manager"],
+      "needsReview": true,
+      "openQuestionIds": ["q_manager_cross_department_access"]
+    }
+  ],
+  "workflows": [
+    {
+      "id": "wf_employee_status_maintenance",
+      "name": "Employee Status Maintenance",
+      "nameZh": "员工状态维护流程",
+      "trigger": "A manager edits an employee record.",
+      "actors": ["role_manager"],
+      "steps": [
+        {
+          "id": "step_open_employee_list",
+          "name": "Open employee list",
+          "actor": "role_manager",
+          "action": "view",
+          "fromState": "unknown",
+          "toState": "list_viewed",
+          "confidence": "high"
+        },
+        {
+          "id": "step_edit_employee_status",
+          "name": "Edit employee status",
+          "actor": "role_manager",
+          "action": "edit",
+          "fromState": "active_or_inactive_or_pending",
+          "toState": "unknown",
+          "confidence": "low"
+        }
+      ],
+      "states": ["unknown", "list_viewed", "active", "inactive", "pending"],
+      "evidenceIds": ["ev_employee_edit_button", "ev_employee_status_values"],
+      "confidence": "low",
+      "needsReview": true,
+      "openQuestionIds": ["q_employee_status_workflow"]
+    }
+  ],
+  "acceptanceCriteria": [
+    {
+      "id": "ac_manager_scope",
+      "title": "Manager data scope is enforced",
+      "description": "A manager should only see records within the confirmed manager scope unless cross-department access is confirmed.",
+      "category": "permission",
+      "priority": "high",
+      "relatedModuleIds": ["mod_staff_management"],
+      "relatedQuestionIds": ["q_manager_cross_department_access"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_roles_md_manager", "ev_employee_list_filters"]
+    },
+    {
+      "id": "ac_employee_status_values",
+      "title": "Employee status values are validated",
+      "description": "The implementation should accept only confirmed employee status values.",
+      "category": "entity",
+      "priority": "medium",
+      "relatedModuleIds": ["mod_staff_management"],
+      "relatedQuestionIds": ["q_employee_status_enum"],
+      "confidence": "medium",
+      "needsReview": true,
+      "evidenceIds": ["ev_employee_status_values"]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "q_manager_cross_department_access",
+      "question": "Can managers view records from other departments or only their own group?",
+      "questionZh": "主管是否可以查看其他部门记录，还是只能查看本组记录？",
+      "category": "permission",
+      "priority": "high",
+      "blockedItems": ["perm_manager_view_group_employees", "perm_manager_edit_employee", "ac_manager_scope"],
+      "suggestedOwner": "business_owner",
+      "whyItMatters": "This affects permission design, API filtering, and acceptance tests.",
+      "evidenceIds": ["ev_roles_md_manager", "ev_employee_list_filters"]
+    },
+    {
+      "id": "q_employee_status_enum",
+      "question": "What are the confirmed employee status values?",
+      "questionZh": "员工状态的确认枚举值有哪些？",
+      "category": "field",
+      "priority": "medium",
+      "blockedItems": ["field_employee_status", "ac_employee_status_values"],
+      "suggestedOwner": "product_manager",
+      "whyItMatters": "This affects data validation, filters, and acceptance tests.",
+      "evidenceIds": ["ev_employee_status_values"]
+    },
+    {
+      "id": "q_employee_status_workflow",
+      "question": "What state transitions are allowed for employee status changes?",
+      "questionZh": "员工状态变更允许哪些状态流转？",
+      "category": "workflow",
+      "priority": "medium",
+      "blockedItems": ["wf_employee_status_maintenance"],
+      "suggestedOwner": "product_manager",
+      "whyItMatters": "This affects workflow logic, permissions, and audit requirements.",
+      "evidenceIds": ["ev_employee_edit_button", "ev_employee_status_values"]
+    },
+    {
+      "id": "q_delete_behavior",
+      "question": "Should employee deletion use soft delete rather than permanent deletion?",
+      "questionZh": "员工删除是否需要软删除，而不是永久删除？",
+      "category": "audit",
+      "priority": "low",
+      "blockedItems": ["asm_soft_delete"],
+      "suggestedOwner": "admin",
+      "whyItMatters": "This affects auditability and data retention.",
+      "evidenceIds": []
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "asm_soft_delete",
+      "statement": "Employee records may require soft deletion rather than permanent deletion.",
+      "statementZh": "员工记录可能需要软删除，而不是永久删除。",
+      "reason": "Business systems usually need auditability, but no source confirms deletion behavior.",
+      "confidence": "low",
+      "needsReview": true,
+      "relatedQuestionIds": ["q_delete_behavior"],
+      "evidenceIds": []
+    }
+  ],
+  "buildability": {
+    "score": 69,
+    "status": "review_required",
+    "dimensionScores": {
+      "moduleClarity": 13,
+      "entityClarity": 12,
+      "fieldClarity": 10,
+      "permissionClarity": 8,
+      "workflowClarity": 9,
+      "evidenceCoverage": 10,
+      "ambiguityControl": 7
+    },
+    "mainBlockers": [
+      "Manager cross-department access is not confirmed",
+      "Employee status enum and transitions are only partially inferred",
+      "Export permission is visible in the UI but not tied to a confirmed role"
+    ],
+    "recommendedNextActions": [
+      "Confirm manager data scope with the business owner",
+      "Confirm employee status values and transition rules with the product owner",
+      "Confirm export permission and audit requirements before implementation"
+    ]
+  },
+  "handoff": {
+    "recommendedNextStep": "human_review_before_implementation",
+    "codingAgentReadiness": "review_required",
+    "suggestedImplementationOrder": [
+      "Define Employee and Department data models",
+      "Implement role-based access rules after manager scope confirmation",
+      "Build the Staff Management module",
+      "Implement employee status workflow after state confirmation",
+      "Add permission and workflow acceptance tests"
+    ],
+    "blockedByQuestions": [
+      "q_manager_cross_department_access",
+      "q_employee_status_enum",
+      "q_employee_status_workflow"
+    ]
+  },
+  "generatedAt": "2026-07-01T00:00:00.000Z",
+  "generator": {
+    "name": "specwise-example",
+    "version": "0.1.0"
+  }
+}
+

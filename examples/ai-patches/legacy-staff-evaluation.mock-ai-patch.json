@@ -1,0 +1,211 @@
+{
+  "schemaVersion": "0.1.0",
+  "patchId": "patch_legacy_staff_eval_mock_001",
+  "source": {
+    "type": "mock_ai_patch",
+    "provider": "mock",
+    "mode": "offline_fixture",
+    "networkCalls": false
+  },
+  "target": {
+    "draftSpecPackPath": "tmp/draft-test/spec-pack",
+    "projectName": "Legacy Staff Evaluation Admin System"
+  },
+  "candidates": [
+    {
+      "id": "cand_permission_export_scope_001",
+      "type": "question_candidate",
+      "targetSection": "permissions",
+      "targetId": "perm_department_manager_export_records",
+      "operation": "add_question",
+      "title": "Confirm Department Manager export scope",
+      "titleZh": "确认部门主管导出范围",
+      "proposal": {
+        "question": "Can Department Managers export all department records, or only records assigned to them?",
+        "questionZh": "部门主管可以导出整个部门记录，还是只能导出分配给自己的记录？",
+        "category": "permission",
+        "priority": "high"
+      },
+      "evidenceIds": ["ev_roles_department_manager", "ev_dashboard_export_action", "ev_permission_columns"],
+      "confidence": "medium",
+      "needsReview": true,
+      "rationale": "Export permissions are high-risk and not fully specified in the input materials."
+    },
+    {
+      "id": "cand_permission_cross_department_view_001",
+      "type": "question_candidate",
+      "targetSection": "permissions",
+      "targetId": "perm_department_manager_cross_department_view",
+      "operation": "add_question",
+      "title": "Confirm cross-department visibility",
+      "titleZh": "确认跨部门查看权限",
+      "proposal": {
+        "question": "Can Department Managers view records outside their own department?",
+        "questionZh": "部门主管是否可以查看本部门以外的记录？",
+        "category": "permission",
+        "priority": "high"
+      },
+      "evidenceIds": ["ev_roles_department_manager", "ev_business_notes_scope", "ev_permission_scopes"],
+      "confidence": "medium",
+      "needsReview": true,
+      "rationale": "The role notes explicitly leave cross-department access unclear."
+    },
+    {
+      "id": "cand_workflow_approval_authority_001",
+      "type": "question_candidate",
+      "targetSection": "workflows",
+      "targetId": "workflow_evaluation_review_approval",
+      "operation": "add_question",
+      "title": "Confirm who approves reviewed records",
+      "titleZh": "确认谁可以批准已复核记录",
+      "proposal": {
+        "question": "After a record is reviewed, which role can approve it as final?",
+        "questionZh": "评估记录复核后，由哪个角色批准为最终状态？",
+        "category": "workflow",
+        "priority": "high"
+      },
+      "evidenceIds": ["ev_workflow_unclear_rules", "ev_evaluation_detail_actions", "ev_roles_evaluator"],
+      "confidence": "medium",
+      "needsReview": true,
+      "rationale": "Approval authority appears in actions and workflow notes, but the responsible role is unresolved."
+    },
+    {
+      "id": "cand_workflow_edit_submitted_001",
+      "type": "question_candidate",
+      "targetSection": "workflows",
+      "targetId": "workflow_evaluation_edit_after_submit",
+      "operation": "add_question",
+      "title": "Confirm whether submitted records can be edited",
+      "titleZh": "确认已提交记录是否可编辑",
+      "proposal": {
+        "question": "Can a submitted record be edited before review starts?",
+        "questionZh": "记录提交后、审核开始前是否仍可编辑？",
+        "category": "workflow",
+        "priority": "high"
+      },
+      "evidenceIds": ["ev_roles_group_leader", "ev_workflow_unclear_rules", "ev_evaluation_actions"],
+      "confidence": "medium",
+      "needsReview": true,
+      "rationale": "Visible edit actions and workflow notes do not establish the transition guard."
+    },
+    {
+      "id": "cand_assumption_employee_deactivate_001",
+      "type": "assumption_candidate",
+      "targetSection": "entities",
+      "targetId": "entity_employee_lifecycle",
+      "operation": "add_assumption",
+      "title": "Employee records should be deactivated rather than deleted",
+      "titleZh": "员工记录应停用而不是删除",
+      "proposal": {
+        "assumption": "Employee records are retained and deactivated instead of physically deleted.",
+        "assumptionZh": "员工记录应保留并通过停用状态处理，而不是物理删除。",
+        "category": "data_lifecycle",
+        "priority": "medium"
+      },
+      "evidenceIds": ["ev_employee_row_actions", "ev_employees_csv_status_values"],
+      "confidence": "medium",
+      "needsReview": true,
+      "rationale": "The visible action is deactivate and the CSV includes active/inactive states, but retention policy still requires review."
+    },
+    {
+      "id": "cand_assumption_risk_level_score_001",
+      "type": "assumption_candidate",
+      "targetSection": "fields",
+      "targetId": "field_record_risk_level",
+      "operation": "add_assumption",
+      "title": "Risk level may be calculated from score",
+      "titleZh": "风险等级可能由评分计算",
+      "proposal": {
+        "assumption": "Risk level may be derived from evaluation score thresholds.",
+        "assumptionZh": "风险等级可能根据评估分数阈值计算。",
+        "category": "field_logic",
+        "priority": "medium"
+      },
+      "evidenceIds": ["ev_evaluation_detail_fields", "ev_evaluation_records_columns"],
+      "confidence": "low",
+      "needsReview": true,
+      "rationale": "Score and risk level appear together, but the calculation rule is not specified."
+    },
+    {
+      "id": "cand_acceptance_audit_log_actor_001",
+      "type": "confirmed_candidate",
+      "targetSection": "acceptanceCriteria",
+      "targetId": "ac_audit_log_actor_tracking",
+      "operation": "add",
+      "title": "Audit log preserves submit/review/approve/reject/edit actor",
+      "titleZh": "操作日志保留提交/复核/批准/退回/编辑的操作人",
+      "proposal": {
+        "acceptanceCriterion": "The audit log records the actor, timestamp, action, and related record for submit, review, approve, reject, and edit actions.",
+        "acceptanceCriterionZh": "操作日志记录提交、复核、批准、退回和编辑动作的操作人、时间、动作和关联记录。",
+        "priority": "high"
+      },
+      "evidenceIds": ["ev_business_notes_audit", "ev_evaluation_detail_sections", "ev_evaluation_detail_actions"],
+      "confidence": "high",
+      "needsReview": true,
+      "rationale": "Auditability is explicitly required and the detail page includes operation log signals."
+    },
+    {
+      "id": "cand_conflict_reviewed_approved_status_001",
+      "type": "conflict_candidate",
+      "targetSection": "workflows",
+      "targetId": "workflow_evaluation_status_reviewed_approved",
+      "operation": "flag_conflict",
+      "title": "Reviewed and approved status semantics may conflict",
+      "titleZh": "已复核和已批准状态语义可能冲突",
+      "proposal": {
+        "conflict": "Status labels include reviewed/approved, but notes say approval may be unclear.",
+        "conflictZh": "状态标签包含已复核/已批准，但业务说明中批准规则仍不清楚。",
+        "priority": "high"
+      },
+      "evidenceIds": ["ev_evaluation_status_labels", "ev_workflow_states", "ev_workflow_unclear_rules"],
+      "confidence": "medium",
+      "needsReview": true,
+      "rationale": "The workflow contains both state labels and unresolved authority questions, so it should remain a conflict candidate."
+    },
+    {
+      "id": "cand_bilingual_summary_uncertainty_001",
+      "type": "confirmed_candidate",
+      "targetSection": "bilingualSummary",
+      "targetId": "summary_permission_workflow_uncertainty",
+      "operation": "update",
+      "title": "Preserve permission and workflow uncertainty in bilingual summaries",
+      "titleZh": "在双语摘要中保留权限和流程不确定性",
+      "proposal": {
+        "summaryPatch": "Summaries should explicitly mention unresolved export scope, approval authority, and edit-after-submit rules.",
+        "summaryPatchZh": "摘要应明确说明导出范围、批准权限和提交后编辑规则仍待确认。",
+        "priority": "medium"
+      },
+      "evidenceIds": ["ev_roles_department_manager", "ev_workflow_unclear_rules", "ev_business_notes_scope"],
+      "confidence": "high",
+      "needsReview": true,
+      "rationale": "The bilingual summary should not translate unresolved risks into confirmed statements."
+    },
+    {
+      "id": "cand_buildability_rescore_uncertainty_001",
+      "type": "conflict_candidate",
+      "targetSection": "buildability",
+      "targetId": "buildability_permission_workflow_clarity",
+      "operation": "rescore",
+      "title": "Keep buildability status review-required until permission and workflow gaps are resolved",
+      "titleZh": "权限和流程缺口解决前保持可构建状态为需审查",
+      "proposal": {
+        "dimensionHints": {
+          "permissionClarity": "Do not raise while export and cross-department scope are unresolved.",
+          "workflowClarity": "Do not raise while approval authority and edit-after-submit rules are unresolved."
+        },
+        "proposedStatus": "review_required",
+        "priority": "high"
+      },
+      "evidenceIds": ["ev_roles_department_manager", "ev_workflow_unclear_rules", "ev_permission_scopes"],
+      "confidence": "medium",
+      "needsReview": true,
+      "rationale": "Readiness should remain conservative while high-risk permission and workflow questions remain open."
+    }
+  ],
+  "safety": {
+    "reviewRequired": true,
+    "noSilentOverwrite": true,
+    "evidenceFirst": true
+  },
+  "generatedAt": "2026-07-01T00:00:00.000Z"
+}

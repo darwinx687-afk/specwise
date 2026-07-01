@@ -1,0 +1,37 @@
+Screen: Evaluation Detail
+Language: Chinese
+
+Visible sections:
+- 员工基础信息
+- 本期评分
+- 具体表现描述
+- 主管复核意见
+- 历史评估记录
+- 操作日志
+
+Visible fields:
+- 员工姓名
+- 部门
+- 小组
+- 评估周期
+- 综合评分
+- 表现描述
+- 风险等级
+- 提交人
+- 审核人
+- 审核意见
+
+Visible actions:
+- 保存草稿
+- 提交审核
+- 通过
+- 退回
+- 查看操作日志
+
+Detected business signals:
+- Evaluation detail includes audit-like information.
+- Review comments are part of the workflow.
+- Operation logs may be required.
+- Risk level is likely derived from score or reviewer judgment.
+- It is unclear whether group leaders can see operation logs.
+

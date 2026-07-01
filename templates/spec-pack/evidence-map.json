@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceItems": [],
+  "claimMappings": [],
+  "coverageSummary": {
+    "totalClaims": 0,
+    "claimsWithEvidence": 0,
+    "claimsWithoutEvidence": 0,
+    "highConfidenceClaims": 0,
+    "mediumConfidenceClaims": 0,
+    "lowConfidenceClaims": 0,
+    "unknownConfidenceClaims": 0,
+    "evidenceCoverageRate": 0
+  }
+}
+

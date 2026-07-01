@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "0.1.0",
+  "reviewId": "review_legacy_staff_eval_001",
+  "source": {
+    "mergePreviewPath": "./tmp/patch-preview",
+    "patchId": "patch_legacy_staff_eval_mock_001"
+  },
+  "reviewer": {
+    "name": "manual-reviewer",
+    "role": "human_reviewer"
+  },
+  "decisions": [
+    {
+      "candidateId": "cand_permission_export_scope_001",
+      "decision": "needs_more_info",
+      "reviewerNote": "Business owner must confirm export scope before implementation.",
+      "acceptedAs": null,
+      "blocksReadiness": true,
+      "followUpQuestion": "Can Department Managers export all department records, or only assigned records?"
+    },
+    {
+      "candidateId": "cand_permission_cross_department_view_001",
+      "decision": "needs_more_info",
+      "reviewerNote": "Cross-department visibility changes data scope and needs owner confirmation.",
+      "acceptedAs": null,
+      "blocksReadiness": true,
+      "followUpQuestion": "Can Department Managers view records outside their own department?"
+    },
+    {
+      "candidateId": "cand_workflow_approval_authority_001",
+      "decision": "needs_more_info",
+      "reviewerNote": "Approval authority is unresolved and blocks workflow implementation.",
+      "acceptedAs": null,
+      "blocksReadiness": true,
+      "followUpQuestion": "After a record is reviewed, which role can approve it as final?"
+    },
+    {
+      "candidateId": "cand_workflow_edit_submitted_001",
+      "decision": "needs_more_info",
+      "reviewerNote": "Edit-after-submit behavior must be confirmed before implementation.",
+      "acceptedAs": null,
+      "blocksReadiness": true,
+      "followUpQuestion": "Can a submitted record be edited before review starts?"
+    },
+    {
+      "candidateId": "cand_assumption_employee_deactivate_001",
+      "decision": "accepted",
+      "reviewerNote": "Accept as a review-required data lifecycle assumption, not as final deletion policy.",
+      "acceptedAs": "assumption",
+      "blocksReadiness": false,
+      "followUpQuestion": null
+    },
+    {
+      "candidateId": "cand_assumption_risk_level_score_001",
+      "decision": "deferred",
+      "reviewerNote": "Risk level formula needs business rule confirmation.",
+      "acceptedAs": null,
+      "blocksReadiness": true,
+      "followUpQuestion": null
+    },
+    {
+      "candidateId": "cand_acceptance_audit_log_actor_001",
+      "decision": "accepted",
+      "reviewerNote": "Accept as review-required acceptance criterion for the next spec revision.",
+      "acceptedAs": "acceptance_criterion",
+      "blocksReadiness": false,
+      "followUpQuestion": null
+    },
+    {
+      "candidateId": "cand_conflict_reviewed_approved_status_001",
+      "decision": "needs_more_info",
+      "reviewerNote": "Reviewed and approved states must be clarified before workflow implementation.",
+      "acceptedAs": null,
+      "blocksReadiness": true,
+      "followUpQuestion": "What is the difference between reviewed and approved, and who can move records between those states?"
+    },
+    {
+      "candidateId": "cand_bilingual_summary_uncertainty_001",
+      "decision": "accepted",
+      "reviewerNote": "Accept as summary guidance; developer/editor should preserve unresolved permission and workflow uncertainty in both language summaries.",
+      "acceptedAs": "fact",
+      "blocksReadiness": false,
+      "followUpQuestion": null
+    },
+    {
+      "candidateId": "cand_buildability_rescore_uncertainty_001",
+      "decision": "deferred",
+      "reviewerNote": "Buildability should be revisited after permission and workflow blockers are answered.",
+      "acceptedAs": null,
+      "blocksReadiness": true,
+      "followUpQuestion": null
+    }
+  ],
+  "summary": {
+    "accepted": 3,
+    "rejected": 0,
+    "needsMoreInfo": 5,
+    "deferred": 2
+  },
+  "status": "draft_review",
+  "createdAt": "2026-07-01T00:00:00.000Z"
+}

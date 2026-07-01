@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "0.1.0",
+  "project": {
+    "name": "",
+    "domain": "",
+    "description": "",
+    "primaryLanguage": "zh-CN",
+    "targetUsers": ["FDE", "AI full-stack developer", "business analyst"],
+    "status": "not_buildable_yet"
+  },
+  "sourceMaterials": [],
+  "modules": [],
+  "pages": [],
+  "entities": [],
+  "fields": [],
+  "roles": [],
+  "permissions": [],
+  "workflows": [],
+  "acceptanceCriteria": [],
+  "openQuestions": [],
+  "assumptions": [],
+  "buildability": {
+    "score": 0,
+    "status": "not_buildable_yet",
+    "dimensionScores": {
+      "moduleClarity": 0,
+      "entityClarity": 0,
+      "fieldClarity": 0,
+      "permissionClarity": 0,
+      "workflowClarity": 0,
+      "evidenceCoverage": 0,
+      "ambiguityControl": 0
+    },
+    "mainBlockers": [],
+    "recommendedNextActions": []
+  },
+  "handoff": {
+    "recommendedNextStep": "collect_source_materials",
+    "codingAgentReadiness": "not_buildable_yet",
+    "suggestedImplementationOrder": [],
+    "blockedByQuestions": []
+  },
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "generator": {
+    "name": "specwise-template",
+    "version": "0.1.0"
+  }
+}
+

@@ -1,0 +1,955 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceItems": [
+    {
+      "id": "ev_dashboard_navigation",
+      "sourceMaterialId": "src_dashboard_mock",
+      "type": "menu_label",
+      "quoteOrDescription": "Dashboard navigation shows Dashboard, Staff Management, Evaluation Records, Review Reports, and Permission Settings.",
+      "location": {
+        "file": "input/screenshots/01_dashboard.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_dashboard_summary_cards",
+      "sourceMaterialId": "src_dashboard_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Dashboard summary cards show Total Employees, Pending Evaluations, Reviewed This Month, and High Risk Records.",
+      "location": {
+        "file": "input/screenshots/01_dashboard.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_dashboard_filters",
+      "sourceMaterialId": "src_dashboard_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Dashboard filters include Company, Department, and Evaluation Period.",
+      "location": {
+        "file": "input/screenshots/01_dashboard.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_dashboard_export_action",
+      "sourceMaterialId": "src_dashboard_mock",
+      "type": "button_label",
+      "quoteOrDescription": "Dashboard shows Export Monthly Summary and notes export permission is unclear.",
+      "location": {
+        "file": "input/screenshots/01_dashboard.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_employee_list_title",
+      "sourceMaterialId": "src_employee_list_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Employee list page title is 员工列表.",
+      "location": {
+        "file": "input/screenshots/02_employee-list.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employee_list_filters",
+      "sourceMaterialId": "src_employee_list_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Employee list filters include company, department, group, employee status, and job role.",
+      "location": {
+        "file": "input/screenshots/02_employee-list.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employee_table_columns",
+      "sourceMaterialId": "src_employee_list_mock",
+      "type": "table_header",
+      "quoteOrDescription": "Employee table columns include employee id, name, company, department, group, job role, status, joined date, supervisor, and latest evaluation date.",
+      "location": {
+        "file": "input/screenshots/02_employee-list.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employee_row_actions",
+      "sourceMaterialId": "src_employee_list_mock",
+      "type": "button_label",
+      "quoteOrDescription": "Employee row actions include view, edit, and deactivate.",
+      "location": {
+        "file": "input/screenshots/02_employee-list.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employee_top_actions",
+      "sourceMaterialId": "src_employee_list_mock",
+      "type": "button_label",
+      "quoteOrDescription": "Employee top actions include create employee, bulk import, and export.",
+      "location": {
+        "file": "input/screenshots/02_employee-list.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employees_csv_headers",
+      "sourceMaterialId": "src_employees_csv",
+      "type": "table_header",
+      "quoteOrDescription": "employees.csv headers are employee_id, name, company, department, group, role, status, joined_at, and supervisor_id.",
+      "location": {
+        "file": "input/data/employees.csv",
+        "page": null,
+        "sheet": null,
+        "row": 1,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employees_csv_supervisor",
+      "sourceMaterialId": "src_employees_csv",
+      "type": "table_value",
+      "quoteOrDescription": "employees.csv contains supervisor_id values such as EMP004 and EMP001, indicating a supervisor relationship.",
+      "location": {
+        "file": "input/data/employees.csv",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": "supervisor_id"
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_employees_csv_status_values",
+      "sourceMaterialId": "src_employees_csv",
+      "type": "table_value",
+      "quoteOrDescription": "employees.csv includes active and inactive employee status values.",
+      "location": {
+        "file": "input/data/employees.csv",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": "status"
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_departments_csv_headers",
+      "sourceMaterialId": "src_departments_csv",
+      "type": "table_header",
+      "quoteOrDescription": "departments.csv headers are department_id, company, name, manager_id, and status.",
+      "location": {
+        "file": "input/data/departments.csv",
+        "page": null,
+        "sheet": null,
+        "row": 1,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_departments_csv_missing_manager",
+      "sourceMaterialId": "src_departments_csv",
+      "type": "table_value",
+      "quoteOrDescription": "Some department rows have empty manager_id values.",
+      "location": {
+        "file": "input/data/departments.csv",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": "manager_id"
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_evaluation_records_title",
+      "sourceMaterialId": "src_evaluation_records_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Evaluation records page title is 评估记录.",
+      "location": {
+        "file": "input/screenshots/03_evaluation-records.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_records_filters",
+      "sourceMaterialId": "src_evaluation_records_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Evaluation records filters include period, department, group, status, and score range.",
+      "location": {
+        "file": "input/screenshots/03_evaluation-records.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_records_columns",
+      "sourceMaterialId": "src_evaluation_records_mock",
+      "type": "table_header",
+      "quoteOrDescription": "Evaluation records columns include record id, employee name, department, group, period, score, status, submitter, reviewer, submitted time, and reviewed time.",
+      "location": {
+        "file": "input/screenshots/03_evaluation-records.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_status_labels",
+      "sourceMaterialId": "src_evaluation_records_mock",
+      "type": "status_label",
+      "quoteOrDescription": "Status labels include draft, submitted, reviewing, approved, and returned.",
+      "location": {
+        "file": "input/screenshots/03_evaluation-records.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_actions",
+      "sourceMaterialId": "src_evaluation_records_mock",
+      "type": "button_label",
+      "quoteOrDescription": "Evaluation record actions include view detail, edit, submit, review, and export.",
+      "location": {
+        "file": "input/screenshots/03_evaluation-records.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_records_csv_headers",
+      "sourceMaterialId": "src_evaluation_records_csv",
+      "type": "table_header",
+      "quoteOrDescription": "evaluation_records.csv headers include record_id, employee_id, evaluation_period, score, status, submitted_by, reviewed_by, submitted_at, and reviewed_at.",
+      "location": {
+        "file": "input/data/evaluation_records.csv",
+        "page": null,
+        "sheet": null,
+        "row": 1,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_records_csv_states",
+      "sourceMaterialId": "src_evaluation_records_csv",
+      "type": "table_value",
+      "quoteOrDescription": "evaluation_records.csv includes approved, reviewed, rejected, draft, and submitted status values.",
+      "location": {
+        "file": "input/data/evaluation_records.csv",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": "status"
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_records_csv_missing_values",
+      "sourceMaterialId": "src_evaluation_records_csv",
+      "type": "table_value",
+      "quoteOrDescription": "Draft and unreviewed evaluation records have missing score, reviewer, or reviewed_at values.",
+      "location": {
+        "file": "input/data/evaluation_records.csv",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_evaluation_detail_sections",
+      "sourceMaterialId": "src_evaluation_detail_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Evaluation detail sections include employee information, score, performance description, manager review comments, history, and operation logs.",
+      "location": {
+        "file": "input/screenshots/04_evaluation-detail.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_detail_fields",
+      "sourceMaterialId": "src_evaluation_detail_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Evaluation detail fields include employee name, department, group, period, score, performance description, risk level, submitter, reviewer, and review comment.",
+      "location": {
+        "file": "input/screenshots/04_evaluation-detail.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_evaluation_detail_actions",
+      "sourceMaterialId": "src_evaluation_detail_mock",
+      "type": "button_label",
+      "quoteOrDescription": "Evaluation detail actions include save draft, submit for review, approve, reject, and view operation log.",
+      "location": {
+        "file": "input/screenshots/04_evaluation-detail.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_permission_roles",
+      "sourceMaterialId": "src_permission_settings_mock",
+      "type": "role_description",
+      "quoteOrDescription": "Permission settings shows President, Company Admin, Department Manager, Group Leader, Evaluator, and Viewer roles.",
+      "location": {
+        "file": "input/screenshots/05_permission-settings.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_permission_columns",
+      "sourceMaterialId": "src_permission_settings_mock",
+      "type": "table_header",
+      "quoteOrDescription": "Permission columns include View, Create, Edit, Review, Approve, Export, Import, and Configure.",
+      "location": {
+        "file": "input/screenshots/05_permission-settings.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_permission_scopes",
+      "sourceMaterialId": "src_permission_settings_mock",
+      "type": "table_value",
+      "quoteOrDescription": "Permission data scopes include all companies, own company, own department, own group, assigned records, and self only.",
+      "location": {
+        "file": "input/screenshots/05_permission-settings.mock.txt",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_business_notes_scope",
+      "sourceMaterialId": "src_business_notes",
+      "type": "business_note",
+      "quoteOrDescription": "Business notes describe president all-scope view, company admin company scope, department manager uncertainty, and group leader submission responsibility.",
+      "location": {
+        "file": "input/notes/business-notes.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_business_notes_audit",
+      "sourceMaterialId": "src_business_notes",
+      "type": "business_note",
+      "quoteOrDescription": "Business notes say the new system should preserve who submitted, reviewed, approved, rejected, or edited a record.",
+      "location": {
+        "file": "input/notes/business-notes.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_roles_president",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "President can view all levels of records, may export reports, and should not necessarily edit every record directly.",
+      "location": {
+        "file": "input/notes/roles.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_roles_company_admin",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "Company Admin can manage records in own company, import employee data, and may configure company-level roles.",
+      "location": {
+        "file": "input/notes/roles.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_roles_department_manager",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "Department Manager usually reviews own department records; cross-department view and export access are unclear.",
+      "location": {
+        "file": "input/notes/roles.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_roles_group_leader",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "Group Leader can submit evaluation records for group members and may edit draft records before submission.",
+      "location": {
+        "file": "input/notes/roles.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_roles_evaluator",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "Evaluator can create and submit evaluation records; review or approval permission is unclear.",
+      "location": {
+        "file": "input/notes/roles.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_roles_viewer",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "Viewer can view assigned records and should not create, edit, approve, import, export, or configure permissions.",
+      "location": {
+        "file": "input/notes/roles.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_workflow_states",
+      "sourceMaterialId": "src_workflow_notes",
+      "type": "workflow_note",
+      "quoteOrDescription": "Workflow notes define draft, submitted, reviewed, approved, and rejected states and actions including submit, review, approve, reject, edit, and export.",
+      "location": {
+        "file": "input/notes/workflow-notes.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_workflow_unclear_rules",
+      "sourceMaterialId": "src_workflow_notes",
+      "type": "workflow_note",
+      "quoteOrDescription": "Workflow notes list unclear rules for submitted edit, rejected return, approval authority, final approval requirement, and operation log visibility.",
+      "location": {
+        "file": "input/notes/workflow-notes.md",
+        "page": null,
+        "sheet": null,
+        "row": null,
+        "column": null
+      },
+      "reliability": "high"
+    }
+  ],
+  "claimMappings": [
+    {
+      "claimId": "mod_dashboard",
+      "claimType": "module",
+      "claim": "The system includes a Dashboard module.",
+      "evidenceIds": ["ev_dashboard_navigation", "ev_dashboard_summary_cards", "ev_dashboard_filters"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Dashboard appears directly in navigation and has dedicated summary cards and filters."
+    },
+    {
+      "claimId": "mod_staff_management",
+      "claimType": "module",
+      "claim": "The system includes a Staff Management module.",
+      "evidenceIds": ["ev_dashboard_navigation", "ev_employee_list_title", "ev_employee_table_columns"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Navigation and employee list materials directly support this module."
+    },
+    {
+      "claimId": "mod_evaluation_records",
+      "claimType": "module",
+      "claim": "The system includes an Evaluation Records module.",
+      "evidenceIds": ["ev_dashboard_navigation", "ev_evaluation_records_title", "ev_evaluation_records_columns"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Navigation, page title, and record table columns directly support this module."
+    },
+    {
+      "claimId": "mod_review_reports",
+      "claimType": "module",
+      "claim": "The system includes a Review Reports module.",
+      "evidenceIds": ["ev_dashboard_navigation", "ev_dashboard_export_action", "ev_business_notes_scope"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Review Reports appears in navigation and reporting is described, but there is no dedicated report screen."
+    },
+    {
+      "claimId": "mod_permission_settings",
+      "claimType": "module",
+      "claim": "The system includes a Permission Settings module.",
+      "evidenceIds": ["ev_dashboard_navigation", "ev_permission_roles", "ev_permission_columns"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Navigation and permission settings mock directly support this module."
+    },
+    {
+      "claimId": "ent_employee",
+      "claimType": "entity",
+      "claim": "Employee is a core entity.",
+      "evidenceIds": ["ev_employee_table_columns", "ev_employees_csv_headers", "ev_employees_csv_supervisor"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Employee page and CSV data directly describe employee records and relationships."
+    },
+    {
+      "claimId": "ent_department",
+      "claimType": "entity",
+      "claim": "Department is a core entity and data scope.",
+      "evidenceIds": ["ev_employee_list_filters", "ev_departments_csv_headers", "ev_business_notes_scope"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Department appears in filters, CSV data, and business notes as an access scope."
+    },
+    {
+      "claimId": "ent_group",
+      "claimType": "entity",
+      "claim": "Group is a likely entity or organizational scope.",
+      "evidenceIds": ["ev_employee_list_filters", "ev_employees_csv_headers", "ev_roles_group_leader"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Group appears as a filter and CSV field, but there is no standalone group table."
+    },
+    {
+      "claimId": "ent_evaluation_record",
+      "claimType": "entity",
+      "claim": "EvaluationRecord is a core entity.",
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_headers", "ev_evaluation_records_csv_states"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Page columns and CSV data directly describe evaluation records and lifecycle fields."
+    },
+    {
+      "claimId": "ent_role",
+      "claimType": "entity",
+      "claim": "Role is a core access-control entity.",
+      "evidenceIds": ["ev_permission_roles", "ev_roles_president", "ev_roles_viewer"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Permission settings and role notes explicitly list roles."
+    },
+    {
+      "claimId": "ent_permission",
+      "claimType": "entity",
+      "claim": "Permission is a core access-control entity.",
+      "evidenceIds": ["ev_permission_columns", "ev_permission_scopes"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Permission settings explicitly show action columns and data scopes."
+    },
+    {
+      "claimId": "ent_user_account",
+      "claimType": "entity",
+      "claim": "User or Account is likely needed to model actors and role assignments.",
+      "evidenceIds": ["ev_roles_president", "ev_evaluation_records_csv_headers", "ev_business_notes_audit"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Actors appear in roles and submitted/reviewed fields, but account structure is not shown directly."
+    },
+    {
+      "claimId": "ent_audit_log",
+      "claimType": "entity",
+      "claim": "AuditLog is likely required for operation history.",
+      "evidenceIds": ["ev_evaluation_detail_sections", "ev_business_notes_audit"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Evaluation detail has operation logs and business notes require action traceability."
+    },
+    {
+      "claimId": "role_president",
+      "claimType": "permission",
+      "claim": "President has all-scope visibility.",
+      "evidenceIds": ["ev_roles_president", "ev_business_notes_scope", "ev_permission_scopes"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Role notes and business notes directly state all-scope visibility; export/edit still need review."
+    },
+    {
+      "claimId": "role_company_admin",
+      "claimType": "permission",
+      "claim": "Company Admin has company-level management responsibility.",
+      "evidenceIds": ["ev_roles_company_admin", "ev_business_notes_scope"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Role and business notes support company-level access and import/configure responsibilities."
+    },
+    {
+      "claimId": "role_department_manager",
+      "claimType": "permission",
+      "claim": "Department Manager reviews department evaluation records.",
+      "evidenceIds": ["ev_roles_department_manager", "ev_workflow_states", "ev_business_notes_scope"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Role notes and workflow notes support review responsibility; cross-department visibility is unresolved."
+    },
+    {
+      "claimId": "role_group_leader",
+      "claimType": "permission",
+      "claim": "Group Leader submits records for group members.",
+      "evidenceIds": ["ev_roles_group_leader", "ev_workflow_states"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Role notes directly describe group member submission responsibility."
+    },
+    {
+      "claimId": "role_evaluator",
+      "claimType": "permission",
+      "claim": "Evaluator can create and submit evaluation records.",
+      "evidenceIds": ["ev_roles_evaluator", "ev_workflow_states"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Role notes support create/submit but review/approval authority is unclear."
+    },
+    {
+      "claimId": "role_viewer",
+      "claimType": "permission",
+      "claim": "Viewer is read-only for assigned records.",
+      "evidenceIds": ["ev_roles_viewer", "ev_permission_columns"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Role notes explicitly deny mutation permissions."
+    },
+    {
+      "claimId": "perm_president_view_all",
+      "claimType": "permission",
+      "claim": "President can view all evaluation records.",
+      "evidenceIds": ["ev_roles_president", "ev_business_notes_scope"],
+      "confidence": "medium",
+      "needsReview": false,
+      "reasoningSummary": "The role is clearly all-scope, though exact resource-level boundaries should still be implemented explicitly."
+    },
+    {
+      "claimId": "perm_president_export_reports",
+      "claimType": "permission",
+      "claim": "President may export review reports.",
+      "evidenceIds": ["ev_roles_president", "ev_dashboard_export_action"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Role notes say export may be allowed and dashboard exposes export; this is still a review item."
+    },
+    {
+      "claimId": "perm_company_admin_import_employees",
+      "claimType": "permission",
+      "claim": "Company Admin can import employee data for their company.",
+      "evidenceIds": ["ev_roles_company_admin", "ev_employee_top_actions"],
+      "confidence": "medium",
+      "needsReview": false,
+      "reasoningSummary": "Role notes mention import and employee list has import action."
+    },
+    {
+      "claimId": "perm_department_manager_view_department_records",
+      "claimType": "permission",
+      "claim": "Department Manager can view department-scoped evaluation records.",
+      "evidenceIds": ["ev_roles_department_manager", "ev_permission_scopes", "ev_business_notes_scope"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Department scope is supported, but cross-department access is unresolved."
+    },
+    {
+      "claimId": "perm_department_manager_review_records",
+      "claimType": "permission",
+      "claim": "Department Manager can review evaluation records.",
+      "evidenceIds": ["ev_roles_department_manager", "ev_workflow_states", "ev_evaluation_actions"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Role notes and workflow notes support review, but final approval is separate and unclear."
+    },
+    {
+      "claimId": "perm_department_manager_export_records",
+      "claimType": "permission",
+      "claim": "Department Manager export permission is unclear.",
+      "evidenceIds": ["ev_roles_department_manager", "ev_evaluation_actions"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Export action exists and role notes call out uncertainty."
+    },
+    {
+      "claimId": "perm_group_leader_create_records",
+      "claimType": "permission",
+      "claim": "Group Leader can create evaluation records for group members.",
+      "evidenceIds": ["ev_roles_group_leader", "ev_workflow_states"],
+      "confidence": "medium",
+      "needsReview": false,
+      "reasoningSummary": "Role notes support group member record creation and workflow creation."
+    },
+    {
+      "claimId": "perm_group_leader_edit_draft_records",
+      "claimType": "permission",
+      "claim": "Group Leader may edit draft records before submission.",
+      "evidenceIds": ["ev_roles_group_leader", "ev_workflow_unclear_rules"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Draft edit is supported, but submitted edit behavior is unresolved."
+    },
+    {
+      "claimId": "perm_evaluator_create_records",
+      "claimType": "permission",
+      "claim": "Evaluator can create evaluation records.",
+      "evidenceIds": ["ev_roles_evaluator"],
+      "confidence": "medium",
+      "needsReview": false,
+      "reasoningSummary": "Role notes directly say Evaluator can create records."
+    },
+    {
+      "claimId": "perm_viewer_view_assigned_records",
+      "claimType": "permission",
+      "claim": "Viewer can view assigned records only.",
+      "evidenceIds": ["ev_roles_viewer", "ev_permission_scopes"],
+      "confidence": "medium",
+      "needsReview": false,
+      "reasoningSummary": "Viewer notes and assigned-record scope support this permission."
+    },
+    {
+      "claimId": "wf_evaluation_review",
+      "claimType": "workflow",
+      "claim": "Evaluation review workflow runs draft -> submitted -> reviewed -> approved, with rejected as an alternate outcome.",
+      "evidenceIds": ["ev_workflow_states", "ev_evaluation_status_labels", "ev_evaluation_records_csv_states", "ev_workflow_unclear_rules"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "States are strongly supported, but approval, edit, and rejection rules remain incomplete."
+    },
+    {
+      "claimId": "ac_department_manager_scope",
+      "claimType": "acceptance",
+      "claim": "Department Manager scope must be enforced.",
+      "evidenceIds": ["ev_roles_department_manager", "ev_business_notes_scope"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Scope enforcement follows from role notes, but cross-department access must be confirmed."
+    },
+    {
+      "claimId": "ac_export_permission",
+      "claimType": "acceptance",
+      "claim": "Export permission must be explicit.",
+      "evidenceIds": ["ev_dashboard_export_action", "ev_evaluation_actions", "ev_permission_columns"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Export is visible in multiple places and is high risk."
+    },
+    {
+      "claimId": "ac_draft_submit_review",
+      "claimType": "acceptance",
+      "claim": "Draft records can be submitted and reviewed.",
+      "evidenceIds": ["ev_workflow_states", "ev_evaluation_actions"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Submit and review are supported, but surrounding edit/final-state rules need review."
+    },
+    {
+      "claimId": "ac_evaluation_lifecycle_fields",
+      "claimType": "acceptance",
+      "claim": "Evaluation records must preserve lifecycle fields.",
+      "evidenceIds": ["ev_evaluation_records_columns", "ev_evaluation_records_csv_headers", "ev_evaluation_records_csv_missing_values"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "CSV and page columns define lifecycle data, including nullable values."
+    },
+    {
+      "claimId": "q_department_manager_cross_department_view",
+      "claimType": "question",
+      "claim": "Department Manager cross-department visibility needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "The source materials explicitly leave this unresolved, so it remains an open question rather than a fact."
+    },
+    {
+      "claimId": "q_group_leader_edit_submitted",
+      "claimType": "question",
+      "claim": "Group Leader edit-after-submit behavior needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Workflow notes ask whether submitted records can be edited before review starts."
+    },
+    {
+      "claimId": "q_approval_authority",
+      "claimType": "question",
+      "claim": "Final approval authority needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Approval action exists, but no source confirms the final approver role."
+    },
+    {
+      "claimId": "q_export_permission",
+      "claimType": "question",
+      "claim": "Export permission needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Export actions exist, but role-level export permission is not settled."
+    },
+    {
+      "claimId": "q_approval_required_final",
+      "claimType": "question",
+      "claim": "Final-state approval requirement needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Reviewed, approved, and final states must not be collapsed without business confirmation."
+    },
+    {
+      "claimId": "q_rejected_return_to_draft",
+      "claimType": "question",
+      "claim": "Rejected-record return path needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "The workflow notes say records may be rejected and returned, but not which state they return to."
+    },
+    {
+      "claimId": "q_operation_log_visibility",
+      "claimType": "question",
+      "claim": "Operation log visibility needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Operation logs appear, but visibility by role is unresolved."
+    },
+    {
+      "claimId": "q_employee_deletion_behavior",
+      "claimType": "question",
+      "claim": "Employee deletion or deactivation behavior needs confirmation.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Only deactivate appears in the UI, so permanent deletion must not be assumed."
+    },
+    {
+      "claimId": "asm_employee_deactivate_not_delete",
+      "claimType": "assumption",
+      "claim": "Employee records should be deactivated rather than permanently deleted.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "This is a reasonable design assumption but still requires review."
+    },
+    {
+      "claimId": "asm_risk_level_derivation",
+      "claimType": "assumption",
+      "claim": "Risk level may be derived from score or reviewer judgment.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Risk level is visible but derivation is not confirmed."
+    },
+    {
+      "claimId": "asm_operation_logs_required",
+      "claimType": "assumption",
+      "claim": "Operation logs are required for auditability.",
+      "evidenceIds": [],
+      "confidence": "low",
+      "needsReview": true,
+      "reasoningSummary": "Auditability is supported, but exact log model and visibility still need review."
+    }
+  ],
+  "coverageSummary": {
+    "totalClaims": 45,
+    "claimsWithEvidence": 34,
+    "claimsWithoutEvidence": 11,
+    "highConfidenceClaims": 14,
+    "mediumConfidenceClaims": 20,
+    "lowConfidenceClaims": 11,
+    "unknownConfidenceClaims": 0,
+    "evidenceCoverageRate": 0.76
+  }
+}
+

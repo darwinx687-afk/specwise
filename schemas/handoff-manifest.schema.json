@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specwise.local/schemas/handoff-manifest.schema.json",
+  "title": "SpecWise Agent Handoff Manifest v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "mode", "packId", "source", "targetAgents", "safety", "gates", "status", "createdAt"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "mode": {
+      "type": "string",
+      "const": "agent_handoff_pack_skeleton"
+    },
+    "packId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["draftSpecPackPath", "manualApplyPlanPath", "specPackStatus", "buildabilityScore", "hasEvidenceMap", "hasManualApplyPlan"],
+      "properties": {
+        "draftSpecPackPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "manualApplyPlanPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "specPackStatus": {
+          "type": "string",
+          "enum": ["review_required", "needs_discovery", "not_buildable_yet", "implementation_candidate"]
+        },
+        "buildabilityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "hasEvidenceMap": {
+          "type": "boolean",
+          "const": true
+        },
+        "hasManualApplyPlan": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "targetAgents": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["codex", "claude-code", "cursor", "spec-kit"]
+      },
+      "uniqueItems": true
+    },
+    "safety": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "noAgentCallsMade",
+        "noAutoImplementation",
+        "noFinalSpecPackGenerated",
+        "openQuestionsMustRemainVisible",
+        "assumptionsMustRemainMarked",
+        "permissionsRequireReview"
+      ],
+      "properties": {
+        "noAgentCallsMade": {
+          "type": "boolean",
+          "const": true
+        },
+        "noAutoImplementation": {
+          "type": "boolean",
+          "const": true
+        },
+        "noFinalSpecPackGenerated": {
+          "type": "boolean",
+          "const": true
+        },
+        "openQuestionsMustRemainVisible": {
+          "type": "boolean",
+          "const": true
+        },
+        "assumptionsMustRemainMarked": {
+          "type": "boolean",
+          "const": true
+        },
+        "permissionsRequireReview": {
+          "type": "boolean",
+          "const": true
+        }
+      }
+    },
+    "gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "handoffType",
+        "implementationAllowed",
+        "blockedByOpenQuestions",
+        "blockedByManualApplyPlan",
+        "blockedByLowBuildability",
+        "blockedByHighRiskPermissions"
+      ],
+      "properties": {
+        "handoffType": {
+          "type": "string",
+          "enum": ["blocked_handoff", "discovery_handoff", "implementation_candidate"]
+        },
+        "implementationAllowed": {
+          "type": "boolean",
+          "const": false
+        },
+        "blockedByOpenQuestions": {
+          "type": "boolean"
+        },
+        "blockedByManualApplyPlan": {
+          "type": "boolean"
+        },
+        "blockedByLowBuildability": {
+          "type": "boolean"
+        },
+        "blockedByHighRiskPermissions": {
+          "type": "boolean"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["review_required", "discovery_handoff", "blocked_handoff", "implementation_candidate"]
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  }
+}

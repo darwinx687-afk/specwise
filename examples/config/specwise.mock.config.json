@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "0.1.0",
+  "provider": "mock",
+  "mode": "dry_run",
+  "model": "mock-specwise-extractor",
+  "temperature": 0,
+  "safety": {
+    "evidenceFirst": true,
+    "reviewRequiredByDefault": true,
+    "allowNetworkCalls": false,
+    "allowLocalAbsolutePathsInOutput": false
+  }
+}
+

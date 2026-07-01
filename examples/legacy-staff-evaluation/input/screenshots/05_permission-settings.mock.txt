@@ -1,0 +1,38 @@
+Screen: Permission Settings
+Language: Mixed Chinese and English
+
+Visible roles:
+- President / 总裁
+- Company Admin / 公司管理员
+- Department Manager / 部门主管
+- Group Leader / 组长
+- Evaluator / 评估专员
+- Viewer / 只读账号
+
+Visible permission columns:
+- View
+- Create
+- Edit
+- Review
+- Approve
+- Export
+- Import
+- Configure
+
+Visible data scopes:
+- All companies
+- Own company
+- Own department
+- Own group
+- Assigned records
+- Self only
+
+Detected business signals:
+- The system has role-based access control.
+- Data scope is as important as action permission.
+- President likely has global view.
+- Company Admin likely has company-level scope.
+- Department Manager likely has department-level scope.
+- Group Leader likely has group-level scope.
+- Export and configure permissions are high-risk and need confirmation.
+

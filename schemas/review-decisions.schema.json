@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specwise.local/schemas/review-decisions.schema.json",
+  "title": "SpecWise Review Decisions v0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "reviewId", "source", "reviewer", "decisions", "summary", "status", "createdAt"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "reviewId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mergePreviewPath", "patchId"],
+      "properties": {
+        "mergePreviewPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "patchId": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "role"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accepted", "rejected", "needsMoreInfo", "deferred"],
+      "properties": {
+        "accepted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "rejected": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "needsMoreInfo": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "deferred": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["draft_review", "reviewed"]
+    },
+    "createdAt": {
+      "type": "string"
+    }
+  },
+  "$defs": {
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["candidateId", "decision", "reviewerNote", "acceptedAs", "blocksReadiness", "followUpQuestion"],
+      "properties": {
+        "candidateId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision": {
+          "type": "string",
+          "enum": ["accepted", "rejected", "needs_more_info", "deferred"]
+        },
+        "reviewerNote": {
+          "type": ["string", "null"]
+        },
+        "acceptedAs": {
+          "type": ["string", "null"],
+          "enum": ["fact", "assumption", "question", "acceptance_criterion", null]
+        },
+        "blocksReadiness": {
+          "type": "boolean"
+        },
+        "followUpQuestion": {
+          "type": ["string", "null"]
+        }
+      }
+    }
+  }
+}

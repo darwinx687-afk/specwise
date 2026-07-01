@@ -1,0 +1,220 @@
+{
+  "schemaVersion": "0.1.0",
+  "planId": "apply_plan_legacy_staff_eval_001",
+  "mode": "manual_apply_plan_only",
+  "source": {
+    "reviewReportPath": "./tmp/review-report",
+    "draftSpecPackPath": "./tmp/draft-test/spec-pack"
+  },
+  "summary": {
+    "totalReviewedItems": 10,
+    "safeToApplyManually": 3,
+    "needsBusinessConfirmation": 5,
+    "deferred": 2,
+    "doNotApply": 0,
+    "blocksFinalSpec": true
+  },
+  "manualSteps": [
+    {
+      "id": "step_keep_blocked_permission_export_scope_001",
+      "sourceCandidateId": "cand_permission_export_scope_001",
+      "decision": "needs_more_info",
+      "acceptedAs": null,
+      "targetFile": "03_permissions.md",
+      "targetSection": "permissions",
+      "action": "keep_blocked",
+      "description": "Keep Department Manager export scope blocked until the business owner confirms whether export covers all department records or only assigned records.",
+      "requiresBusinessConfirmation": true,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_keep_blocked_cross_department_view_001",
+      "sourceCandidateId": "cand_permission_cross_department_view_001",
+      "decision": "needs_more_info",
+      "acceptedAs": null,
+      "targetFile": "03_permissions.md",
+      "targetSection": "permissions",
+      "action": "keep_blocked",
+      "description": "Keep cross-department visibility blocked until role data scope is confirmed.",
+      "requiresBusinessConfirmation": true,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_keep_blocked_approval_authority_001",
+      "sourceCandidateId": "cand_workflow_approval_authority_001",
+      "decision": "needs_more_info",
+      "acceptedAs": null,
+      "targetFile": "04_workflows.md",
+      "targetSection": "workflows",
+      "action": "keep_blocked",
+      "description": "Keep approval authority blocked until the approving role is confirmed.",
+      "requiresBusinessConfirmation": true,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_keep_blocked_edit_submitted_001",
+      "sourceCandidateId": "cand_workflow_edit_submitted_001",
+      "decision": "needs_more_info",
+      "acceptedAs": null,
+      "targetFile": "04_workflows.md",
+      "targetSection": "workflows",
+      "action": "keep_blocked",
+      "description": "Keep edit-after-submit behavior blocked until transition rules are confirmed.",
+      "requiresBusinessConfirmation": true,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_deactivate_assumption_001",
+      "sourceCandidateId": "cand_assumption_employee_deactivate_001",
+      "decision": "accepted",
+      "acceptedAs": "assumption",
+      "targetFile": "02_entities.md",
+      "targetSection": "entities",
+      "action": "convert_to_assumption",
+      "description": "Add a review-required assumption that employee records are deactivated rather than physically deleted.",
+      "requiresBusinessConfirmation": false,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_defer_risk_level_score_001",
+      "sourceCandidateId": "cand_assumption_risk_level_score_001",
+      "decision": "deferred",
+      "acceptedAs": null,
+      "targetFile": "02_entities.md",
+      "targetSection": "fields",
+      "action": "defer",
+      "description": "Defer risk level calculation until the scoring formula is confirmed.",
+      "requiresBusinessConfirmation": true,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_accept_audit_log_acceptance_001",
+      "sourceCandidateId": "cand_acceptance_audit_log_actor_001",
+      "decision": "accepted",
+      "acceptedAs": "acceptance_criterion",
+      "targetFile": "06_acceptance.md",
+      "targetSection": "acceptanceCriteria",
+      "action": "manually_add",
+      "description": "Add an acceptance criterion requiring audit logs to preserve submit, review, approve, reject, and edit actors.",
+      "requiresBusinessConfirmation": false,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_keep_blocked_status_conflict_001",
+      "sourceCandidateId": "cand_conflict_reviewed_approved_status_001",
+      "decision": "needs_more_info",
+      "acceptedAs": null,
+      "targetFile": "04_workflows.md",
+      "targetSection": "workflows",
+      "action": "keep_blocked",
+      "description": "Keep reviewed versus approved status semantics blocked until workflow ownership is confirmed.",
+      "requiresBusinessConfirmation": true,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_update_bilingual_summary_uncertainty_001",
+      "sourceCandidateId": "cand_bilingual_summary_uncertainty_001",
+      "decision": "accepted",
+      "acceptedAs": "fact",
+      "targetFile": "spec-pack.zh-CN.md / spec-pack.en.md",
+      "targetSection": "bilingualSummary",
+      "action": "manually_update",
+      "description": "Update bilingual summaries to preserve unresolved permission and workflow uncertainty.",
+      "requiresBusinessConfirmation": false,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    },
+    {
+      "id": "step_defer_buildability_rescore_001",
+      "sourceCandidateId": "cand_buildability_rescore_uncertainty_001",
+      "decision": "deferred",
+      "acceptedAs": null,
+      "targetFile": "buildability-report.md",
+      "targetSection": "buildability",
+      "action": "defer",
+      "description": "Defer buildability changes until permission and workflow blockers are answered.",
+      "requiresBusinessConfirmation": true,
+      "requiresDeveloperReview": true,
+      "autoApplyAllowed": false
+    }
+  ],
+  "blockedItems": [
+    {
+      "sourceCandidateId": "cand_permission_export_scope_001",
+      "priority": "high",
+      "reason": "Export scope is unresolved.",
+      "requiredOwner": "business_owner",
+      "suggestedFollowUpQuestion": "Can Department Managers export all department records, or only assigned records?"
+    },
+    {
+      "sourceCandidateId": "cand_permission_cross_department_view_001",
+      "priority": "high",
+      "reason": "Cross-department visibility is unresolved.",
+      "requiredOwner": "business_owner",
+      "suggestedFollowUpQuestion": "Can Department Managers view records outside their own department?"
+    },
+    {
+      "sourceCandidateId": "cand_workflow_approval_authority_001",
+      "priority": "high",
+      "reason": "Approval authority is unresolved.",
+      "requiredOwner": "business_owner",
+      "suggestedFollowUpQuestion": "After a record is reviewed, which role can approve it as final?"
+    },
+    {
+      "sourceCandidateId": "cand_workflow_edit_submitted_001",
+      "priority": "high",
+      "reason": "Edit-after-submit behavior is unresolved.",
+      "requiredOwner": "business_owner",
+      "suggestedFollowUpQuestion": "Can a submitted record be edited before review starts?"
+    },
+    {
+      "sourceCandidateId": "cand_conflict_reviewed_approved_status_001",
+      "priority": "high",
+      "reason": "Reviewed versus approved status semantics remain unclear.",
+      "requiredOwner": "business_owner",
+      "suggestedFollowUpQuestion": "What is the difference between reviewed and approved, and who can move records between those states?"
+    }
+  ],
+  "revisionChecklist": [
+    {
+      "id": "check_audit_log_acceptance",
+      "group": "safe_manual_updates",
+      "text": "Add audit log acceptance criterion to 06_acceptance.md.",
+      "checked": false
+    },
+    {
+      "id": "check_deactivation_assumption",
+      "group": "safe_manual_updates",
+      "text": "Add deactivation assumption to 02_entities.md or assumptions section.",
+      "checked": false
+    },
+    {
+      "id": "check_business_confirmations",
+      "group": "requires_business_confirmation",
+      "text": "Resolve export scope, cross-department visibility, approval owner, edit-after-submit behavior, and reviewed/approved semantics.",
+      "checked": false
+    },
+    {
+      "id": "check_validate_after_manual_revision",
+      "group": "developer_review_required",
+      "text": "Re-run specwise validate after any manual spec revision.",
+      "checked": false
+    },
+    {
+      "id": "check_no_auto_apply",
+      "group": "do_not_auto_apply",
+      "text": "Do not auto-apply candidates or mark ready_for_ai_coding.",
+      "checked": false
+    }
+  ],
+  "status": "manual_revision_required",
+  "createdAt": "2026-07-01T00:00:00.000Z"
+}

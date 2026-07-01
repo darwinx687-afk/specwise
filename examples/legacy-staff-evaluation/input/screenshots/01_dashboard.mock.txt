@@ -1,0 +1,31 @@
+Screen: Dashboard
+Language: Mixed Chinese and English
+
+Visible navigation:
+- Dashboard / 首页
+- Staff Management / 员工管理
+- Evaluation Records / 评估记录
+- Review Reports / 报告复核
+- Permission Settings / 权限设置
+
+Visible summary cards:
+- Total Employees: 128
+- Pending Evaluations: 23
+- Reviewed This Month: 87
+- High Risk Records: 6
+
+Visible filters:
+- Company
+- Department
+- Evaluation Period
+
+Visible actions:
+- View Pending Reviews
+- Export Monthly Summary
+
+Detected business signals:
+- The system has role-based access to evaluation records.
+- Dashboard provides company/department-level filtering.
+- Evaluation records may have risk levels.
+- Export action exists, but export permission is unclear.
+

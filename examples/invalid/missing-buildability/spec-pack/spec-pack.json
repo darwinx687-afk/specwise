@@ -1,0 +1,158 @@
+{
+  "schemaVersion": "0.1.0",
+  "project": {
+    "name": "Invalid Missing Buildability Fixture",
+    "domain": "validator-fixture",
+    "description": "An intentionally invalid Spec Pack fixture.",
+    "primaryLanguage": "en",
+    "targetUsers": ["developer"],
+    "status": "review_required"
+  },
+  "sourceMaterials": [
+    {
+      "id": "src_fixture_notes",
+      "type": "txt",
+      "path": "input/fixture.txt",
+      "language": "en",
+      "summary": "Fixture source material.",
+      "detectedSignals": ["fixture"]
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod_fixture",
+      "name": "Fixture Module",
+      "nameZh": "测试模块",
+      "description": "Fixture module.",
+      "pages": ["page_fixture"],
+      "confidence": "low",
+      "evidenceIds": ["ev_fixture"],
+      "needsReview": true
+    }
+  ],
+  "pages": [
+    {
+      "id": "page_fixture",
+      "moduleId": "mod_fixture",
+      "name": "Fixture Page",
+      "nameZh": "测试页面",
+      "purpose": "Fixture page.",
+      "mainActions": ["view"],
+      "visibleFields": ["field_fixture_name"],
+      "evidenceIds": ["ev_fixture"],
+      "confidence": "low",
+      "needsReview": true
+    }
+  ],
+  "entities": [
+    {
+      "id": "ent_fixture",
+      "name": "Fixture",
+      "nameZh": "测试实体",
+      "description": "Fixture entity.",
+      "fields": ["field_fixture_name"],
+      "relations": [],
+      "evidenceIds": ["ev_fixture"],
+      "confidence": "low",
+      "needsReview": true
+    }
+  ],
+  "fields": [
+    {
+      "id": "field_fixture_name",
+      "entityId": "ent_fixture",
+      "name": "name",
+      "nameZh": "名称",
+      "type": "string",
+      "required": "unknown",
+      "examples": [],
+      "source": "input/fixture.txt",
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_fixture"]
+    }
+  ],
+  "roles": [
+    {
+      "id": "role_viewer",
+      "name": "Viewer",
+      "nameZh": "只读账号",
+      "description": "Fixture role.",
+      "scope": "assigned",
+      "confidence": "low",
+      "evidenceIds": ["ev_fixture"],
+      "needsReview": true
+    }
+  ],
+  "permissions": [
+    {
+      "id": "perm_viewer_view_fixture",
+      "roleId": "role_viewer",
+      "resourceType": "Fixture",
+      "action": "view",
+      "dataScope": "assigned",
+      "condition": "Fixture condition.",
+      "confidence": "low",
+      "evidenceIds": ["ev_fixture"],
+      "needsReview": true
+    }
+  ],
+  "workflows": [
+    {
+      "id": "wf_fixture",
+      "name": "Fixture Workflow",
+      "nameZh": "测试流程",
+      "trigger": "Fixture trigger.",
+      "actors": ["role_viewer"],
+      "steps": [
+        {
+          "id": "step_fixture_view",
+          "name": "View fixture",
+          "actor": "role_viewer",
+          "action": "view",
+          "fromState": "unknown",
+          "toState": "unknown",
+          "confidence": "low"
+        }
+      ],
+      "states": ["unknown"],
+      "evidenceIds": ["ev_fixture"],
+      "confidence": "low",
+      "needsReview": true
+    }
+  ],
+  "acceptanceCriteria": [
+    {
+      "id": "ac_fixture_missing_buildability",
+      "title": "Missing buildability is rejected",
+      "description": "Validator should fail this fixture.",
+      "category": "data_import",
+      "priority": "high",
+      "relatedModuleIds": ["mod_fixture"],
+      "relatedQuestionIds": ["q_fixture_missing_buildability"],
+      "confidence": "low",
+      "needsReview": true,
+      "evidenceIds": ["ev_fixture"]
+    }
+  ],
+  "openQuestions": [
+    {
+      "id": "q_fixture_missing_buildability",
+      "question": "Why is this fixture invalid?",
+      "questionZh": "这个 fixture 为什么无效？",
+      "category": "data",
+      "priority": "high",
+      "blockedItems": ["ac_fixture_missing_buildability"],
+      "suggestedOwner": "developer",
+      "whyItMatters": "The validator should reject missing buildability information.",
+      "evidenceIds": ["ev_fixture"]
+    }
+  ],
+  "assumptions": [],
+  "generatedAt": "2026-07-01T00:00:00.000Z",
+  "generator": {
+    "name": "specwise-invalid-fixture",
+    "version": "0.1.0"
+  }
+}
+

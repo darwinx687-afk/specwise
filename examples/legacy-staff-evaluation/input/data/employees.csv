@@ -1,0 +1,8 @@
+employee_id,name,company,department,group,role,status,joined_at,supervisor_id
+EMP001,Alice Chen,Northwind Ops,Operations,Group A,Group Leader,active,2024-02-12,EMP004
+EMP002,Ben Liu,Northwind Ops,Operations,Group A,Staff,active,2024-04-03,EMP001
+EMP003,Carol Wang,Northwind Ops,Operations,Group B,Staff,active,2023-11-18,EMP005
+EMP004,Daniel Zhao,Northwind Ops,Operations,,Department Manager,active,2022-08-20,
+EMP005,Eva Lin,Northwind Ops,Operations,Group B,Group Leader,active,2023-01-09,EMP004
+EMP006,Frank Zhang,Northwind Ops,Finance,,Staff,inactive,2021-06-15,
+
