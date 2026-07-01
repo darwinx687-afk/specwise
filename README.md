@@ -187,6 +187,11 @@ SpecWise v0.1.0-preview.0 已作为 GitHub pre-release 发布。欢迎通过 Git
 
 Early feedback is welcome through GitHub Issues. Please do not share sensitive business data or private screenshots in public issues.
 
+Public announcement pack:
+[docs/public-announcement-execution-pack-v0.1.md](docs/public-announcement-execution-pack-v0.1.md)
+
+首轮公开发布文案包见 [docs/public-announcement-execution-pack-v0.1.md](docs/public-announcement-execution-pack-v0.1.md)。
+
 ## Documentation
 
 Start with [Docs Index](docs/docs-index-v0.1.md).
@@ -200,8 +205,10 @@ Key docs:
 - [License Decision](docs/license-decision-v0.1.md)
 - [v0.1 Preview Tag Plan](docs/v0.1-preview-tag-plan.md)
 - [Release Notes Draft](docs/release-notes-draft-v0.1.md)
+- [Public Announcement Execution Pack](docs/public-announcement-execution-pack-v0.1.md)
 - [Feedback Guide](docs/feedback-guide-v0.1.md)
 - [First Feedback Loop](docs/first-feedback-loop-v0.1.md)
+- [Feedback Tracking](docs/feedback-tracking-v0.1.md)
 - [v0.2 Planning Draft](docs/v0.2-planning-draft.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
@@ -210,11 +217,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 17 First Feedback Loop & Public Announcement Pack.
+Completed through Phase 18 First Public Announcement Execution Pack.
 
 Next candidate phase:
 
-- Phase 18: v0.2 Scope Selection From Feedback
+- Phase 19: First Feedback Triage Report
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 

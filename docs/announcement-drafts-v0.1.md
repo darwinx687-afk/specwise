@@ -1,6 +1,10 @@
 # Announcement Pack v0.1
 
-Status: Phase 17 final copy pack for public sharing. These drafts are ready to copy, but posting is still a human decision.
+Status: Phase 17 draft variants retained for reference.
+
+This file contains draft variants. For final copy, see `public-announcement-execution-pack-v0.1.md`.
+
+本文保留草稿版本。最终可发布文案见 `public-announcement-execution-pack-v0.1.md`。
 
 Repo URL:
 

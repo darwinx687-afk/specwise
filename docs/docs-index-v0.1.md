@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 17 documentation map.
+Status: Phase 18 documentation map.
 
 ## Core Standards
 
@@ -59,9 +59,11 @@ Status: Phase 17 documentation map.
 - [v0.1 Preview Tag Plan](v0.1-preview-tag-plan.md)
 - [Release Notes](release-notes-draft-v0.1.md)
 - [Announcement Drafts](announcement-drafts-v0.1.md)
+- [Public Announcement Execution Pack](public-announcement-execution-pack-v0.1.md)
 - [Public Launch Checklist](public-launch-checklist-v0.1.md)
 - [Feedback Guide](feedback-guide-v0.1.md)
 - [First Feedback Loop](first-feedback-loop-v0.1.md)
+- [Feedback Tracking](feedback-tracking-v0.1.md)
 - [v0.2 Planning Draft](v0.2-planning-draft.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)
