@@ -31,12 +31,13 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 17: First feedback loop and public announcement pack
 - Phase 18: First public announcement execution pack
 - Phase 19: First feedback triage system
+- Phase 20: v0.2 scope selection baseline
 
 ## Next
 
-- Phase 20: v0.2 scope selection
 - Phase 21: v0.2 implementation planning
-- Phase 22: v0.2 development
+- Phase 22: v0.2 development cycle 1
+- Phase 23: v0.2 preview release
 
 ## Current Boundary
 
@@ -69,3 +70,5 @@ Phase 17 prepares first feedback loop docs, GitHub feedback labels, public annou
 Phase 18 prepares the first public announcement execution pack, feedback tracking worksheet, launch order, final social copy, comment prompts, and visual brief. It does not post externally, buy ads, start v0.2 implementation, create new tags, create new releases, publish to npm, add dependencies, call a real AI provider, call a coding agent, or generate final spec-packs.
 
 Phase 19 prepares the feedback triage system, GitHub issue triage playbook, v0.2 candidate scoring draft, weekly feedback report template, and issue query cheatsheet. It does not start v0.2 implementation, create new tags, create new releases, publish to npm, add dependencies, call a real AI provider, call a coding agent, or generate final spec-packs.
+
+Phase 20 selects a v0.2 baseline scope focused on examples, deterministic quality, CSV/XLSX inference polish, CLI/DX polish, and docs simplification. It does not start v0.2 implementation, create new tags, create new releases, publish to npm, add dependencies, call a real AI provider, call a coding agent, or generate final spec-packs.

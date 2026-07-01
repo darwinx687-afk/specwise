@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 19 documentation map.
+Status: Phase 20 documentation map.
 
 ## Core Standards
 
@@ -70,6 +70,9 @@ Status: Phase 19 documentation map.
 - [Weekly Feedback Report Template](weekly-feedback-report-template-v0.1.md)
 - [GitHub Issue Query Cheatsheet](github-issue-query-cheatsheet-v0.1.md)
 - [v0.2 Planning Draft](v0.2-planning-draft.md)
+- [v0.2 Scope Selection](v0.2-scope-selection-v0.1.md)
+- [v0.2 Scope Decision Record](v0.2-scope-decision-record.md)
+- [v0.2 Implementation Planning Checklist](v0.2-implementation-planning-checklist.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)
 - [Roadmap](roadmap-v0.1.md)

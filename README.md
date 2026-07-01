@@ -201,6 +201,12 @@ Feedback triage docs:
 
 反馈分流和 v0.2 候选评估文档已加入，用于首轮公开发布后的反馈整理。
 
+v0.2 scope selection is now tracked in [docs/v0.2-scope-selection-v0.1.md](docs/v0.2-scope-selection-v0.1.md).
+
+The proposed v0.2 direction focuses on examples, deterministic quality, and developer experience before real AI provider calls.
+
+v0.2 范围选择已记录在 [docs/v0.2-scope-selection-v0.1.md](docs/v0.2-scope-selection-v0.1.md)。当前建议优先改进示例、确定性草案质量和开发者体验，而不是过早接入真实 AI provider。
+
 ## Documentation
 
 Start with [Docs Index](docs/docs-index-v0.1.md).
@@ -224,6 +230,9 @@ Key docs:
 - [Weekly Feedback Report Template](docs/weekly-feedback-report-template-v0.1.md)
 - [GitHub Issue Query Cheatsheet](docs/github-issue-query-cheatsheet-v0.1.md)
 - [v0.2 Planning Draft](docs/v0.2-planning-draft.md)
+- [v0.2 Scope Selection](docs/v0.2-scope-selection-v0.1.md)
+- [v0.2 Scope Decision Record](docs/v0.2-scope-decision-record.md)
+- [v0.2 Implementation Planning Checklist](docs/v0.2-implementation-planning-checklist.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
 - [Roadmap](docs/roadmap-v0.1.md)
@@ -231,11 +240,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 19 First Feedback Triage System.
+Completed through Phase 20 v0.2 Scope Selection Baseline.
 
 Next candidate phase:
 
-- Phase 20: v0.2 Scope Selection
+- Phase 21: v0.2 Implementation Planning
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
