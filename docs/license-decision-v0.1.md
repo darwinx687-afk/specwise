@@ -1,14 +1,14 @@
 # License Decision v0.1
 
-Status: Phase 15 planning document. This document is not legal advice.
+Status: Phase 16 decision record. This document is not legal advice.
 
-The project owner must choose a license before tagging or releasing `v0.1.0-preview.0`.
+The project owner confirmed MIT License for SpecWise before tagging and releasing `v0.1.0-preview.0`.
 
-No `LICENSE` file has been added yet.
+The root `LICENSE` file has been added with standard MIT License text.
 
-No `package.json` license field should be added until the project owner confirms the license choice.
+The `package.json` license field is set to `MIT`.
 
-本文不是法律建议。项目所有者需要在创建 `v0.1.0-preview.0` tag 或 release 前确认许可证。当前不要自动添加 `LICENSE` 文件，也不要自动修改 `package.json` license 字段。
+本文不是法律建议。项目所有者已经确认 SpecWise 使用 MIT License。根目录 `LICENSE` 文件已添加，`package.json` license 字段已设置为 `MIT`。
 
 ## Common Options To Consider
 
@@ -24,9 +24,9 @@ For a developer-facing CLI tool that aims for broad adoption, a permissive licen
 
 ## Decision Gate
 
-- [ ] Project owner confirms the license.
-- [ ] `LICENSE` file is added only after owner confirmation.
-- [ ] `package.json` license field is added only after owner confirmation, if appropriate.
-- [ ] Release/tag planning is reviewed after the license decision.
+- [x] Project owner confirms the license: MIT.
+- [x] `LICENSE` file is added after owner confirmation.
+- [x] `package.json` license field is added after owner confirmation.
+- [x] Release/tag planning is reviewed after the license decision.
 
-Until this gate is complete, do not create a git tag, GitHub release, or npm publication.
+This license gate is complete for `v0.1.0-preview.0`. npm publication remains intentionally skipped.

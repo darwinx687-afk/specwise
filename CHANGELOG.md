@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.1.0-preview.0 - Unreleased
+## 0.1.0-preview.0 - 2026-07-01
 
 ### Added
 
@@ -21,6 +21,9 @@
 - Agent handoff pack skeleton
 - Agent-specific handoff boundary notes
 - Release readiness, CLI, examples, workflow, privacy, safety, and limitations docs
+- GitHub public preview materials and community templates
+- MIT `LICENSE`
+- `package.json` license metadata set to `MIT`
 
 ### Safety
 
@@ -35,6 +38,6 @@
 
 ### Notes
 
-- This is an unreleased preview entry.
-- No git tag, GitHub release, npm publication, or license choice is created by this changelog.
-
+- This is a public preview release.
+- Git tag and GitHub release target: `v0.1.0-preview.0`.
+- npm publication is intentionally skipped; `package.json` remains `private: true`.

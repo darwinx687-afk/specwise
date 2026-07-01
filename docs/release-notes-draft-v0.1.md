@@ -1,6 +1,6 @@
-# SpecWise v0.1.0-preview.0 Release Notes Draft
+# SpecWise v0.1.0-preview.0 Release Notes
 
-Status: Draft only. This is not a published GitHub release, not a created tag, and not an npm publication.
+Status: Release notes source for the `v0.1.0-preview.0` GitHub release. npm publication is intentionally skipped.
 
 ## Highlights
 
@@ -11,6 +11,7 @@ Status: Draft only. This is not a published GitHub release, not a created tag, a
 - Offline AI patch validation and merge preview.
 - Human review reports and manual apply plans.
 - Context-only handoff pack skeletons for future coding-agent workflows.
+- MIT License applied.
 
 ## What Works Now
 
@@ -45,7 +46,6 @@ Status: Draft only. This is not a published GitHub release, not a created tag, a
 - Production deployment workflow.
 - npm publication.
 - GitHub release automation.
-- License selection.
 
 ## Examples
 
@@ -72,14 +72,16 @@ npm run smoke
 - No OCR / vision / PDF / Figma / database / Web UI support.
 - Handoff skeletons prepare context only.
 - Deterministic draft output is heuristic and review-required.
-- License status is pending project owner confirmation.
+- License: MIT.
 
-## License Status
+## License And Package Status
 
-License status: pending project owner confirmation.
+License: MIT.
 
-No `LICENSE` file has been added yet.
+The root `LICENSE` file has been added.
 
-No `package.json` license field has been added yet.
+The `package.json` license field is set to `MIT`.
 
-Do not create `v0.1.0-preview.0`, a GitHub release, or an npm publication until the license decision is confirmed.
+`package.json` remains `private: true`.
+
+npm publication is intentionally skipped.

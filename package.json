@@ -2,6 +2,7 @@
   "name": "specwise",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
   "description": "Local-first SpecWise v0.1 toolkit for reviewable, evidence-based spec packs.",
   "type": "module",
   "bin": {

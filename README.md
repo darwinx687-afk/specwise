@@ -175,9 +175,11 @@ SpecWise v0.1 currently includes:
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
-License status: pending project owner confirmation.
+License: MIT.
 
-许可证状态：等待项目所有者确认。当前尚未创建 GitHub release 或 git tag。许可证确认后，下一步计划是 `v0.1.0-preview.0`。
+许可证：MIT。`package.json` 仍保持 `private: true`，npm package 尚未发布。
+
+Release marker: `v0.1.0-preview.0`.
 
 ## Documentation
 
@@ -199,30 +201,27 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 15 License Decision & v0.1 Preview Tag Planning.
+Completed through Phase 16 MIT License Application & v0.1.0-preview.0 Tag/Release.
 
 Next candidate phase:
 
-- Phase 16: License Application & v0.1.0-preview.0 Tag/Release
+- Phase 17: First Feedback Loop & Issue Triage
 
-Phase 16 should only happen after explicit owner confirmation for the license, tag, and GitHub release.
+The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
 ## Release Readiness
 
 This repo is prepared for a v0.1 preview-readiness review.
 
-Before public release:
+Before npm publication:
 
-- confirm license choice
-- add `LICENSE` only after owner confirmation
-- update `package.json` license field only after owner confirmation, if appropriate
+- keep `package.json` private until npm publication is explicitly approved
 - review package metadata
 - rerun `npm test`
 - rerun `npm run smoke`
 - inspect known limitations
 - confirm no sensitive data or local paths are committed
-- decide whether and when to publish, tag, or create a GitHub release
+- decide whether and when to publish npm
 - review public announcement copy
 
-Phase 14 does not create git tags, GitHub releases, npm publications, or a license decision.
-Phase 15 does not add a `LICENSE` file, modify `package.json` license metadata, create tags, create GitHub releases, or publish npm packages.
+Phase 16 does not publish npm packages, add dependencies, call real AI providers, call coding agents, or generate application code.
