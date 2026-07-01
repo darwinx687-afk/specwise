@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 18 documentation map.
+Status: Phase 19 documentation map.
 
 ## Core Standards
 
@@ -64,6 +64,11 @@ Status: Phase 18 documentation map.
 - [Feedback Guide](feedback-guide-v0.1.md)
 - [First Feedback Loop](first-feedback-loop-v0.1.md)
 - [Feedback Tracking](feedback-tracking-v0.1.md)
+- [Feedback Triage Guide](feedback-triage-guide-v0.1.md)
+- [GitHub Issue Triage Playbook](github-issue-triage-playbook-v0.1.md)
+- [v0.2 Candidate Scoring](v0.2-candidate-scoring-v0.1.md)
+- [Weekly Feedback Report Template](weekly-feedback-report-template-v0.1.md)
+- [GitHub Issue Query Cheatsheet](github-issue-query-cheatsheet-v0.1.md)
 - [v0.2 Planning Draft](v0.2-planning-draft.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)

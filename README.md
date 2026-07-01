@@ -192,6 +192,15 @@ Public announcement pack:
 
 首轮公开发布文案包见 [docs/public-announcement-execution-pack-v0.1.md](docs/public-announcement-execution-pack-v0.1.md)。
 
+Feedback triage docs:
+
+- [Feedback Triage Guide](docs/feedback-triage-guide-v0.1.md)
+- [GitHub Issue Triage Playbook](docs/github-issue-triage-playbook-v0.1.md)
+- [v0.2 Candidate Scoring](docs/v0.2-candidate-scoring-v0.1.md)
+- [Weekly Feedback Report Template](docs/weekly-feedback-report-template-v0.1.md)
+
+反馈分流和 v0.2 候选评估文档已加入，用于首轮公开发布后的反馈整理。
+
 ## Documentation
 
 Start with [Docs Index](docs/docs-index-v0.1.md).
@@ -209,6 +218,11 @@ Key docs:
 - [Feedback Guide](docs/feedback-guide-v0.1.md)
 - [First Feedback Loop](docs/first-feedback-loop-v0.1.md)
 - [Feedback Tracking](docs/feedback-tracking-v0.1.md)
+- [Feedback Triage Guide](docs/feedback-triage-guide-v0.1.md)
+- [GitHub Issue Triage Playbook](docs/github-issue-triage-playbook-v0.1.md)
+- [v0.2 Candidate Scoring](docs/v0.2-candidate-scoring-v0.1.md)
+- [Weekly Feedback Report Template](docs/weekly-feedback-report-template-v0.1.md)
+- [GitHub Issue Query Cheatsheet](docs/github-issue-query-cheatsheet-v0.1.md)
 - [v0.2 Planning Draft](docs/v0.2-planning-draft.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
@@ -217,11 +231,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 18 First Public Announcement Execution Pack.
+Completed through Phase 19 First Feedback Triage System.
 
 Next candidate phase:
 
-- Phase 19: First Feedback Triage Report
+- Phase 20: v0.2 Scope Selection
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 

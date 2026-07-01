@@ -1,6 +1,6 @@
 # Feedback Tracking v0.1
 
-Status: Phase 18 feedback tracking worksheet. This is a lightweight planning doc, not an issue tracker replacement.
+Status: Phase 19 feedback tracking worksheet. This is a lightweight planning doc, not an issue tracker replacement.
 
 Use this table after public announcement posts go live. Do not copy private business materials, API keys, internal screenshots, employee data, customer data, or private company documents into this file.
 
@@ -24,12 +24,22 @@ Use this table after public announcement posts go live. Do not copy private busi
 
 ## Status Values
 
-- New
-- Needs clarification
-- Triaged
-- Docs update candidate
+- captured
+- needs clarification
+- triaged
+- linked to issue
 - v0.2 candidate
-- Closed / no action
+- not planned
+- done
+
+## Triage Workflow
+
+1. Capture raw feedback.
+2. Classify category.
+3. Mark repeated confusion.
+4. Link GitHub issue if created.
+5. Score v0.2 candidate if repeated.
+6. Add weekly report note.
 
 ## Weekly Review Checklist
 
@@ -40,6 +50,8 @@ Use this table after public announcement posts go live. Do not copy private busi
 - [ ] Review 掘金评论.
 - [ ] Group repeated confusion.
 - [ ] Separate documentation fixes from future v0.2 scope.
+- [ ] Score repeated candidates with `v0.2-candidate-scoring-v0.1.md`.
+- [ ] Add weekly notes to `weekly-feedback-report-template-v0.1.md`.
 - [ ] Avoid starting implementation from a single comment without planning.
 - [ ] Keep sensitive materials out of public artifacts.
 
