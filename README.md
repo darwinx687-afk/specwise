@@ -4,6 +4,10 @@ SpecWise turns messy legacy business materials into reviewable, evidence-based s
 
 SpecWise 把旧系统截图、表格和混乱业务说明整理成可审查、有证据链、可交给 AI coding agent 的开发规格包。
 
+> Public preview status: SpecWise v0.1 is local-first, dependency-free, and does not call real AI providers or coding agents.
+>
+> 公开预览状态：SpecWise v0.1 默认本地运行、无依赖，不调用真实 AI provider 或 coding agent。
+
 ## What Is SpecWise?
 
 SpecWise is a local-first pre-coding specification toolkit. It helps teams turn ambiguous legacy-system materials into structured Spec Packs that humans can review and future coding agents can read.
@@ -167,6 +171,7 @@ SpecWise v0.1 currently includes:
 - agent handoff pack skeleton
 - polished agent-specific boundary notes
 - release readiness docs and local smoke test
+- public preview docs and community templates
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
@@ -187,13 +192,13 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 11 Release Readiness & DX Polish.
+Completed through Phase 14 GitHub Repo Page Polish & First Public Announcement Drafts.
 
 Next candidate phase:
 
-- Phase 12: Git Commit & Public Repo Preparation
+- Phase 15: License Decision & v0.1 Preview Tag Planning
 
-Phase 12 should still avoid publishing, tagging, or releasing unless explicitly requested.
+Phase 15 should still avoid tagging, releasing, or npm publishing until the license decision is explicit.
 
 ## Release Readiness
 
@@ -208,6 +213,6 @@ Before public release:
 - inspect known limitations
 - confirm no sensitive data or local paths are committed
 - decide whether and when to publish, tag, or create a GitHub release
+- review public announcement copy
 
-Phase 11 does not create git tags, GitHub releases, or npm publications.
-
+Phase 14 does not create git tags, GitHub releases, npm publications, or a license decision.

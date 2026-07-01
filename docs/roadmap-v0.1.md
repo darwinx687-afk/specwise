@@ -24,10 +24,14 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 11: Release readiness and DX polish
 - Phase 12: local root commit for SpecWise v0.1 preview
 - Phase 13A: GitHub public repository setup preparation
+- Phase 13B: GitHub remote configuration and first push
+- Phase 14: GitHub repo page polish and first public announcement drafts
 
 ## Next
 
-- Phase 13B: remote configuration and first push, only after user confirms the GitHub owner, repository URL, and push permission
+- Phase 15: License decision and v0.1 preview tag planning
+- Phase 16: First feedback loop and issue triage
+- Phase 17: v0.2 planning
 
 ## Current Boundary
 
@@ -46,3 +50,7 @@ Phase 11 adds release-readiness documentation, README polish, local smoke script
 Phase 12 creates the local root commit only. It does not configure a remote, push, tag, release, publish to npm, or choose a license.
 
 Phase 13A prepares GitHub public repository metadata and remote setup instructions only. It does not configure a remote, push, tag, release, publish to npm, choose a license, call a real AI provider, call a coding agent, or generate final spec-packs.
+
+Phase 13B configures the GitHub remote and performs the first normal push to `main`. It does not force push, tag, release, publish to npm, add a license, call a real AI provider, call a coding agent, or generate final spec-packs.
+
+Phase 14 polishes the public GitHub repo page, community templates, announcement drafts, and public launch checklist. It does not add product features, force push, tag, release, publish to npm, choose a license, call a real AI provider, call a coding agent, or generate final spec-packs.

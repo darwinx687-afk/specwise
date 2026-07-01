@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 11 documentation map.
+Status: Phase 14 documentation map.
 
 ## Core Standards
 
@@ -54,6 +54,8 @@ Status: Phase 11 documentation map.
 
 - [Release Readiness Checklist](release-readiness-checklist-v0.1.md)
 - [GitHub Public Repo Setup](github-public-repo-setup-v0.1.md)
+- [Announcement Drafts](announcement-drafts-v0.1.md)
+- [Public Launch Checklist](public-launch-checklist-v0.1.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)
 - [Roadmap](roadmap-v0.1.md)
