@@ -207,6 +207,16 @@ The proposed v0.2 direction focuses on examples, deterministic quality, and deve
 
 v0.2 范围选择已记录在 [docs/v0.2-scope-selection-v0.1.md](docs/v0.2-scope-selection-v0.1.md)。当前建议优先改进示例、确定性草案质量和开发者体验，而不是过早接入真实 AI provider。
 
+v0.2 implementation planning is now available:
+
+- [v0.2 Implementation Plan](docs/v0.2-implementation-plan.md)
+- [v0.2 Phase Breakdown](docs/v0.2-phase-breakdown.md)
+- [v0.2 Acceptance Criteria](docs/v0.2-acceptance-criteria.md)
+- [v0.2 Test Strategy](docs/v0.2-test-strategy.md)
+- [v0.2 Risk Register](docs/v0.2-risk-register.md)
+
+v0.2 实施规划已加入，包括阶段拆解、验收标准、测试策略和风险清单。
+
 ## Documentation
 
 Start with [Docs Index](docs/docs-index-v0.1.md).
@@ -233,6 +243,12 @@ Key docs:
 - [v0.2 Scope Selection](docs/v0.2-scope-selection-v0.1.md)
 - [v0.2 Scope Decision Record](docs/v0.2-scope-decision-record.md)
 - [v0.2 Implementation Planning Checklist](docs/v0.2-implementation-planning-checklist.md)
+- [v0.2 Implementation Plan](docs/v0.2-implementation-plan.md)
+- [v0.2 Phase Breakdown](docs/v0.2-phase-breakdown.md)
+- [v0.2 Acceptance Criteria](docs/v0.2-acceptance-criteria.md)
+- [v0.2 Test Strategy](docs/v0.2-test-strategy.md)
+- [v0.2 Risk Register](docs/v0.2-risk-register.md)
+- [v0.2 Codex Loop Plan](docs/v0.2-codex-loop-plan.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
 - [Roadmap](docs/roadmap-v0.1.md)
@@ -240,11 +256,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 20 v0.2 Scope Selection Baseline.
+Completed through Phase 21 v0.2 Implementation Planning.
 
 Next candidate phase:
 
-- Phase 21: v0.2 Implementation Planning
+- Phase 22A: Example Pack Expansion
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 

@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 20 documentation map.
+Status: Phase 21 documentation map.
 
 ## Core Standards
 
@@ -73,6 +73,12 @@ Status: Phase 20 documentation map.
 - [v0.2 Scope Selection](v0.2-scope-selection-v0.1.md)
 - [v0.2 Scope Decision Record](v0.2-scope-decision-record.md)
 - [v0.2 Implementation Planning Checklist](v0.2-implementation-planning-checklist.md)
+- [v0.2 Implementation Plan](v0.2-implementation-plan.md)
+- [v0.2 Phase Breakdown](v0.2-phase-breakdown.md)
+- [v0.2 Acceptance Criteria](v0.2-acceptance-criteria.md)
+- [v0.2 Test Strategy](v0.2-test-strategy.md)
+- [v0.2 Risk Register](v0.2-risk-register.md)
+- [v0.2 Codex Loop Plan](v0.2-codex-loop-plan.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)
 - [Roadmap](roadmap-v0.1.md)
