@@ -1,5 +1,32 @@
 # Changelog
 
+## 0.3.0-preview.0 - Unreleased
+
+### Added
+
+- GitHub Actions CI validation workflow.
+- CI safety documentation.
+- Handoff readability quality checks.
+- Workflow inference quality checks.
+- Documentation maintenance guide and docs status map.
+
+### Improved
+
+- Review and manual apply-plan readability.
+- Handoff pack readability and safety boundary wording.
+- Deterministic workflow/status inference.
+- First-time and maintenance documentation navigation.
+- v0.3 planning and release readiness documentation.
+
+### Safety
+
+- No real AI provider calls.
+- No coding agent calls.
+- No npm publish.
+- No auto-apply patch.
+- No final spec-pack generation.
+- CI does not use secrets or release automation.
+
 ## 0.2.0-preview.0 - 2026-07-02
 
 ### Added

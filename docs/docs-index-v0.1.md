@@ -91,6 +91,10 @@ For document lifecycle and current-vs-historical status, see:
 - [v0.2 Final Verification Report Template](v0.2-final-verification-report-template.md)
 - [Post-v0.2 Feedback Report](post-v0.2-feedback-report-v0.1.md)
 - [Post-v0.2 Announcement Follow-up](post-v0.2-announcement-follow-up-v0.1.md)
+- [v0.3 Release Readiness Checklist](v0.3-release-readiness-checklist.md)
+- [v0.3 Release Notes Draft](v0.3-release-notes-draft.md)
+- [v0.3 Release Decision Record](v0.3-release-decision-record.md)
+- [v0.3 Final Verification Report Template](v0.3-final-verification-report-template.md)
 - [Changelog](../CHANGELOG.md)
 - [License](../LICENSE)
 

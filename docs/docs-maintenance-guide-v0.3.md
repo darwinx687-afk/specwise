@@ -99,4 +99,4 @@ After a release:
 3. Link current readers back to Start Here, First-run Guide, Known Limitations, and Privacy And Safety.
 4. Do not edit older release records to imply a newer release has already happened.
 
-Phase 27E is docs consolidation only. Phase 27F release readiness has not started.
+Phase 27F is release readiness only. Phase 28 tag/release has not started.

@@ -48,22 +48,25 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 27C: Handoff pack readability polish
 - Phase 27D: Deterministic workflow inference polish
 - Phase 27E: Post-v0.2 docs consolidation
+- Phase 27F: v0.3 Release Readiness
 
 ## Next
 
-- Phase 27F: v0.3 release readiness
-- Phase 28: v0.3.0-preview.0 tag/release, only after owner approval
+- Phase 28: v0.3.0-preview.0 Tag and GitHub Pre-release, only after owner approval
 - Phase 29: Post-v0.3 feedback loop
+- Phase 30: v0.4 scope selection
 
 Phase 27D is complete.
 
 Phase 27E is complete.
 
-Phase 27F has not started.
+Phase 27F is complete.
 
 Phase 28 has not started.
 
 Phase 29 has not started.
+
+Phase 30 has not started.
 
 ## Current Boundary
 
@@ -131,8 +134,10 @@ Phase 27D polishes deterministic workflow inference with status label grouping, 
 
 Phase 27E consolidates post-v0.2 documentation navigation with README documentation paths, a docs maintenance guide, a docs status map, a regrouped docs index, Start Here contributor/status paths, first-run and command-decision cross-links, and v0.3 planning links. It does not change runtime behavior, CLI behavior, schemas, examples, scripts, tests, GitHub Actions, handoff generation, release readiness, tags, GitHub releases, npm publication, dependencies, AI provider behavior, prompt runner behavior, OCR/vision/Web UI, coding agent calls, application code generation, final spec-pack generation, or auto-apply behavior.
 
-Phase 27F is planned as v0.3 release readiness.
+Phase 27F prepares v0.3 release readiness with a release checklist, release notes draft, release decision record, final verification report template, CHANGELOG update, README readiness note, docs index links, docs status map links, roadmap updates, and final validation requirements. It does not create a git tag, create a GitHub release, publish npm, add dependencies, change runtime behavior, change CLI behavior, call AI providers, run a prompt runner, use OCR/vision/Web UI, call coding agents, generate application code, generate final spec-packs, auto-apply patches, start Phase 28, or start v0.4 planning.
 
-Phase 28 is planned as a future `v0.3.0-preview.0` tag/release only after owner approval.
+Phase 28 is planned as a future `v0.3.0-preview.0` tag and GitHub pre-release only after owner approval.
 
 Phase 29 is planned as a post-v0.3 feedback loop.
+
+Phase 30 is planned as v0.4 scope selection.

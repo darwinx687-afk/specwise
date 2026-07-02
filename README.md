@@ -257,6 +257,9 @@ v0.3 scope selection is now documented. The proposed direction prioritizes relia
 
 v0.3 implementation planning is now documented. The proposed v0.3 work remains focused on reliability, review usability, handoff readability, deterministic workflow inference, and docs consolidation.
 
+v0.3 preview readiness is now being prepared.
+The proposed next release marker is `v0.3.0-preview.0`, pending final owner approval.
+
 CI is now available for local-first validation on pull requests and pushes to main.
 It runs validation only and does not publish, release, call AI providers, or call coding agents.
 
@@ -267,6 +270,8 @@ Phase 27C improves handoff pack readability while preserving context-only, no-ag
 v0.2 发布后的反馈追踪文档已加入。v0.3 范围选择已记录。当前建议优先增强可靠性、审查体验、handoff 可读性、确定性 workflow 推断和公开仓库维护能力，而不是过早接入真实 AI provider。
 
 v0.3 实施规划已记录。当前建议仍聚焦可靠性、审查体验、handoff 可读性、确定性 workflow 推断和文档收束。
+
+v0.3 preview readiness 已开始准备。建议的下一 release marker 是 `v0.3.0-preview.0`，等待最终确认。
 
 CI 已用于 pull request 和 main push 的本地优先验证。它只运行验证，不发布、不 release、不调用 AI provider，也不调用 coding agent。
 
