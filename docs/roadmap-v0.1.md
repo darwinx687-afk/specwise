@@ -42,16 +42,16 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 23: v0.2.0-preview.0 Tag and GitHub Pre-release
 - Phase 24: Post-v0.2 feedback loop
 - Phase 25: v0.3 scope selection
+- Phase 26: v0.3 implementation planning
 
 ## Next
 
-- Phase 26: v0.3 implementation planning
-- Phase 27A: GitHub Actions CI / reliability planning or implementation
+- Phase 27A: CI / reliability, pending owner approval
 - Phase 27B: Review/apply-plan usability polish
-- Phase 27C: Handoff readability polish
-- Phase 27D: Workflow inference polish
-
-Phase 26 has not started.
+- Phase 27C: Handoff pack readability polish
+- Phase 27D: Deterministic workflow inference polish
+- Phase 27E: Docs consolidation
+- Phase 27F: v0.3 release readiness
 
 Phase 27A has not started.
 
@@ -60,6 +60,10 @@ Phase 27B has not started.
 Phase 27C has not started.
 
 Phase 27D has not started.
+
+Phase 27E has not started.
+
+Phase 27F has not started.
 
 ## Current Boundary
 
@@ -115,12 +119,16 @@ Phase 24 adds the post-v0.2 feedback loop, read-only GitHub issue/release checks
 
 Phase 25 selects a proposed v0.3 baseline scope focused on reliability, review/apply-plan usability, handoff readability, deterministic workflow inference, and public repo maintainability. It does not start v0.3 implementation, create tags, create releases, publish to npm, add dependencies, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, auto-apply patches, reply to issues, close issues, or change issue labels.
 
-Phase 26 is planned as v0.3 implementation planning.
+Phase 26 plans v0.3 implementation phases, acceptance criteria, test strategy, CI decision boundaries, risk controls, and Codex loop drafts. It does not start Phase 27 implementation, add GitHub Actions workflows, modify runtime features, create tags, create releases, publish to npm, add dependencies, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, or auto-apply patches.
 
-Phase 27A is planned as GitHub Actions CI / reliability planning or implementation.
+Phase 27A is planned as CI / reliability work, pending owner approval before any GitHub Actions workflow implementation.
 
 Phase 27B is planned as review/apply-plan usability polish.
 
-Phase 27C is planned as handoff readability polish.
+Phase 27C is planned as handoff pack readability polish.
 
-Phase 27D is planned as workflow inference polish.
+Phase 27D is planned as deterministic workflow inference polish.
+
+Phase 27E is planned as post-v0.2 docs consolidation.
+
+Phase 27F is planned as v0.3 release readiness.

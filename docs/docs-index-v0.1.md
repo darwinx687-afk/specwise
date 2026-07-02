@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 25 documentation map.
+Status: Phase 26 documentation map.
 
 ## First-time User Path
 
@@ -104,6 +104,11 @@ First-time user path:
 - [v0.3 Scope Decision Record](v0.3-scope-decision-record.md)
 - [v0.3 Implementation Prerequisites](v0.3-implementation-prerequisites.md)
 - [v0.3 Risk Register](v0.3-risk-register.md)
+- [v0.3 Implementation Plan](v0.3-implementation-plan.md)
+- [v0.3 Phase Breakdown](v0.3-phase-breakdown.md)
+- [v0.3 Acceptance Criteria](v0.3-acceptance-criteria.md)
+- [v0.3 Test Strategy](v0.3-test-strategy.md)
+- [v0.3 Codex Loop Plan](v0.3-codex-loop-plan.md)
 - [Post-v0.2 Announcement Follow-up](post-v0.2-announcement-follow-up-v0.1.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)

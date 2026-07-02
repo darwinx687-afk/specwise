@@ -217,7 +217,11 @@ Post-v0.2 feedback tracking is now documented.
 
 v0.3 scope selection is now documented. The proposed direction prioritizes reliability, review usability, handoff readability, deterministic workflow inference, and public repo maintainability before real AI provider calls.
 
+v0.3 implementation planning is now documented. The proposed v0.3 work remains focused on reliability, review usability, handoff readability, deterministic workflow inference, and docs consolidation.
+
 v0.2 发布后的反馈追踪文档已加入。v0.3 范围选择已记录。当前建议优先增强可靠性、审查体验、handoff 可读性、确定性 workflow 推断和公开仓库维护能力，而不是过早接入真实 AI provider。
+
+v0.3 实施规划已记录。当前建议仍聚焦可靠性、审查体验、handoff 可读性、确定性 workflow 推断和文档收束。
 
 Early feedback is welcome through GitHub Issues. Please do not share sensitive business data or private screenshots in public issues.
 
@@ -317,6 +321,11 @@ Key docs:
 - [v0.3 Scope Decision Record](docs/v0.3-scope-decision-record.md)
 - [v0.3 Implementation Prerequisites](docs/v0.3-implementation-prerequisites.md)
 - [v0.3 Risk Register](docs/v0.3-risk-register.md)
+- [v0.3 Implementation Plan](docs/v0.3-implementation-plan.md)
+- [v0.3 Phase Breakdown](docs/v0.3-phase-breakdown.md)
+- [v0.3 Acceptance Criteria](docs/v0.3-acceptance-criteria.md)
+- [v0.3 Test Strategy](docs/v0.3-test-strategy.md)
+- [v0.3 Codex Loop Plan](docs/v0.3-codex-loop-plan.md)
 - [Post-v0.2 Announcement Follow-up](docs/post-v0.2-announcement-follow-up-v0.1.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
@@ -325,13 +334,13 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 25 v0.3 scope selection.
+Completed through Phase 26 v0.3 implementation planning.
 
 Next candidate phase:
 
-- Phase 26: v0.3 implementation planning
+- Phase 27A: CI / reliability, pending owner approval
 
-Phase 26 has not started.
+Phase 27A has not started.
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
