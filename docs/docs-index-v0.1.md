@@ -96,6 +96,7 @@ First-time user path:
 - [v0.2 Release Readiness Checklist](v0.2-release-readiness-checklist.md)
 - [v0.2 Release Notes Draft](v0.2-release-notes-draft.md)
 - [v0.2 Release Decision Record](v0.2-release-decision-record.md)
+- [v0.2 Final Verification Report](v0.2-final-verification-report.md)
 - [v0.2 Final Verification Report Template](v0.2-final-verification-report-template.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)

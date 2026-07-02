@@ -207,11 +207,11 @@ SpecWise v0.1.0-preview.0 is now available as a GitHub pre-release.
 
 SpecWise v0.1.0-preview.0 已作为 GitHub pre-release 发布。欢迎通过 GitHub Issues 提交早期反馈，但请不要在公开 issue 中分享敏感业务数据或私密截图。
 
-v0.2 preview readiness is now being prepared.
+SpecWise v0.2.0-preview.0 is available as a GitHub pre-release.
 
-The proposed next release marker is `v0.2.0-preview.0`, pending final owner approval.
+The v0.2 preview release marker is `v0.2.0-preview.0`.
 
-v0.2 preview readiness 已开始准备。建议的下一 release marker 是 `v0.2.0-preview.0`，等待最终确认。
+SpecWise v0.2.0-preview.0 已作为 GitHub pre-release 发布。
 
 Early feedback is welcome through GitHub Issues. Please do not share sensitive business data or private screenshots in public issues.
 
@@ -303,6 +303,7 @@ Key docs:
 - [v0.2 Release Readiness Checklist](docs/v0.2-release-readiness-checklist.md)
 - [v0.2 Release Notes Draft](docs/v0.2-release-notes-draft.md)
 - [v0.2 Release Decision Record](docs/v0.2-release-decision-record.md)
+- [v0.2 Final Verification Report](docs/v0.2-final-verification-report.md)
 - [v0.2 Final Verification Report Template](docs/v0.2-final-verification-report-template.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
@@ -311,17 +312,17 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 22F v0.2 Release Readiness.
+Completed through Phase 23 v0.2.0-preview.0 Tag and GitHub Pre-release.
 
 Next candidate phase:
 
-- Phase 23: v0.2.0-preview.0 Tag and GitHub Release, only after owner approval
+- Phase 24: Post-v0.2 feedback loop
 
-Phase 23 has not started.
+Phase 24 has not started.
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
-The proposed `v0.2.0-preview.0` preview also keeps npm publishing out of scope unless separately approved.
+The `v0.2.0-preview.0` preview also keeps npm publishing out of scope.
 
 ## Release Readiness
 

@@ -39,14 +39,12 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 22D: CLI Error and First-run DX Polish
 - Phase 22E: First-time Docs Simplification
 - Phase 22F: v0.2 Release Readiness
+- Phase 23: v0.2.0-preview.0 Tag and GitHub Pre-release
 
 ## Next
 
-- Phase 23: v0.2.0-preview.0 Tag and GitHub Release, only after owner approval
 - Phase 24: Post-v0.2 feedback loop
 - Phase 25: v0.3 planning
-
-Phase 23 has not started.
 
 Phase 24 has not started.
 
@@ -100,7 +98,7 @@ Phase 22E simplifies first-time documentation. It adds a Start Here map, command
 
 Phase 22F prepares v0.2 release readiness materials, including the v0.2 release readiness checklist, release notes draft, release decision record, final verification report template, CHANGELOG update, README/readiness pointers, and final verification plan. It does not create a tag, create a GitHub release, publish to npm, add dependencies, add runtime features, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, or auto-apply patches.
 
-Phase 23 is planned as `v0.2.0-preview.0` tag and GitHub release work only after explicit owner approval. It has not started.
+Phase 23 creates and pushes the `v0.2.0-preview.0` tag and creates the matching GitHub pre-release after final validation, hygiene scan, docs finalization, normal commit, and normal push. It does not force push, publish to npm, add dependencies, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, or auto-apply patches.
 
 Phase 24 is planned as the post-v0.2 feedback loop.
 
