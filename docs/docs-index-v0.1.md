@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 22E documentation map.
+Status: Phase 22F documentation map.
 
 ## First-time User Path
 
@@ -93,6 +93,10 @@ First-time user path:
 - [v0.2 Test Strategy](v0.2-test-strategy.md)
 - [v0.2 Risk Register](v0.2-risk-register.md)
 - [v0.2 Codex Loop Plan](v0.2-codex-loop-plan.md)
+- [v0.2 Release Readiness Checklist](v0.2-release-readiness-checklist.md)
+- [v0.2 Release Notes Draft](v0.2-release-notes-draft.md)
+- [v0.2 Release Decision Record](v0.2-release-decision-record.md)
+- [v0.2 Final Verification Report Template](v0.2-final-verification-report-template.md)
 - [Privacy And Safety](privacy-and-safety-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)
 - [Roadmap](roadmap-v0.1.md)

@@ -1,5 +1,30 @@
 # Changelog
 
+## 0.2.0-preview.0 - Unreleased
+
+### Added
+
+- Legacy CRM Follow-up example pack.
+- Draft quality smoke checks.
+- CSV field inference checks.
+- CLI DX smoke checks.
+- First-time documentation path.
+
+### Improved
+
+- Deterministic draft heuristics.
+- CSV entity/field inference.
+- CLI error guidance and success summaries.
+- README and first-run docs.
+
+### Safety
+
+- No real AI provider calls.
+- No coding agent calls.
+- No npm publish.
+- No auto-apply patch.
+- No final spec-pack generation.
+
 ## 0.1.0-preview.0 - 2026-07-01
 
 ### Added

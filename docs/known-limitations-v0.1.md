@@ -1,10 +1,12 @@
 # Known Limitations v0.1
 
-Status: Phase 22E preview limitation list.
+Status: Phase 22F preview limitation list.
 
 SpecWise v0.1 is a local preview foundation, not a complete AI extraction product.
 
 For the safe first run, see [First-run Guide v0.2](first-run-guide-v0.2.md). For command selection, see [Command Decision Tree v0.2](command-decision-tree-v0.2.md).
+
+For v0.2 preview readiness, see [v0.2 Release Readiness Checklist](v0.2-release-readiness-checklist.md) and [v0.2 Release Notes Draft](v0.2-release-notes-draft.md).
 
 ## Current Limitations
 
