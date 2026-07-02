@@ -10,6 +10,8 @@ No current command calls real AI providers or coding agents.
 
 Current commands also do not generate application code, do not auto-apply patches, and do not generate final spec-packs.
 
+Do not start by reading every document. Use this page to choose a command, then use [CLI Reference v0.1](cli-reference-v0.1.md) for details.
+
 ## What command should I run?
 
 ## I want to check the project works
@@ -113,3 +115,4 @@ Current extraction-related commands are dry-run or prompt-preparation boundaries
 - [First-run Guide v0.2](first-run-guide-v0.2.md)
 - [CLI Reference](cli-reference-v0.1.md)
 - [Known Limitations](known-limitations-v0.1.md)
+- [Docs Status Map v0.3](docs-status-map-v0.3.md)

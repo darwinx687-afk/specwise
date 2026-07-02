@@ -47,17 +47,23 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 27B: Review/apply-plan usability polish
 - Phase 27C: Handoff pack readability polish
 - Phase 27D: Deterministic workflow inference polish
+- Phase 27E: Post-v0.2 docs consolidation
 
 ## Next
 
-- Phase 27E: Docs consolidation
 - Phase 27F: v0.3 release readiness
+- Phase 28: v0.3.0-preview.0 tag/release, only after owner approval
+- Phase 29: Post-v0.3 feedback loop
 
 Phase 27D is complete.
 
-Phase 27E has not started.
+Phase 27E is complete.
 
 Phase 27F has not started.
+
+Phase 28 has not started.
+
+Phase 29 has not started.
 
 ## Current Boundary
 
@@ -123,6 +129,10 @@ Phase 27C polishes handoff pack readability with clearer root README status, req
 
 Phase 27D polishes deterministic workflow inference with status label grouping, arrow-chain transition candidates, branch/exception candidates, uncertainty-aware workflow questions, richer workflow Markdown, and a dependency-free `workflow:quality` smoke check. It does not call AI providers, run a prompt runner, use OCR/vision/Web UI, call coding agents, generate application code, generate final spec-packs, add dependencies, publish npm, create tags, create releases, or start Phase 27E.
 
-Phase 27E is planned as post-v0.2 docs consolidation.
+Phase 27E consolidates post-v0.2 documentation navigation with README documentation paths, a docs maintenance guide, a docs status map, a regrouped docs index, Start Here contributor/status paths, first-run and command-decision cross-links, and v0.3 planning links. It does not change runtime behavior, CLI behavior, schemas, examples, scripts, tests, GitHub Actions, handoff generation, release readiness, tags, GitHub releases, npm publication, dependencies, AI provider behavior, prompt runner behavior, OCR/vision/Web UI, coding agent calls, application code generation, final spec-pack generation, or auto-apply behavior.
 
 Phase 27F is planned as v0.3 release readiness.
+
+Phase 28 is planned as a future `v0.3.0-preview.0` tag/release only after owner approval.
+
+Phase 29 is planned as a post-v0.3 feedback loop.

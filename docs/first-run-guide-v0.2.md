@@ -10,7 +10,9 @@ SpecWise does not generate application code.
 
 SpecWise 默认不调用 AI provider，也不会调用 coding agent 或生成应用代码。
 
-For the shortest docs map, see [Start Here v0.2](start-here-v0.2.md). If you are unsure which command to run, see [Command Decision Tree v0.2](command-decision-tree-v0.2.md).
+For the shortest docs map, see [Start Here v0.2](start-here-v0.2.md). If you are unsure which command to run, see [Command Decision Tree v0.2](command-decision-tree-v0.2.md). If you are trying to understand current vs historical docs, see [Docs Status Map v0.3](docs-status-map-v0.3.md).
+
+Do not start by reading every document. Run this guide first, then use the docs map to go deeper.
 
 ## 1. Five-minute Path
 

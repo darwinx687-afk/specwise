@@ -88,6 +88,36 @@ The smoke workflow does not call AI providers, does not call coding agents, does
 
 For a first-time docs map, see [Start Here v0.2](docs/start-here-v0.2.md). For command selection, see [Command Decision Tree v0.2](docs/command-decision-tree-v0.2.md). For first-run details and common CLI errors, see [First-run Guide v0.2](docs/first-run-guide-v0.2.md).
 
+## Documentation Paths
+
+New to SpecWise?
+
+- Start with [Start Here v0.2](docs/start-here-v0.2.md)
+- Then run the [First-run Guide v0.2](docs/first-run-guide-v0.2.md)
+- Use the [Command Decision Tree v0.2](docs/command-decision-tree-v0.2.md)
+
+Want to understand the workflow?
+
+- Read the [Full Workflow Guide](docs/full-workflow-guide-v0.1.md)
+- Review the [Examples Guide](docs/examples-guide-v0.1.md)
+
+Want to understand safety?
+
+- Read [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
+- Read [Known Limitations](docs/known-limitations-v0.1.md)
+
+Want to contribute or maintain docs?
+
+- Read [CONTRIBUTING.md](CONTRIBUTING.md)
+- Read the [Docs Maintenance Guide](docs/docs-maintenance-guide-v0.3.md)
+- Use the [Docs Status Map](docs/docs-status-map-v0.3.md)
+
+If you are opening SpecWise for the first time, read Start Here and then run the First-run Guide. Do not start by reading every document.
+
+如果你第一次打开 SpecWise，建议先读 Start Here，再跑 First-run Guide，不要直接从全部 docs 开始。
+
+For the full map, see [SpecWise Docs Index](docs/docs-index-v0.1.md).
+
 ## Core Workflow
 
 The full v0.1 local workflow is:

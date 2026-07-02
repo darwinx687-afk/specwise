@@ -1,48 +1,49 @@
-# Docs Index v0.1
+# SpecWise Docs Index
 
-Status: Phase 27D documentation map.
+Status: Phase 27E consolidated documentation map.
 
-## First-time User Path
+If you are new, do not start by reading everything.
 
-First-time user path:
+Start here:
 
+1. [Start Here v0.2](start-here-v0.2.md)
+2. [First-run Guide v0.2](first-run-guide-v0.2.md)
+3. [Command Decision Tree v0.2](command-decision-tree-v0.2.md)
+4. [Examples Guide](examples-guide-v0.1.md)
+5. [Privacy And Safety](privacy-and-safety-v0.1.md)
+
+For document lifecycle and current-vs-historical status, see:
+
+- [Docs Maintenance Guide v0.3](docs-maintenance-guide-v0.3.md)
+- [Docs Status Map v0.3](docs-status-map-v0.3.md)
+
+## Current Canonical Docs
+
+- [README](../README.md)
 - [Start Here v0.2](start-here-v0.2.md)
 - [First-run Guide v0.2](first-run-guide-v0.2.md)
 - [Command Decision Tree v0.2](command-decision-tree-v0.2.md)
+- [Docs Maintenance Guide v0.3](docs-maintenance-guide-v0.3.md)
+- [Docs Status Map v0.3](docs-status-map-v0.3.md)
+- [Privacy And Safety](privacy-and-safety-v0.1.md)
+- [Known Limitations](known-limitations-v0.1.md)
+- [Roadmap](roadmap-v0.1.md)
+- [Contributing](../CONTRIBUTING.md)
+- [Security](../SECURITY.md)
+
+## CLI And Examples
+
+- [CLI Reference](cli-reference-v0.1.md)
 - [Examples Guide](examples-guide-v0.1.md)
-- [CLI Reference](cli-reference-v0.1.md)
-
-## Core Standards
-
-- [Spec Pack Standard](spec-pack-standard-v0.1.md)
-- [Extraction Safety Rules](extraction-safety-rules-v0.1.md)
-
-## CLI / Workflows
-
-- [CLI Reference](cli-reference-v0.1.md)
-- [Start Here v0.2](start-here-v0.2.md)
-- [First-run Guide v0.2](first-run-guide-v0.2.md)
-- [Command Decision Tree v0.2](command-decision-tree-v0.2.md)
-- [Full Workflow Guide](full-workflow-guide-v0.1.md)
+- [Legacy CRM Follow-up Example](../examples/legacy-crm-follow-up/README.md)
 - [DX Polish Notes](dx-polish-notes-v0.1.md)
 - Workflow inference quality checks: `npm run workflow:quality`
 
-## Examples
+## Spec Pack Standard
 
-- [Examples Guide](examples-guide-v0.1.md)
-- [Legacy CRM Follow-up Example](../examples/legacy-crm-follow-up/README.md)
-
-## Provider / AI Preview Design
-
-- [AI Extraction Pipeline Design](ai-extraction-pipeline-design-v0.1.md)
-- [Provider Boundary](provider-boundary-v0.1.md)
-- [Provider Config](provider-config-v0.1.md)
-- [Provider Runtime Boundary](provider-runtime-boundary-v0.1.md)
-- [Explicit AI Preview Design](explicit-ai-preview-design-v0.1.md)
-- [AI Preview CLI Safety](ai-preview-cli-safety-v0.1.md)
-- [Prompt and Response Artifacts](prompt-and-response-artifacts-v0.1.md)
-- [AI Preview Prepare](ai-preview-prepare-v0.1.md)
-- [AI Preview Failure Modes](ai-preview-failure-modes-v0.1.md)
+- [Spec Pack Standard](spec-pack-standard-v0.1.md)
+- [Full Workflow Guide](full-workflow-guide-v0.1.md)
+- [Extraction Safety Rules](extraction-safety-rules-v0.1.md)
 
 ## Patch / Review / Apply Plan
 
@@ -53,7 +54,7 @@ First-time user path:
 - [Manual Apply Plan](manual-apply-plan-v0.1.md)
 - [Spec Revision Checklist](spec-revision-checklist-v0.1.md)
 
-## Handoff Design
+## Handoff
 
 - [Agent Handoff Pack Design](agent-handoff-pack-design-v0.1.md)
 - [Agent Handoff Safety Rules](agent-handoff-safety-rules-v0.1.md)
@@ -66,14 +67,37 @@ First-time user path:
 - [Spec Kit Compatibility Design](spec-kit-compatibility-design-v0.1.md)
 - [Phase 10A Summary](phase-10a-summary-v0.1.md)
 
-## Release Readiness
+## AI Preview Design
+
+- [AI Extraction Pipeline Design](ai-extraction-pipeline-design-v0.1.md)
+- [Provider Boundary](provider-boundary-v0.1.md)
+- [Provider Config](provider-config-v0.1.md)
+- [Provider Runtime Boundary](provider-runtime-boundary-v0.1.md)
+- [Explicit AI Preview Design](explicit-ai-preview-design-v0.1.md)
+- [AI Preview CLI Safety](ai-preview-cli-safety-v0.1.md)
+- [Prompt and Response Artifacts](prompt-and-response-artifacts-v0.1.md)
+- [AI Preview Prepare](ai-preview-prepare-v0.1.md)
+- [AI Preview Failure Modes](ai-preview-failure-modes-v0.1.md)
+
+## Release Records
 
 - [Release Readiness Checklist](release-readiness-checklist-v0.1.md)
-- [GitHub Public Repo Setup](github-public-repo-setup-v0.1.md)
-- [License](../LICENSE)
-- [License Decision](license-decision-v0.1.md)
 - [v0.1 Preview Tag Plan](v0.1-preview-tag-plan.md)
 - [Release Notes](release-notes-draft-v0.1.md)
+- [v0.2 Release Readiness Checklist](v0.2-release-readiness-checklist.md)
+- [v0.2 Release Notes Draft](v0.2-release-notes-draft.md)
+- [v0.2 Release Decision Record](v0.2-release-decision-record.md)
+- [v0.2 Final Verification Report](v0.2-final-verification-report.md)
+- [v0.2 Final Verification Report Template](v0.2-final-verification-report-template.md)
+- [Post-v0.2 Feedback Report](post-v0.2-feedback-report-v0.1.md)
+- [Post-v0.2 Announcement Follow-up](post-v0.2-announcement-follow-up-v0.1.md)
+- [Changelog](../CHANGELOG.md)
+- [License](../LICENSE)
+
+## Community And Feedback
+
+- [GitHub Public Repo Setup](github-public-repo-setup-v0.1.md)
+- [License Decision](license-decision-v0.1.md)
 - [Announcement Drafts](announcement-drafts-v0.1.md)
 - [Public Announcement Execution Pack](public-announcement-execution-pack-v0.1.md)
 - [Public Launch Checklist](public-launch-checklist-v0.1.md)
@@ -82,9 +106,28 @@ First-time user path:
 - [Feedback Tracking](feedback-tracking-v0.1.md)
 - [Feedback Triage Guide](feedback-triage-guide-v0.1.md)
 - [GitHub Issue Triage Playbook](github-issue-triage-playbook-v0.1.md)
+- [GitHub Issue Query Cheatsheet](github-issue-query-cheatsheet-v0.1.md)
 - [v0.2 Candidate Scoring](v0.2-candidate-scoring-v0.1.md)
 - [Weekly Feedback Report Template](weekly-feedback-report-template-v0.1.md)
-- [GitHub Issue Query Cheatsheet](github-issue-query-cheatsheet-v0.1.md)
+
+## v0.3 Planning
+
+- [v0.3 Planning Input](v0.3-planning-input-v0.1.md)
+- [v0.3 Scope Selection](v0.3-scope-selection-v0.1.md)
+- [v0.3 Scope Decision Record](v0.3-scope-decision-record.md)
+- [v0.3 Implementation Prerequisites](v0.3-implementation-prerequisites.md)
+- [v0.3 Implementation Plan](v0.3-implementation-plan.md)
+- [v0.3 Phase Breakdown](v0.3-phase-breakdown.md)
+- [v0.3 Acceptance Criteria](v0.3-acceptance-criteria.md)
+- [v0.3 Test Strategy](v0.3-test-strategy.md)
+- [v0.3 Risk Register](v0.3-risk-register.md)
+- [v0.3 Codex Loop Plan](v0.3-codex-loop-plan.md)
+- [CI Safety v0.3](ci-safety-v0.3.md)
+
+## Historical Planning Docs
+
+These docs are preserved for traceability. Do not read them first unless you are auditing project history.
+
 - [v0.2 Planning Draft](v0.2-planning-draft.md)
 - [v0.2 Scope Selection](v0.2-scope-selection-v0.1.md)
 - [v0.2 Scope Decision Record](v0.2-scope-decision-record.md)
@@ -95,27 +138,5 @@ First-time user path:
 - [v0.2 Test Strategy](v0.2-test-strategy.md)
 - [v0.2 Risk Register](v0.2-risk-register.md)
 - [v0.2 Codex Loop Plan](v0.2-codex-loop-plan.md)
-- [v0.2 Release Readiness Checklist](v0.2-release-readiness-checklist.md)
-- [v0.2 Release Notes Draft](v0.2-release-notes-draft.md)
-- [v0.2 Release Decision Record](v0.2-release-decision-record.md)
-- [v0.2 Final Verification Report](v0.2-final-verification-report.md)
-- [v0.2 Final Verification Report Template](v0.2-final-verification-report-template.md)
-- [Post-v0.2 Feedback Report](post-v0.2-feedback-report-v0.1.md)
-- [v0.3 Planning Input](v0.3-planning-input-v0.1.md)
-- [v0.3 Scope Selection](v0.3-scope-selection-v0.1.md)
-- [v0.3 Scope Decision Record](v0.3-scope-decision-record.md)
-- [v0.3 Implementation Prerequisites](v0.3-implementation-prerequisites.md)
-- [v0.3 Risk Register](v0.3-risk-register.md)
-- [v0.3 Implementation Plan](v0.3-implementation-plan.md)
-- [v0.3 Phase Breakdown](v0.3-phase-breakdown.md)
-- [v0.3 Acceptance Criteria](v0.3-acceptance-criteria.md)
-- [v0.3 Test Strategy](v0.3-test-strategy.md)
-- [v0.3 Codex Loop Plan](v0.3-codex-loop-plan.md)
-- [CI Safety v0.3](ci-safety-v0.3.md)
-- [Post-v0.2 Announcement Follow-up](post-v0.2-announcement-follow-up-v0.1.md)
-- [Privacy And Safety](privacy-and-safety-v0.1.md)
-- [Known Limitations](known-limitations-v0.1.md)
-- [Roadmap](roadmap-v0.1.md)
-- [Changelog](../CHANGELOG.md)
-- [Contributing](../CONTRIBUTING.md)
-- [Security](../SECURITY.md)
+
+Do not remove safety boundaries when simplifying docs. Do not hide known limitations. Do not rewrite historical release records as if they were current work.
