@@ -40,15 +40,19 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 22E: First-time Docs Simplification
 - Phase 22F: v0.2 Release Readiness
 - Phase 23: v0.2.0-preview.0 Tag and GitHub Pre-release
+- Phase 24: Post-v0.2 feedback loop
 
 ## Next
 
-- Phase 24: Post-v0.2 feedback loop
-- Phase 25: v0.3 planning
-
-Phase 24 has not started.
+- Phase 25: v0.3 scope selection
+- Phase 26: v0.3 implementation planning
+- Phase 27: v0.3 development cycle 1
 
 Phase 25 has not started.
+
+Phase 26 has not started.
+
+Phase 27 has not started.
 
 ## Current Boundary
 
@@ -100,6 +104,10 @@ Phase 22F prepares v0.2 release readiness materials, including the v0.2 release 
 
 Phase 23 creates and pushes the `v0.2.0-preview.0` tag and creates the matching GitHub pre-release after final validation, hygiene scan, docs finalization, normal commit, and normal push. It does not force push, publish to npm, add dependencies, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, or auto-apply patches.
 
-Phase 24 is planned as the post-v0.2 feedback loop.
+Phase 24 adds the post-v0.2 feedback loop, read-only GitHub issue/release checks, feedback report, v0.3 planning input, post-release follow-up copy, feedback tracking updates, and docs navigation updates. It does not start v0.3 implementation, create tags, create releases, publish to npm, add dependencies, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, auto-apply patches, reply to issues, close issues, or change issue labels.
 
-Phase 25 is planned as v0.3 planning.
+Phase 25 is planned as v0.3 scope selection.
+
+Phase 26 is planned as v0.3 implementation planning.
+
+Phase 27 is planned as v0.3 development cycle 1.

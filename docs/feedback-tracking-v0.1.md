@@ -32,6 +32,30 @@ Use this table after public announcement posts go live. Do not copy private busi
 - not planned
 - done
 
+## Post-v0.2 Tracking Fields
+
+Use these fields for feedback after `v0.2.0-preview.0`:
+
+- Release version
+- Source
+- Link
+- Category
+- Summary
+- Repeated confusion?
+- v0.3 candidate?
+- Action
+- Status
+
+## Post-v0.2 Status Values
+
+- captured
+- triaged
+- needs clarification
+- v0.3 candidate
+- docs update needed
+- not planned
+- done
+
 ## Triage Workflow
 
 1. Capture raw feedback.
