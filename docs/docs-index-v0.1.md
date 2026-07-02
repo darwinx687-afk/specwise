@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 21 documentation map.
+Status: Phase 22B documentation map.
 
 ## Core Standards
 

@@ -174,6 +174,7 @@ SpecWise v0.1 currently includes:
 - release readiness docs and local smoke test
 - public preview docs and community templates
 - synthetic Legacy CRM Follow-up example pack
+- deterministic draft heuristic polish and draft quality smoke checks
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
@@ -212,6 +213,10 @@ v0.2 范围选择已记录在 [docs/v0.2-scope-selection-v0.1.md](docs/v0.2-scop
 Legacy CRM Follow-up example is now available as a second realistic mock scenario.
 
 新增 Legacy CRM Follow-up 示例，作为第二个更真实的 mock 业务场景。
+
+Phase 22B improves deterministic draft heuristics and adds draft quality smoke checks while keeping SpecWise dependency-free and AI-free by default.
+
+Phase 22B 改进 deterministic draft heuristics，并加入 draft quality smoke checks，同时继续保持无依赖、默认不调用 AI。
 
 v0.2 implementation planning is now available:
 
@@ -262,11 +267,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 22A v0.2 Example Pack Expansion.
+Completed through Phase 22B Deterministic Draft Heuristic Polish.
 
 Next candidate phase:
 
-- Phase 22B: Deterministic Draft Heuristic Polish
+- Phase 22C: CSV/XLSX Field Inference Polish
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
