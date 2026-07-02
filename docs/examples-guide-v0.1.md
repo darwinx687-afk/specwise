@@ -4,6 +4,16 @@ Status: Phase 11 release-readiness guide.
 
 The examples are synthetic fixtures for local validation and demos. They are not production data and do not contain real personal privacy data.
 
+## Which example should I try?
+
+Start with Legacy CRM Follow-up if you want a clearer business admin scenario.
+
+Use Legacy Staff Evaluation if you want a permission-heavy evaluation workflow.
+
+Use Minimal if you only want to understand the schema shape.
+
+如果你想快速理解业务后台场景，建议先跑 Legacy CRM Follow-up；如果你想看权限和审批更复杂的场景，再看 Legacy Staff Evaluation；如果只想看 schema 结构，可以看 Minimal。
+
 ## `examples/minimal`
 
 Purpose: smallest valid spec-pack fixture.

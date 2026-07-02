@@ -46,23 +46,37 @@ Legacy business systems often come with screenshots, exports, mixed-language not
 
 SpecWise makes uncertainty explicit. A useful pack should show what is known, what is inferred, what needs review, and where each claim came from.
 
-## Quick Start
+## Start Here
 
-Run a five-minute local check:
+Start here if you are new:
+
+1. Read: [What Is SpecWise?](#what-is-specwise) and [What It Is Not](#what-it-is-not)
+2. Run: the 5-minute CRM example below
+3. Inspect: `./tmp/crm-draft/spec-pack`
+4. Continue: [Full Workflow Guide](docs/full-workflow-guide-v0.1.md)
+5. Review: [Privacy And Safety](docs/privacy-and-safety-v0.1.md) and [Known Limitations](docs/known-limitations-v0.1.md)
+
+5-minute CRM example:
 
 ```bash
 npm test
 
-node bin/specwise.mjs --help
-
-node bin/specwise.mjs draft examples/legacy-staff-evaluation/input \
-  --out ./tmp/draft-test \
+node bin/specwise.mjs draft examples/legacy-crm-follow-up/input \
+  --out ./tmp/crm-draft \
   --force
 
-node bin/specwise.mjs validate ./tmp/draft-test/spec-pack
+node bin/specwise.mjs validate ./tmp/crm-draft/spec-pack
 
-rm -rf ./tmp/draft-test
+rm -rf ./tmp/crm-draft
 ```
+
+This does not call AI providers.
+
+This does not call coding agents.
+
+This does not generate application code.
+
+这不会调用 AI provider，不会调用 coding agent，也不会生成应用代码。
 
 For the full safe workflow:
 
@@ -72,7 +86,7 @@ npm run smoke
 
 The smoke workflow does not call AI providers, does not call coding agents, does not generate application code, and cleans temporary outputs.
 
-For first-run details and common CLI errors, see [First-run Guide v0.2](docs/first-run-guide-v0.2.md).
+For a first-time docs map, see [Start Here v0.2](docs/start-here-v0.2.md). For command selection, see [Command Decision Tree v0.2](docs/command-decision-tree-v0.2.md). For first-run details and common CLI errors, see [First-run Guide v0.2](docs/first-run-guide-v0.2.md).
 
 ## Core Workflow
 
@@ -179,6 +193,7 @@ SpecWise v0.1 currently includes:
 - deterministic draft heuristic polish and draft quality smoke checks
 - CSV field inference polish and field quality smoke checks
 - CLI error and first-run DX polish with CLI DX smoke checks
+- first-time docs simplification with a Start Here map and command decision tree
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
@@ -230,6 +245,10 @@ Phase 22D improves first-run CLI errors and adds CLI DX smoke checks.
 
 Phase 22D 改进首次使用时的 CLI 错误提示，并加入 CLI DX smoke checks。
 
+Phase 22E simplifies first-time documentation only. It adds the Start Here map, command decision tree, clearer example selection, and v0.1/v0.2 status callouts.
+
+Phase 22E 只做首次使用文档简化，新增 Start Here、命令选择指引、示例选择说明和 v0.1/v0.2 状态边界说明。
+
 v0.2 implementation planning is now available:
 
 - [v0.2 Implementation Plan](docs/v0.2-implementation-plan.md)
@@ -242,10 +261,12 @@ v0.2 实施规划已加入，包括阶段拆解、验收标准、测试策略和
 
 ## Documentation
 
-Start with [Docs Index](docs/docs-index-v0.1.md).
+Start with [Start Here v0.2](docs/start-here-v0.2.md). Use [Docs Index](docs/docs-index-v0.1.md) when you want the full map.
 
 Key docs:
 
+- [Start Here v0.2](docs/start-here-v0.2.md)
+- [Command Decision Tree v0.2](docs/command-decision-tree-v0.2.md)
 - [CLI Reference](docs/cli-reference-v0.1.md)
 - [First-run Guide v0.2](docs/first-run-guide-v0.2.md)
 - [Examples Guide](docs/examples-guide-v0.1.md)
@@ -280,11 +301,13 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 22D CLI Error and First-run DX Polish.
+Completed through Phase 22E First-time Docs Simplification.
 
 Next candidate phase:
 
-- Phase 22E: First-time Docs Simplification
+- Phase 22F: v0.2 Release Readiness
+
+Phase 22F has not started.
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 

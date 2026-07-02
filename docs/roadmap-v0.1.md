@@ -37,11 +37,13 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 22B: Deterministic Draft Heuristic Polish
 - Phase 22C: CSV/XLSX Field Inference Polish
 - Phase 22D: CLI Error and First-run DX Polish
+- Phase 22E: First-time Docs Simplification
 
 ## Next
 
-- Phase 22E: First-time Docs Simplification
 - Phase 22F: v0.2 Release Readiness
+
+Phase 22F has not started.
 
 ## Current Boundary
 
@@ -86,3 +88,7 @@ Phase 22B polishes deterministic draft heuristics for module titles, status/work
 Phase 22C polishes deterministic CSV field inference for entity names, field types, semantic hints, required hints, relationship hints, and observed enum/status values. It adds field quality smoke checks and field-level Markdown output while keeping XLSX inventory-only for now: no XLSX parser, no parser dependency, no AI provider calls, no prompt runner, no OCR/vision/Web UI, no coding agent calls, no generated application code, no final spec-pack generation, no tags, no releases, and no npm publication.
 
 Phase 22D polishes CLI error messages, first-run guidance, success summaries, and CLI DX smoke checks. It adds a first-run guide while preserving artifact structures, review-required status, dependency-free execution, no AI provider calls, no prompt runner, no OCR/vision/Web UI, no coding agent calls, no generated application code, no final spec-pack generation, no tags, no releases, and no npm publication.
+
+Phase 22E simplifies first-time documentation. It adds a Start Here map, command decision tree, clearer README 5-minute path, example selection guidance, safety cross-links, and v0.1/v0.2 status clarity. It does not change runtime behavior, add parser support, add dependencies, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, create tags, create releases, publish to npm, or start Phase 22F.
+
+Phase 22F is planned as v0.2 release readiness and has not started.

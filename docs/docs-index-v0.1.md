@@ -1,6 +1,16 @@
 # Docs Index v0.1
 
-Status: Phase 22D documentation map.
+Status: Phase 22E documentation map.
+
+## First-time User Path
+
+First-time user path:
+
+- [Start Here v0.2](start-here-v0.2.md)
+- [First-run Guide v0.2](first-run-guide-v0.2.md)
+- [Command Decision Tree v0.2](command-decision-tree-v0.2.md)
+- [Examples Guide](examples-guide-v0.1.md)
+- [CLI Reference](cli-reference-v0.1.md)
 
 ## Core Standards
 
@@ -10,7 +20,9 @@ Status: Phase 22D documentation map.
 ## CLI / Workflows
 
 - [CLI Reference](cli-reference-v0.1.md)
+- [Start Here v0.2](start-here-v0.2.md)
 - [First-run Guide v0.2](first-run-guide-v0.2.md)
+- [Command Decision Tree v0.2](command-decision-tree-v0.2.md)
 - [Full Workflow Guide](full-workflow-guide-v0.1.md)
 - [DX Polish Notes](dx-polish-notes-v0.1.md)
 

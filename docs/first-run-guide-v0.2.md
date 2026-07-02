@@ -1,6 +1,6 @@
 # First-run Guide v0.2
 
-Status: Phase 22D first-run CLI guide.
+Status: Phase 22E first-run guide, refined after Phase 22D CLI error polish.
 
 This guide is for someone opening the SpecWise repo for the first time.
 
@@ -10,26 +10,11 @@ SpecWise does not generate application code.
 
 SpecWise 默认不调用 AI provider，也不会调用 coding agent 或生成应用代码。
 
-## 1. What To Run First
+For the shortest docs map, see [Start Here v0.2](start-here-v0.2.md). If you are unsure which command to run, see [Command Decision Tree v0.2](command-decision-tree-v0.2.md).
 
-Start with the local test suite:
+## 1. Five-minute Path
 
-```bash
-npm test
-```
-
-This validates examples, the expected invalid fixture, deterministic draft quality, CSV field inference, and CLI DX checks.
-
-Then check the CLI surface:
-
-```bash
-node bin/specwise.mjs --help
-node bin/specwise.mjs doctor
-```
-
-## 2. Five-minute Path
-
-Run a deterministic draft from the CRM example:
+Run the CRM example first:
 
 ```bash
 npm test
@@ -47,6 +32,23 @@ Expected state:
 - no AI provider is called
 - no coding agent is called
 - no application code is generated
+
+## 2. Local Health Checks
+
+If you only want to check that the project works, run:
+
+```bash
+npm test
+```
+
+This validates examples, the expected invalid fixture, deterministic draft quality, CSV field inference, and CLI DX checks.
+
+Then inspect the CLI surface:
+
+```bash
+node bin/specwise.mjs --help
+node bin/specwise.mjs doctor
+```
 
 ## 3. Full Workflow Path
 
@@ -73,6 +75,8 @@ For a generated draft folder, inspect:
 For the full smoke workflow, inspect the terminal summary first. The script cleans its temporary outputs at the end.
 
 ## 5. Common Errors
+
+These errors reflect the Phase 22D CLI error polish: messages should name the problem, show the command shape when useful, and suggest a next action without exposing local absolute paths.
 
 ### Missing `--out`
 

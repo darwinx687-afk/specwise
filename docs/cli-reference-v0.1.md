@@ -17,7 +17,7 @@ node bin/specwise.mjs validate ./tmp/crm-draft/spec-pack
 rm -rf ./tmp/crm-draft
 ```
 
-For a fuller first-run path, see [First-run Guide v0.2](first-run-guide-v0.2.md).
+For a fuller first-run path, see [First-run Guide v0.2](first-run-guide-v0.2.md). If you are choosing between commands, see [Command Decision Tree v0.2](command-decision-tree-v0.2.md).
 
 ## Common Error Patterns
 
