@@ -262,11 +262,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 21 v0.2 Implementation Planning.
+Completed through Phase 22A v0.2 Example Pack Expansion.
 
 Next candidate phase:
 
-- Phase 22A: Example Pack Expansion
+- Phase 22B: Deterministic Draft Heuristic Polish
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
