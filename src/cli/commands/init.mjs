@@ -1,5 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
+import {
+  printError,
+  printMissingArgument,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 import { copyDirectory, isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
 import { fromRoot } from "../../utils/paths.mjs";
 
@@ -9,8 +17,7 @@ export function runInit(args) {
   const outputFolder = positional[0];
 
   if (!outputFolder) {
-    console.error("ERROR init requires <output-folder>");
-    console.error("Usage: specwise init <output-folder> [--force]");
+    printMissingArgument("<output-folder>", USAGE.init, "Provide an output folder, for example:\nnode bin/specwise.mjs init ./tmp/spec-pack --force");
     return 1;
   }
 
@@ -18,13 +25,19 @@ export function runInit(args) {
   const targetDir = path.resolve(process.cwd(), outputFolder);
 
   if (!pathExists(templateDir)) {
-    console.error("ERROR templates/spec-pack is missing");
+    printError("Template folder is missing: templates/spec-pack", {
+      nextAction: "Run node bin/specwise.mjs doctor to check local project files."
+    });
+    return 1;
+  }
+
+  if (pathExists(targetDir) && !fs.statSync(targetDir).isDirectory()) {
+    printOutputPathNotDirectory(outputFolder);
     return 1;
   }
 
   if (isNonEmptyDirectory(targetDir) && !force) {
-    console.error(`ERROR output folder already exists and is not empty: ${outputFolder}`);
-    console.error("Use --force to overwrite it.");
+    printOutputFolderExists();
     return 1;
   }
 
@@ -33,8 +46,12 @@ export function runInit(args) {
   }
 
   copyDirectory(templateDir, targetDir);
-  console.log(`Created blank SpecWise spec-pack template: ${outputFolder}`);
-  console.log(`Next: edit the files and run \`specwise validate ${outputFolder}\``);
+  printSuccess("SpecWise blank spec-pack template created:", {
+    items: ["spec-pack template files"],
+    lines: [
+      `Output: ${outputFolder}`,
+      `Next action: edit the files and run node bin/specwise.mjs validate ${outputFolder}`
+    ]
+  });
   return 0;
 }
-

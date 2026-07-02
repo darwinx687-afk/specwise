@@ -8,6 +8,17 @@ import { ProviderConfigError, ProviderRuntimeError, ProviderUnavailableError } f
 import { assertProviderRuntimeAllowed } from "../../providers/provider-runtime-contract.mjs";
 import { getProvider } from "../../providers/provider-registry.mjs";
 import { isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
+import {
+  printError,
+  printMissingArgument,
+  printMissingOption,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printParseErrors,
+  printPathNotFound,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 
 function parseExtractArgs(args) {
   const parsed = {
@@ -61,40 +72,48 @@ export function runExtract(args) {
   const parsed = parseExtractArgs(args);
 
   if (!parsed.dryRun) {
-    console.error("Phase 7B only supports extraction dry-run. Use --dry-run.");
+    printError("extract only supports dry-run planning", {
+      usage: USAGE.extract,
+      nextAction: "Add --dry-run. No AI provider will be called."
+    });
     return 1;
   }
   if (!parsed.inputFolder) {
-    console.error("ERROR extract requires <input-folder>");
+    printMissingArgument("<input-folder>", USAGE.extract, "Provide an input folder.");
     return 1;
   }
   if (!parsed.outputFolder) {
-    console.error("ERROR extract requires --out <output-folder>");
+    printMissingOption("--out", USAGE.extract, "Add --out <output-folder>.");
     return 1;
   }
   if (!parsed.configPath) {
-    console.error("ERROR extract requires --config <config-path>");
+    printMissingOption("--config", USAGE.extract, "Add --config <config-path>.");
     return 1;
   }
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) console.error(`ERROR ${error}`);
+    printParseErrors(parsed.errors, USAGE.extract);
     return 1;
   }
 
   const inputFolder = path.resolve(process.cwd(), parsed.inputFolder);
   if (!pathExists(inputFolder) || !fs.statSync(inputFolder).isDirectory()) {
-    console.error(`Input folder not found: ${parsed.inputFolder}`);
+    printPathNotFound(parsed.inputFolder);
+    return 1;
+  }
+
+  const configPath = path.resolve(process.cwd(), parsed.configPath);
+  if (!pathExists(configPath)) {
+    printPathNotFound(parsed.configPath);
     return 1;
   }
 
   const outputFolder = path.resolve(process.cwd(), parsed.outputFolder);
   if (pathExists(outputFolder) && !fs.statSync(outputFolder).isDirectory()) {
-    console.error(`ERROR output path exists and is not a directory: ${parsed.outputFolder}`);
+    printOutputPathNotDirectory(parsed.outputFolder);
     return 1;
   }
   if (isNonEmptyDirectory(outputFolder) && !parsed.force) {
-    console.error(`ERROR output folder already exists and is not empty: ${parsed.outputFolder}`);
-    console.error("Use --force to overwrite it.");
+    printOutputFolderExists();
     return 1;
   }
   if (parsed.force && pathExists(outputFolder)) {
@@ -111,18 +130,19 @@ export function runExtract(args) {
     const plan = createDryRunExtractionPlan({ provider, inventory });
     writeDryRunExtractionPlan(plan, outputFolder);
 
-    console.log("SpecWise extraction dry-run plan generated:");
-    console.log("- material-inventory.json");
-    console.log("- material-summary.md");
-    console.log("- extraction-plan.json");
-    console.log("- extraction-plan.md");
-    console.log("");
-    console.log("No AI provider was called.");
-    console.log("No network calls were made.");
+    printSuccess("SpecWise extraction dry-run plan generated:", {
+      items: ["material-inventory.json", "material-summary.md", "extraction-plan.json", "extraction-plan.md"],
+      lines: [
+        "No AI provider was called.",
+        "No network calls were made."
+      ]
+    });
     return 0;
   } catch (error) {
     if (error instanceof ProviderConfigError || error instanceof ProviderRuntimeError || error instanceof ProviderUnavailableError) {
-      console.error(error.message);
+      printError(error.message, {
+        nextAction: "Check the provider config and dry-run command."
+      });
       return 1;
     }
     throw error;

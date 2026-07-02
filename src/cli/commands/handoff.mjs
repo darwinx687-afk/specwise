@@ -19,6 +19,17 @@ import {
 } from "../../handoff/render-handoff-pack.mjs";
 import { validateHandoffPackFolder } from "../../handoff/validate-handoff-pack.mjs";
 import { isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
+import {
+  printError,
+  printMissingArgument,
+  printMissingOption,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printParseErrors,
+  printPathNotFound,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 
 function parseCreateArgs(args) {
   const parsed = {
@@ -106,10 +117,10 @@ No files are modified.`);
 function assertWritableOutputFolder(outputFolder, force) {
   const resolvedOutputFolder = path.resolve(process.cwd(), outputFolder);
   if (pathExists(resolvedOutputFolder) && !fs.statSync(resolvedOutputFolder).isDirectory()) {
-    throw new HandoffWorkflowError(`ERROR output path exists and is not a directory: ${outputFolder}`);
+    throw new HandoffWorkflowError(`Output path exists and is not a directory: ${outputFolder}`);
   }
   if (isNonEmptyDirectory(resolvedOutputFolder) && !force) {
-    throw new HandoffWorkflowError(`ERROR output folder already exists and is not empty: ${outputFolder}. Use --force to overwrite it.`);
+    throw new HandoffWorkflowError("Output folder already exists and is not empty.");
   }
   if (force && pathExists(resolvedOutputFolder)) {
     fs.rmSync(resolvedOutputFolder, { recursive: true, force: true });
@@ -167,19 +178,29 @@ function runHandoffCreate(args) {
 
   const parsed = parseCreateArgs(args);
   if (!parsed.draftSpecPackPath) {
-    console.error("ERROR handoff create requires <draft-spec-pack-path>");
+    printMissingArgument("<draft-spec-pack-path>", USAGE["handoff create"], "Provide a draft spec-pack folder.");
     return 1;
   }
   if (!parsed.manualApplyPlanPath) {
-    console.error("ERROR handoff create requires --apply-plan <manual-apply-plan-file>");
+    printMissingOption("--apply-plan", USAGE["handoff create"], "Add --apply-plan <manual-apply-plan-file>.");
     return 1;
   }
   if (!parsed.outputFolder) {
-    console.error("ERROR handoff create requires --out <output-folder>");
+    printMissingOption("--out", USAGE["handoff create"], "Add --out <output-folder>.");
     return 1;
   }
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) console.error(`ERROR ${error}`);
+    printParseErrors(parsed.errors, USAGE["handoff create"]);
+    return 1;
+  }
+
+  if (!pathExists(path.resolve(process.cwd(), parsed.draftSpecPackPath))) {
+    printPathNotFound(parsed.draftSpecPackPath);
+    return 1;
+  }
+
+  if (!pathExists(path.resolve(process.cwd(), parsed.manualApplyPlanPath))) {
+    printPathNotFound(parsed.manualApplyPlanPath);
     return 1;
   }
 
@@ -194,20 +215,27 @@ function runHandoffCreate(args) {
     writeHandoffPack({ pack, outputFolder });
     validateHandoffPackFolder(outputFolder);
 
-    console.log("SpecWise agent handoff pack skeleton created:");
-    console.log("- README.md");
-    console.log("- handoff-manifest.json");
-    console.log("- agent instruction files");
-    console.log("- machine-readable source artifacts");
-    console.log("");
-    console.log("No agent was called.");
-    console.log("No implementation tasks were created.");
-    console.log("No final spec-pack was generated.");
-    console.log("Status: Review Required");
+    printSuccess("SpecWise agent handoff pack skeleton created:", {
+      items: ["README.md", "handoff-manifest.json", "agent instruction files", "machine-readable source artifacts"],
+      lines: [
+        "No agent was called.",
+        "No implementation tasks were created.",
+        "No final spec-pack was generated.",
+        "Status: Review Required"
+      ]
+    });
     return 0;
   } catch (error) {
     if (error instanceof HandoffWorkflowError || error instanceof HandoffValidationError) {
-      console.error(error.message);
+      if (error.message === "Output folder already exists and is not empty.") {
+        printOutputFolderExists();
+      } else if (/^Output path exists/.test(error.message)) {
+        printOutputPathNotDirectory(parsed.outputFolder);
+      } else {
+        printError(error.message, {
+          nextAction: "Check the draft spec-pack folder, apply plan file, and --out folder."
+        });
+      }
       return 1;
     }
     throw error;
@@ -222,7 +250,12 @@ function runHandoffValidate(args) {
 
   const handoffPackFolder = args[0];
   if (!handoffPackFolder || args.length > 1) {
-    console.error("ERROR handoff validate requires <handoff-pack-folder>");
+    printMissingArgument("<handoff-pack-folder>", USAGE["handoff validate"], "Provide a handoff pack folder.");
+    return 1;
+  }
+
+  if (!pathExists(path.resolve(process.cwd(), handoffPackFolder))) {
+    printPathNotFound(handoffPackFolder);
     return 1;
   }
 
@@ -232,7 +265,9 @@ function runHandoffValidate(args) {
     return 0;
   } catch (error) {
     if (error instanceof HandoffValidationError) {
-      console.error(error.message);
+      printError(error.message, {
+        nextAction: "Fix the handoff pack and try again."
+      });
       return 1;
     }
     throw error;
@@ -255,6 +290,8 @@ export function runHandoff(args) {
     return runHandoffValidate(rest);
   }
 
-  console.error("ERROR handoff requires a subcommand: create or validate");
+  printError("Missing or unknown handoff subcommand", {
+    nextAction: "Use one of: handoff create, handoff validate."
+  });
   return 1;
 }

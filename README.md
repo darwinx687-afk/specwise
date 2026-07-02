@@ -72,6 +72,8 @@ npm run smoke
 
 The smoke workflow does not call AI providers, does not call coding agents, does not generate application code, and cleans temporary outputs.
 
+For first-run details and common CLI errors, see [First-run Guide v0.2](docs/first-run-guide-v0.2.md).
+
 ## Core Workflow
 
 The full v0.1 local workflow is:
@@ -176,6 +178,7 @@ SpecWise v0.1 currently includes:
 - synthetic Legacy CRM Follow-up example pack
 - deterministic draft heuristic polish and draft quality smoke checks
 - CSV field inference polish and field quality smoke checks
+- CLI error and first-run DX polish with CLI DX smoke checks
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
@@ -223,6 +226,10 @@ Phase 22C improves CSV field inference for entity names, field types, relationsh
 
 Phase 22C 改进 CSV 字段推断，包括实体命名、字段类型、关系提示和 observed enum/status values；XLSX 解析暂不进入当前范围。
 
+Phase 22D improves first-run CLI errors and adds CLI DX smoke checks.
+
+Phase 22D 改进首次使用时的 CLI 错误提示，并加入 CLI DX smoke checks。
+
 v0.2 implementation planning is now available:
 
 - [v0.2 Implementation Plan](docs/v0.2-implementation-plan.md)
@@ -240,6 +247,7 @@ Start with [Docs Index](docs/docs-index-v0.1.md).
 Key docs:
 
 - [CLI Reference](docs/cli-reference-v0.1.md)
+- [First-run Guide v0.2](docs/first-run-guide-v0.2.md)
 - [Examples Guide](docs/examples-guide-v0.1.md)
 - [Full Workflow Guide](docs/full-workflow-guide-v0.1.md)
 - [Release Readiness Checklist](docs/release-readiness-checklist-v0.1.md)
@@ -272,11 +280,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 22C CSV/XLSX Field Inference Polish.
+Completed through Phase 22D CLI Error and First-run DX Polish.
 
 Next candidate phase:
 
-- Phase 22D: CLI Error and First-run DX Polish
+- Phase 22E: First-time Docs Simplification
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 

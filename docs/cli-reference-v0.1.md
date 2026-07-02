@@ -1,10 +1,68 @@
 # CLI Reference v0.1
 
-Status: Phase 11 release-readiness reference.
+Status: Phase 22D CLI and first-run reference.
 
 All current v0.1 commands are local-first and dependency-free.
 
 No command calls real AI providers. No command calls Codex, Claude Code, Cursor, or Spec Kit.
+
+## First-run Recommended Commands
+
+```bash
+npm test
+node bin/specwise.mjs --help
+node bin/specwise.mjs doctor
+node bin/specwise.mjs draft examples/legacy-crm-follow-up/input --out ./tmp/crm-draft --force
+node bin/specwise.mjs validate ./tmp/crm-draft/spec-pack
+rm -rf ./tmp/crm-draft
+```
+
+For a fuller first-run path, see [First-run Guide v0.2](first-run-guide-v0.2.md).
+
+## Common Error Patterns
+
+Missing arguments and options use this shape:
+
+```text
+SpecWise error: Missing required option --out
+
+Command:
+  specwise draft <input-folder> --out <output-folder> [--force]
+
+Next action:
+  Add --out <output-folder>.
+```
+
+Path errors keep the user-provided path instead of printing local absolute paths:
+
+```text
+SpecWise error: Path not found: ./does-not-exist
+
+Next action:
+  Check the path and try again.
+```
+
+Unknown commands list available top-level commands and point back to `--help`.
+
+## Output Folder And `--force`
+
+Commands that write output do not overwrite a non-empty output folder by default.
+
+Use `--force` only when you intend to replace that output folder:
+
+```bash
+node bin/specwise.mjs draft examples/legacy-crm-follow-up/input --out ./tmp/crm-draft --force
+```
+
+## CLI DX Check
+
+Run the CLI DX smoke checks with:
+
+```bash
+npm run cli:dx
+```
+
+This checks unknown command guidance, missing argument guidance, missing path/file guidance, output folder protection, `--help`, and `doctor`.
 
 ## Command Summary
 
@@ -339,4 +397,3 @@ node bin/specwise.mjs handoff validate ./tmp/handoff-pack
 Outputs: validation result.
 
 Safety notes: checks safety flags and required boundary phrases; no files are written.
-

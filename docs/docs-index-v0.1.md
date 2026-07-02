@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 22C documentation map.
+Status: Phase 22D documentation map.
 
 ## Core Standards
 
@@ -10,6 +10,7 @@ Status: Phase 22C documentation map.
 ## CLI / Workflows
 
 - [CLI Reference](cli-reference-v0.1.md)
+- [First-run Guide v0.2](first-run-guide-v0.2.md)
 - [Full Workflow Guide](full-workflow-guide-v0.1.md)
 - [DX Polish Notes](dx-polish-notes-v0.1.md)
 

@@ -51,7 +51,16 @@ SpecWise does not generate application code.
 draft does not use AI, OCR, or vision models.
 extract supports dry-run planning only. No AI provider calls are made.
 handoff prepares context only. No AI coding agents are called.
-It prepares reviewable spec packs before AI coding.`);
+It prepares reviewable spec packs before AI coding.
+
+First run:
+  npm test
+  node bin/specwise.mjs draft examples/legacy-crm-follow-up/input --out ./tmp/crm-draft --force
+  node bin/specwise.mjs validate ./tmp/crm-draft/spec-pack
+  rm -rf ./tmp/crm-draft
+
+DX checks:
+  npm run cli:dx`);
 }
 
 export function printVersion() {

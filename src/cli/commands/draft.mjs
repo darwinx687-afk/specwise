@@ -5,6 +5,17 @@ import { writeDraftSpecPack } from "../../draft/render-draft-spec-pack.mjs";
 import { createInventoryDocument, writeInventoryOutput } from "../../inventory/render-inventory.mjs";
 import { scanInputFolder } from "../../inventory/scan-input-folder.mjs";
 import { isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
+import {
+  printError,
+  printMissingArgument,
+  printMissingOption,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printParseErrors,
+  printPathNotFound,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 
 function parseDraftArgs(args) {
   const parsed = {
@@ -52,39 +63,34 @@ export function runDraft(args) {
   const parsed = parseDraftArgs(args);
 
   if (!parsed.inputFolder) {
-    console.error("ERROR draft requires <input-folder>");
-    console.error("Usage: specwise draft <input-folder> --out <output-folder> [--force]");
+    printMissingArgument("<input-folder>", USAGE.draft, "Provide an input folder, for example:\nnode bin/specwise.mjs draft examples/legacy-crm-follow-up/input --out ./tmp/crm-draft --force");
     return 1;
   }
 
   if (!parsed.outputFolder) {
-    console.error("ERROR draft requires --out <output-folder>");
-    console.error("Usage: specwise draft <input-folder> --out <output-folder> [--force]");
+    printMissingOption("--out", USAGE.draft, "Add --out <output-folder>.");
     return 1;
   }
 
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) {
-      console.error(`ERROR ${error}`);
-    }
+    printParseErrors(parsed.errors, USAGE.draft);
     return 1;
   }
 
   const inputFolder = path.resolve(process.cwd(), parsed.inputFolder);
   if (!pathExists(inputFolder) || !fs.statSync(inputFolder).isDirectory()) {
-    console.error(`Input folder not found: ${parsed.inputFolder}`);
+    printPathNotFound(parsed.inputFolder);
     return 1;
   }
 
   const outputFolder = path.resolve(process.cwd(), parsed.outputFolder);
   if (pathExists(outputFolder) && !fs.statSync(outputFolder).isDirectory()) {
-    console.error(`ERROR output path exists and is not a directory: ${parsed.outputFolder}`);
+    printOutputPathNotDirectory(parsed.outputFolder);
     return 1;
   }
 
   if (isNonEmptyDirectory(outputFolder) && !parsed.force) {
-    console.error(`ERROR output folder already exists and is not empty: ${parsed.outputFolder}`);
-    console.error("Use --force to overwrite it.");
+    printOutputFolderExists();
     return 1;
   }
 
@@ -100,18 +106,20 @@ export function runDraft(args) {
     const draft = buildDraftSpecPack({ inventory, inputFolder: parsed.inputFolder });
     writeDraftSpecPack(draft, outputFolder);
 
-    console.log("SpecWise draft spec-pack generated:");
-    console.log("- material-inventory.json");
-    console.log("- material-summary.md");
-    console.log("- spec-pack/");
-    console.log("");
-    console.log(`Input: ${scan.inputFolder}`);
-    console.log(`Output: ${parsed.outputFolder}`);
-    console.log("Status: Review Required");
+    printSuccess("SpecWise draft generated:", {
+      items: ["material-inventory.json", "material-summary.md", "spec-pack/"],
+      lines: [
+        `Input: ${scan.inputFolder}`,
+        `Output: ${parsed.outputFolder}`,
+        "Status: Review Required",
+        "No AI provider was called."
+      ]
+    });
     return 0;
   } catch (error) {
-    console.error(error.message);
+    printError(error.message, {
+      nextAction: "Check the input folder and try again."
+    });
     return 1;
   }
 }
-

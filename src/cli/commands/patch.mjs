@@ -4,6 +4,17 @@ import { createMergePreview, writeMergePreview } from "../../patches/merge-previ
 import { PatchPreviewError, PatchValidationError } from "../../patches/patch-errors.mjs";
 import { loadAiPatch } from "../../patches/validate-ai-patch.mjs";
 import { isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
+import {
+  printError,
+  printMissingArgument,
+  printMissingOption,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printParseErrors,
+  printPathNotFound,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 
 function getOption(args, name) {
   const index = args.indexOf(name);
@@ -60,7 +71,13 @@ function parsePreviewArgs(args) {
 function runPatchValidate(args) {
   const patchFile = args[0];
   if (!patchFile || args.length > 1) {
-    console.error("ERROR patch validate requires <patch-file>");
+    printMissingArgument("<patch-file>", USAGE["patch validate"], "Provide a patch file, for example:\nnode bin/specwise.mjs patch validate examples/ai-patches/legacy-staff-evaluation.mock-ai-patch.json");
+    return 1;
+  }
+
+  const resolvedPatchFile = path.resolve(process.cwd(), patchFile);
+  if (!pathExists(resolvedPatchFile)) {
+    printPathNotFound(patchFile);
     return 1;
   }
 
@@ -70,7 +87,9 @@ function runPatchValidate(args) {
     return 0;
   } catch (error) {
     if (error instanceof PatchValidationError) {
-      console.error(error.message);
+      printError(error.message, {
+        nextAction: "Fix the patch file and try again."
+      });
       return 1;
     }
     throw error;
@@ -93,34 +112,37 @@ function runPatchPreview(args) {
   const parsed = parsePreviewArgs(args);
 
   if (!parsed.draftSpecPackPath) {
-    console.error("ERROR patch preview requires <draft-spec-pack-path>");
+    printMissingArgument("<draft-spec-pack-path>", USAGE["patch preview"], "Provide a draft spec-pack folder.");
     return 1;
   }
   if (!parsed.patchFile) {
-    console.error("ERROR patch preview requires --patch <patch-file>");
+    printMissingOption("--patch", USAGE["patch preview"], "Add --patch <patch-file>.");
     return 1;
   }
   if (!parsed.outputFolder) {
-    console.error("ERROR patch preview requires --out <output-folder>");
+    printMissingOption("--out", USAGE["patch preview"], "Add --out <output-folder>.");
     return 1;
   }
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) console.error(`ERROR ${error}`);
+    printParseErrors(parsed.errors, USAGE["patch preview"]);
     return 1;
   }
 
   const outputFolder = path.resolve(process.cwd(), parsed.outputFolder);
   if (pathExists(outputFolder) && !fs.statSync(outputFolder).isDirectory()) {
-    console.error(`ERROR output path exists and is not a directory: ${parsed.outputFolder}`);
+    printOutputPathNotDirectory(parsed.outputFolder);
     return 1;
   }
   if (isNonEmptyDirectory(outputFolder) && !parsed.force) {
-    console.error(`ERROR output folder already exists and is not empty: ${parsed.outputFolder}`);
-    console.error("Use --force to overwrite it.");
+    printOutputFolderExists();
     return 1;
   }
 
   try {
+    if (!pathExists(path.resolve(process.cwd(), parsed.patchFile))) {
+      printPathNotFound(parsed.patchFile);
+      return 1;
+    }
     assertDraftSpecPackExists(parsed.draftSpecPackPath);
     const patch = loadAiPatch(parsed.patchFile);
 
@@ -134,16 +156,19 @@ function runPatchPreview(args) {
     });
     writeMergePreview(preview, outputFolder);
 
-    console.log("SpecWise AI patch merge preview generated:");
-    console.log("- merge-preview.json");
-    console.log("- merge-preview.md");
-    console.log("");
-    console.log("No patch was automatically applied.");
-    console.log("Status: Review Required");
+    printSuccess("SpecWise AI patch merge preview generated:", {
+      items: ["merge-preview.json", "merge-preview.md"],
+      lines: [
+        "No patch was automatically applied.",
+        "Status: Review Required"
+      ]
+    });
     return 0;
   } catch (error) {
     if (error instanceof PatchPreviewError || error instanceof PatchValidationError) {
-      console.error(error.message);
+      printError(error.message, {
+        nextAction: "Check the draft spec-pack folder, patch file, and --out folder."
+      });
       return 1;
     }
     throw error;
@@ -161,6 +186,8 @@ export function runPatch(args) {
     return runPatchPreview(rest);
   }
 
-  console.error("ERROR patch requires a subcommand: validate or preview");
+  printError("Missing or unknown patch subcommand", {
+    nextAction: "Use one of: patch validate <patch-file>, patch preview <draft-spec-pack-path> --patch <patch-file> --out <output-folder>."
+  });
   return 1;
 }

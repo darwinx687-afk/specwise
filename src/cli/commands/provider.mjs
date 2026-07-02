@@ -1,7 +1,10 @@
+import path from "node:path";
 import { loadProviderConfig } from "../../providers/provider-config.mjs";
 import { ProviderConfigError, ProviderRuntimeError, ProviderUnavailableError } from "../../providers/provider-errors.mjs";
 import { createProviderRuntimeDescriptor } from "../../providers/provider-runtime-contract.mjs";
 import { getProvider, listProviders } from "../../providers/provider-registry.mjs";
+import { pathExists } from "../../utils/fs.mjs";
+import { printError, printMissingOption, printPathNotFound, USAGE } from "../cli-format.mjs";
 
 function getOption(args, name) {
   const index = args.indexOf(name);
@@ -32,7 +35,13 @@ function runProviderList() {
 function runProviderDoctor(args) {
   const configPath = getOption(args, "--config");
   if (!configPath) {
-    console.error("ERROR provider doctor requires --config <path>");
+    printMissingOption("--config", USAGE["provider doctor"], "Add --config <config-path>.");
+    return 1;
+  }
+
+  const resolvedConfigPath = path.resolve(process.cwd(), configPath);
+  if (!pathExists(resolvedConfigPath)) {
+    printPathNotFound(configPath);
     return 1;
   }
 
@@ -65,7 +74,9 @@ function runProviderDoctor(args) {
     return 0;
   } catch (error) {
     if (error instanceof ProviderConfigError || error instanceof ProviderRuntimeError || error instanceof ProviderUnavailableError) {
-      console.error(error.message);
+      printError(error.message, {
+        nextAction: "Check the provider config and try again."
+      });
       return 1;
     }
     throw error;
@@ -83,6 +94,8 @@ export function runProvider(args) {
     return runProviderDoctor(rest);
   }
 
-  console.error("ERROR provider requires a subcommand: list or doctor");
+  printError("Missing or unknown provider subcommand", {
+    nextAction: "Use one of: provider list, provider doctor --config <config-path>."
+  });
   return 1;
 }

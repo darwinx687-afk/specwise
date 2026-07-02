@@ -11,6 +11,17 @@ import { createInventoryDocument, writeInventoryOutput } from "../../inventory/r
 import { scanInputFolder } from "../../inventory/scan-input-folder.mjs";
 import { isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
 import { fromRoot } from "../../utils/paths.mjs";
+import {
+  printError,
+  printMissingArgument,
+  printMissingOption,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printParseErrors,
+  printPathNotFound,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 
 function parsePrepareArgs(args) {
   const parsed = {
@@ -83,36 +94,41 @@ function runAiPreviewPrepare(args) {
   const parsed = parsePrepareArgs(args);
 
   if (!parsed.inputFolder) {
-    console.error("ERROR ai-preview prepare requires <input-folder>");
+    printMissingArgument("<input-folder>", USAGE["ai-preview prepare"], "Provide an input folder.");
     return 1;
   }
   if (!parsed.outputFolder) {
-    console.error("ERROR ai-preview prepare requires --out <output-folder>");
+    printMissingOption("--out", USAGE["ai-preview prepare"], "Add --out <output-folder>.");
     return 1;
   }
   if (!parsed.configPath) {
-    console.error("ERROR ai-preview prepare requires --config <config-path>");
+    printMissingOption("--config", USAGE["ai-preview prepare"], "Add --config <config-path>.");
     return 1;
   }
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) console.error(`ERROR ${error}`);
+    printParseErrors(parsed.errors, USAGE["ai-preview prepare"]);
     return 1;
   }
 
   const inputFolder = path.resolve(process.cwd(), parsed.inputFolder);
   if (!pathExists(inputFolder) || !fs.statSync(inputFolder).isDirectory()) {
-    console.error(`Input folder not found: ${parsed.inputFolder}`);
+    printPathNotFound(parsed.inputFolder);
+    return 1;
+  }
+
+  const configPath = path.resolve(process.cwd(), parsed.configPath);
+  if (!pathExists(configPath)) {
+    printPathNotFound(parsed.configPath);
     return 1;
   }
 
   const outputFolder = path.resolve(process.cwd(), parsed.outputFolder);
   if (pathExists(outputFolder) && !fs.statSync(outputFolder).isDirectory()) {
-    console.error(`ERROR output path exists and is not a directory: ${parsed.outputFolder}`);
+    printOutputPathNotDirectory(parsed.outputFolder);
     return 1;
   }
   if (isNonEmptyDirectory(outputFolder) && !parsed.force) {
-    console.error(`ERROR output folder already exists and is not empty: ${parsed.outputFolder}`);
-    console.error("Use --force to overwrite it.");
+    printOutputFolderExists();
     return 1;
   }
 
@@ -148,25 +164,33 @@ function runAiPreviewPrepare(args) {
     writeJson(path.join(outputFolder, "ai-preview-readiness.json"), readiness);
     fs.writeFileSync(path.join(outputFolder, "ai-preview-readiness.md"), renderAiPreviewReadiness(readiness));
 
-    console.log("SpecWise AI preview artifacts prepared:");
-    console.log("- material-inventory.json");
-    console.log("- material-summary.md");
-    console.log("- deterministic-draft/");
-    console.log("- prompt-package.json");
-    console.log("- prompt-preview.md");
-    console.log("- ai-preview-readiness.json");
-    console.log("- ai-preview-readiness.md");
-    console.log("");
-    console.log("No AI provider was called.");
-    console.log("No network calls were made.");
-    console.log("No API key was read.");
+    printSuccess("SpecWise AI preview artifacts prepared:", {
+      items: [
+        "material-inventory.json",
+        "material-summary.md",
+        "deterministic-draft/",
+        "prompt-package.json",
+        "prompt-preview.md",
+        "ai-preview-readiness.json",
+        "ai-preview-readiness.md"
+      ],
+      lines: [
+        "No AI provider was called.",
+        "No network calls were made.",
+        "No API key was read."
+      ]
+    });
     return 0;
   } catch (error) {
     if (error instanceof AiPreviewPrepareError) {
-      console.error(error.message);
+      printError(error.message, {
+        nextAction: "Check the input folder, config file, and --out folder."
+      });
       return 1;
     }
-    console.error(error.message);
+    printError(error.message, {
+      nextAction: "Check the command inputs and try again."
+    });
     return 1;
   }
 }
@@ -178,6 +202,8 @@ export function runAiPreview(args) {
     return runAiPreviewPrepare(rest);
   }
 
-  console.error("ERROR ai-preview requires a subcommand: prepare");
+  printError("Missing or unknown ai-preview subcommand", {
+    nextAction: "Use ai-preview prepare <input-folder> --out <output-folder> --config <config-path>."
+  });
   return 1;
 }

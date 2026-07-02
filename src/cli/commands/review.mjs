@@ -6,6 +6,17 @@ import { ReviewDecisionValidationError, ReviewWorkflowError } from "../../review
 import { renderReviewedHandoffPlan, renderReviewReportMarkdown } from "../../review/render-review-report.mjs";
 import { loadReviewDecisions } from "../../review/validate-review-decisions.mjs";
 import { isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
+import {
+  printError,
+  printMissingArgument,
+  printMissingOption,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printParseErrors,
+  printPathNotFound,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 
 function parseInitArgs(args) {
   const parsed = {
@@ -98,10 +109,10 @@ function parseReportArgs(args) {
 function assertWritableOutputFolder(outputFolder, force) {
   const resolvedOutputFolder = path.resolve(process.cwd(), outputFolder);
   if (pathExists(resolvedOutputFolder) && !fs.statSync(resolvedOutputFolder).isDirectory()) {
-    throw new ReviewWorkflowError(`ERROR output path exists and is not a directory: ${outputFolder}`);
+    throw new ReviewWorkflowError(`Output path exists and is not a directory: ${outputFolder}`);
   }
   if (isNonEmptyDirectory(resolvedOutputFolder) && !force) {
-    throw new ReviewWorkflowError(`ERROR output folder already exists and is not empty: ${outputFolder}. Use --force to overwrite it.`);
+    throw new ReviewWorkflowError("Output folder already exists and is not empty.");
   }
   if (force && pathExists(resolvedOutputFolder)) {
     fs.rmSync(resolvedOutputFolder, { recursive: true, force: true });
@@ -116,15 +127,20 @@ function writeJson(filePath, value) {
 function runReviewInit(args) {
   const parsed = parseInitArgs(args);
   if (!parsed.mergePreviewFolder) {
-    console.error("ERROR review init requires <merge-preview-folder>");
+    printMissingArgument("<merge-preview-folder>", USAGE["review init"], "Provide a merge preview folder.");
     return 1;
   }
   if (!parsed.outputFolder) {
-    console.error("ERROR review init requires --out <review-folder>");
+    printMissingOption("--out", USAGE["review init"], "Add --out <review-folder>.");
     return 1;
   }
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) console.error(`ERROR ${error}`);
+    printParseErrors(parsed.errors, USAGE["review init"]);
+    return 1;
+  }
+
+  if (!pathExists(path.resolve(process.cwd(), parsed.mergePreviewFolder))) {
+    printPathNotFound(parsed.mergePreviewFolder);
     return 1;
   }
 
@@ -143,16 +159,25 @@ function runReviewInit(args) {
       renderReviewDecisionsMarkdown({ reviewDecisions, mergePreview })
     );
 
-    console.log("SpecWise review template created:");
-    console.log("- review-decisions.json");
-    console.log("- review-decisions.md");
-    console.log("");
-    console.log("No patch was applied.");
-    console.log("All decisions require human review.");
+    printSuccess("SpecWise review template created:", {
+      items: ["review-decisions.json", "review-decisions.md"],
+      lines: [
+        "No patch was applied.",
+        "All decisions require human review."
+      ]
+    });
     return 0;
   } catch (error) {
     if (error instanceof ReviewWorkflowError) {
-      console.error(error.message);
+      if (error.message === "Output folder already exists and is not empty.") {
+        printOutputFolderExists();
+      } else if (/^Output path exists/.test(error.message)) {
+        printOutputPathNotDirectory(parsed.outputFolder);
+      } else {
+        printError(error.message, {
+          nextAction: "Check the merge preview folder and --out folder."
+        });
+      }
       return 1;
     }
     throw error;
@@ -162,7 +187,12 @@ function runReviewInit(args) {
 function runReviewValidate(args) {
   const decisionsFile = args[0];
   if (!decisionsFile || args.length > 1) {
-    console.error("ERROR review validate requires <review-decisions-file>");
+    printMissingArgument("<review-decisions-file>", USAGE["review validate"], "Provide a review decisions file.");
+    return 1;
+  }
+
+  if (!pathExists(path.resolve(process.cwd(), decisionsFile))) {
+    printPathNotFound(decisionsFile);
     return 1;
   }
 
@@ -172,7 +202,9 @@ function runReviewValidate(args) {
     return 0;
   } catch (error) {
     if (error instanceof ReviewDecisionValidationError) {
-      console.error(error.message);
+      printError(error.message, {
+        nextAction: "Fix the review decisions file and try again."
+      });
       return 1;
     }
     throw error;
@@ -182,19 +214,29 @@ function runReviewValidate(args) {
 function runReviewReport(args) {
   const parsed = parseReportArgs(args);
   if (!parsed.mergePreviewFolder) {
-    console.error("ERROR review report requires <merge-preview-folder>");
+    printMissingArgument("<merge-preview-folder>", USAGE["review report"], "Provide a merge preview folder.");
     return 1;
   }
   if (!parsed.decisionsFile) {
-    console.error("ERROR review report requires --decisions <review-decisions-file>");
+    printMissingOption("--decisions", USAGE["review report"], "Add --decisions <review-decisions-file>.");
     return 1;
   }
   if (!parsed.outputFolder) {
-    console.error("ERROR review report requires --out <output-folder>");
+    printMissingOption("--out", USAGE["review report"], "Add --out <output-folder>.");
     return 1;
   }
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) console.error(`ERROR ${error}`);
+    printParseErrors(parsed.errors, USAGE["review report"]);
+    return 1;
+  }
+
+  if (!pathExists(path.resolve(process.cwd(), parsed.mergePreviewFolder))) {
+    printPathNotFound(parsed.mergePreviewFolder);
+    return 1;
+  }
+
+  if (!pathExists(path.resolve(process.cwd(), parsed.decisionsFile))) {
+    printPathNotFound(parsed.decisionsFile);
     return 1;
   }
 
@@ -214,18 +256,26 @@ function runReviewReport(args) {
     fs.writeFileSync(path.join(outputFolder, "review-report.md"), renderReviewReportMarkdown(report));
     fs.writeFileSync(path.join(outputFolder, "reviewed-handoff-plan.md"), renderReviewedHandoffPlan(report));
 
-    console.log("SpecWise human review report generated:");
-    console.log("- review-report.json");
-    console.log("- review-report.md");
-    console.log("- reviewed-handoff-plan.md");
-    console.log("");
-    console.log("No patch was automatically applied.");
-    console.log("No final spec-pack was generated.");
-    console.log("Status: Review Required");
+    printSuccess("SpecWise human review report generated:", {
+      items: ["review-report.json", "review-report.md", "reviewed-handoff-plan.md"],
+      lines: [
+        "No patch was automatically applied.",
+        "No final spec-pack was generated.",
+        "Status: Review Required"
+      ]
+    });
     return 0;
   } catch (error) {
     if (error instanceof ReviewDecisionValidationError || error instanceof ReviewWorkflowError) {
-      console.error(error.message);
+      if (error.message === "Output folder already exists and is not empty.") {
+        printOutputFolderExists();
+      } else if (/^Output path exists/.test(error.message)) {
+        printOutputPathNotDirectory(parsed.outputFolder);
+      } else {
+        printError(error.message, {
+          nextAction: "Check the merge preview folder, decisions file, and --out folder."
+        });
+      }
       return 1;
     }
     throw error;
@@ -247,6 +297,8 @@ export function runReview(args) {
     return runReviewReport(rest);
   }
 
-  console.error("ERROR review requires a subcommand: init, validate, or report");
+  printError("Missing or unknown review subcommand", {
+    nextAction: "Use one of: review init, review validate, review report."
+  });
   return 1;
 }

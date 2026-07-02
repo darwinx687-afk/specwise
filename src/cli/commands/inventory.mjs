@@ -3,6 +3,17 @@ import path from "node:path";
 import { createInventoryDocument, writeInventoryOutput } from "../../inventory/render-inventory.mjs";
 import { scanInputFolder } from "../../inventory/scan-input-folder.mjs";
 import { isNonEmptyDirectory, pathExists } from "../../utils/fs.mjs";
+import {
+  printError,
+  printMissingArgument,
+  printMissingOption,
+  printOutputFolderExists,
+  printOutputPathNotDirectory,
+  printParseErrors,
+  printPathNotFound,
+  printSuccess,
+  USAGE
+} from "../cli-format.mjs";
 
 function parseInventoryArgs(args) {
   const parsed = {
@@ -50,39 +61,34 @@ export function runInventory(args) {
   const parsed = parseInventoryArgs(args);
 
   if (!parsed.inputFolder) {
-    console.error("ERROR inventory requires <input-folder>");
-    console.error("Usage: specwise inventory <input-folder> --out <output-folder> [--force]");
+    printMissingArgument("<input-folder>", USAGE.inventory, "Provide an input folder, for example:\nnode bin/specwise.mjs inventory examples/legacy-staff-evaluation/input --out ./tmp/inventory-test --force");
     return 1;
   }
 
   if (!parsed.outputFolder) {
-    console.error("ERROR inventory requires --out <output-folder>");
-    console.error("Usage: specwise inventory <input-folder> --out <output-folder> [--force]");
+    printMissingOption("--out", USAGE.inventory, "Add --out <output-folder>.");
     return 1;
   }
 
   if (parsed.errors.length > 0) {
-    for (const error of parsed.errors) {
-      console.error(`ERROR ${error}`);
-    }
+    printParseErrors(parsed.errors, USAGE.inventory);
     return 1;
   }
 
   const inputFolder = path.resolve(process.cwd(), parsed.inputFolder);
   if (!pathExists(inputFolder) || !fs.statSync(inputFolder).isDirectory()) {
-    console.error(`Input folder not found: ${parsed.inputFolder}`);
+    printPathNotFound(parsed.inputFolder);
     return 1;
   }
 
   const outputFolder = path.resolve(process.cwd(), parsed.outputFolder);
   if (pathExists(outputFolder) && !fs.statSync(outputFolder).isDirectory()) {
-    console.error(`ERROR output path exists and is not a directory: ${parsed.outputFolder}`);
+    printOutputPathNotDirectory(parsed.outputFolder);
     return 1;
   }
 
   if (isNonEmptyDirectory(outputFolder) && !parsed.force) {
-    console.error(`ERROR output folder already exists and is not empty: ${parsed.outputFolder}`);
-    console.error("Use --force to overwrite it.");
+    printOutputFolderExists();
     return 1;
   }
 
@@ -95,17 +101,21 @@ export function runInventory(args) {
     const inventory = createInventoryDocument(scan);
     writeInventoryOutput(inventory, outputFolder);
 
-    console.log("SpecWise material inventory generated:");
-    console.log("- material-inventory.json");
-    console.log("- material-summary.md");
-    console.log("");
-    console.log(`Input: ${scan.inputFolder}`);
-    console.log(`Output: ${parsed.outputFolder}`);
-    console.log(`Supported files: ${inventory.summary.supportedFiles}`);
-    console.log(`Unsupported files: ${inventory.summary.unsupportedFiles}`);
+    printSuccess("SpecWise material inventory generated:", {
+      items: ["material-inventory.json", "material-summary.md"],
+      lines: [
+        `Input: ${scan.inputFolder}`,
+        `Output: ${parsed.outputFolder}`,
+        `Supported files: ${inventory.summary.supportedFiles}`,
+        `Unsupported files: ${inventory.summary.unsupportedFiles}`,
+        "No AI provider was called."
+      ]
+    });
     return 0;
   } catch (error) {
-    console.error(error.message);
+    printError(error.message, {
+      nextAction: "Check the input folder and try again."
+    });
     return 1;
   }
 }

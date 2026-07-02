@@ -29,10 +29,11 @@
     "cli:review:validate": "node bin/specwise.mjs review validate examples/reviews/legacy-staff-evaluation.review-decisions.example.json",
     "cli:apply-plan:validate": "node bin/specwise.mjs apply-plan validate examples/apply-plans/legacy-staff-evaluation.manual-apply-plan.example.json",
     "cli:handoff:manifest:example": "node --input-type=module -e \"import fs from 'node:fs'; import { validateHandoffManifestDocument } from './src/handoff/validate-handoff-pack.mjs'; validateHandoffManifestDocument(JSON.parse(fs.readFileSync('examples/handoff/legacy-staff-evaluation.handoff-manifest.example.json', 'utf8'))); console.log('SpecWise handoff manifest example validation passed');\"",
+    "cli:dx": "node scripts/check-cli-dx.mjs",
     "draft:quality": "node scripts/check-draft-quality.mjs",
     "field:quality": "node scripts/check-field-inference.mjs",
     "smoke": "node scripts/smoke-test-local.mjs",
-    "test": "npm run validate:examples && npm run validate:invalid && npm run draft:quality && npm run field:quality"
+    "test": "npm run validate:examples && npm run validate:invalid && npm run draft:quality && npm run field:quality && npm run cli:dx"
   },
   "engines": {
     "node": ">=18"
