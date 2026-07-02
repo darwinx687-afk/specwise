@@ -175,6 +175,7 @@ SpecWise v0.1 currently includes:
 - public preview docs and community templates
 - synthetic Legacy CRM Follow-up example pack
 - deterministic draft heuristic polish and draft quality smoke checks
+- CSV field inference polish and field quality smoke checks
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
@@ -217,6 +218,10 @@ Legacy CRM Follow-up example is now available as a second realistic mock scenari
 Phase 22B improves deterministic draft heuristics and adds draft quality smoke checks while keeping SpecWise dependency-free and AI-free by default.
 
 Phase 22B 改进 deterministic draft heuristics，并加入 draft quality smoke checks，同时继续保持无依赖、默认不调用 AI。
+
+Phase 22C improves CSV field inference for entity names, field types, relationship hints, and observed enum/status values while keeping XLSX parsing out of scope for now.
+
+Phase 22C 改进 CSV 字段推断，包括实体命名、字段类型、关系提示和 observed enum/status values；XLSX 解析暂不进入当前范围。
 
 v0.2 implementation planning is now available:
 
@@ -267,11 +272,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 22B Deterministic Draft Heuristic Polish.
+Completed through Phase 22C CSV/XLSX Field Inference Polish.
 
 Next candidate phase:
 
-- Phase 22C: CSV/XLSX Field Inference Polish
+- Phase 22D: CLI Error and First-run DX Polish
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 

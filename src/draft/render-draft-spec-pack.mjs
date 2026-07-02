@@ -9,6 +9,21 @@ function confidenceLine(item) {
   return `- Confidence: ${item.confidence ?? "low"}\n- Needs review: ${item.needsReview ?? true}`;
 }
 
+function formatList(values) {
+  return Array.isArray(values) && values.length ? values.join(", ") : "none";
+}
+
+function fieldNote(field) {
+  const notes = [];
+  if (field.relationshipHint?.targetEntityName) {
+    notes.push(`may reference ${field.relationshipHint.targetEntityName}`);
+  }
+  if (field.possibleValues?.length) {
+    notes.push(`observed values: ${field.possibleValues.join(", ")}`);
+  }
+  return notes.join("; ") || "review required";
+}
+
 function renderModules(draft) {
   const { specPack, generatedNote } = draft;
   const lines = [
@@ -38,6 +53,7 @@ function renderModules(draft) {
 
 function renderEntities(draft) {
   const { specPack, generatedNote } = draft;
+  const fieldsById = new Map(specPack.fields.map((field) => [field.id, field]));
   const lines = [
     "# 02 Entities",
     "",
@@ -57,6 +73,14 @@ function renderEntities(draft) {
     lines.push(`- Evidence: ${entity.evidenceIds.join(", ") || "none"}`);
     lines.push(confidenceLine(entity));
     lines.push(`- Open questions: ${(entity.openQuestionIds ?? []).join(", ") || "none"}`);
+    lines.push("");
+    lines.push("| Field | Inferred Type | Semantic Hint | Required Hint | Evidence | Notes |");
+    lines.push("|---|---|---|---|---|---|");
+    for (const fieldId of entity.fields) {
+      const field = fieldsById.get(fieldId);
+      if (!field) continue;
+      lines.push(`| ${field.name} | ${field.type} | ${field.semanticHint ?? "unknown"} | ${field.requiredHint ?? field.required ?? "unknown"} | ${formatList(field.evidenceIds)} | ${fieldNote(field)} |`);
+    }
     lines.push("");
   }
 
@@ -272,4 +296,3 @@ export function writeDraftSpecPack(draft, outputFolder) {
   writeJson(path.join(specPackFolder, "spec-pack.json"), draft.specPack);
   writeJson(path.join(specPackFolder, "evidence-map.json"), draft.evidenceMap);
 }
-

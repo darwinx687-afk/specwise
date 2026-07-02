@@ -35,10 +35,10 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 21: v0.2 implementation planning
 - Phase 22A: Example Pack Expansion
 - Phase 22B: Deterministic Draft Heuristic Polish
+- Phase 22C: CSV/XLSX Field Inference Polish
 
 ## Next
 
-- Phase 22C: CSV/XLSX Field Inference Polish
 - Phase 22D: CLI Error and First-run DX Polish
 - Phase 22E: First-time Docs Simplification
 - Phase 22F: v0.2 Release Readiness
@@ -82,3 +82,5 @@ Phase 21 plans the v0.2 implementation phases, acceptance criteria, test strateg
 Phase 22A adds the synthetic Legacy CRM Follow-up example pack, docs links, and example validation coverage. It does not add runtime AI/provider behavior, OCR, vision, Web UI, coding agent calls, generated application code, final spec-pack generation, tags, releases, npm publication, or dependencies.
 
 Phase 22B polishes deterministic draft heuristics for module titles, status/workflow clues, role/action/permission clues, open questions, assumption/question separation, and evidence ID readability. It adds draft quality smoke checks and keeps `review_required` output, dependency-free execution, no AI provider calls, no prompt runner, no OCR/vision/Web UI, no coding agent calls, no generated application code, no final spec-pack generation, no tags, no releases, and no npm publication.
+
+Phase 22C polishes deterministic CSV field inference for entity names, field types, semantic hints, required hints, relationship hints, and observed enum/status values. It adds field quality smoke checks and field-level Markdown output while keeping XLSX inventory-only for now: no XLSX parser, no parser dependency, no AI provider calls, no prompt runner, no OCR/vision/Web UI, no coding agent calls, no generated application code, no final spec-pack generation, no tags, no releases, and no npm publication.
