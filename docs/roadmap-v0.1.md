@@ -43,17 +43,15 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 24: Post-v0.2 feedback loop
 - Phase 25: v0.3 scope selection
 - Phase 26: v0.3 implementation planning
+- Phase 27A: GitHub Actions CI / Reliability
 
 ## Next
 
-- Phase 27A: CI / reliability, pending owner approval
 - Phase 27B: Review/apply-plan usability polish
 - Phase 27C: Handoff pack readability polish
 - Phase 27D: Deterministic workflow inference polish
 - Phase 27E: Docs consolidation
 - Phase 27F: v0.3 release readiness
-
-Phase 27A has not started.
 
 Phase 27B has not started.
 
@@ -121,7 +119,7 @@ Phase 25 selects a proposed v0.3 baseline scope focused on reliability, review/a
 
 Phase 26 plans v0.3 implementation phases, acceptance criteria, test strategy, CI decision boundaries, risk controls, and Codex loop drafts. It does not start Phase 27 implementation, add GitHub Actions workflows, modify runtime features, create tags, create releases, publish to npm, add dependencies, call a real AI provider, run a prompt runner, use OCR/vision/Web UI, call a coding agent, generate application code, generate final spec-packs, or auto-apply patches.
 
-Phase 27A is planned as CI / reliability work, pending owner approval before any GitHub Actions workflow implementation.
+Phase 27A adds a minimal GitHub Actions CI workflow for pull requests and pushes to `main`. It runs validation only, uses read-only contents permission, and does not publish npm, create tags, create GitHub releases, use secrets, deploy, call AI providers, call coding agents, generate application code, generate final spec-packs, or auto-apply patches.
 
 Phase 27B is planned as review/apply-plan usability polish.
 

@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Show tool versions
+        run: |
+          node --version
+          npm --version
+
+      - name: Check JavaScript syntax
+        run: find bin src scripts -name "*.mjs" -print0 | xargs -0 -n1 node --check
+
+      - name: Run CLI DX checks
+        run: node scripts/check-cli-dx.mjs
+
+      - name: Run field inference checks
+        run: node scripts/check-field-inference.mjs
+
+      - name: Run draft quality checks
+        run: node scripts/check-draft-quality.mjs
+
+      - name: Run test suite
+        run: npm test
+
+      - name: Run local smoke workflow
+        run: npm run smoke

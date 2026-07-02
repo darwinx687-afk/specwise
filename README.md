@@ -219,9 +219,14 @@ v0.3 scope selection is now documented. The proposed direction prioritizes relia
 
 v0.3 implementation planning is now documented. The proposed v0.3 work remains focused on reliability, review usability, handoff readability, deterministic workflow inference, and docs consolidation.
 
+CI is now available for local-first validation on pull requests and pushes to main.
+It runs validation only and does not publish, release, call AI providers, or call coding agents.
+
 v0.2 发布后的反馈追踪文档已加入。v0.3 范围选择已记录。当前建议优先增强可靠性、审查体验、handoff 可读性、确定性 workflow 推断和公开仓库维护能力，而不是过早接入真实 AI provider。
 
 v0.3 实施规划已记录。当前建议仍聚焦可靠性、审查体验、handoff 可读性、确定性 workflow 推断和文档收束。
+
+CI 已用于 pull request 和 main push 的本地优先验证。它只运行验证，不发布、不 release、不调用 AI provider，也不调用 coding agent。
 
 Early feedback is welcome through GitHub Issues. Please do not share sensitive business data or private screenshots in public issues.
 
@@ -326,6 +331,7 @@ Key docs:
 - [v0.3 Acceptance Criteria](docs/v0.3-acceptance-criteria.md)
 - [v0.3 Test Strategy](docs/v0.3-test-strategy.md)
 - [v0.3 Codex Loop Plan](docs/v0.3-codex-loop-plan.md)
+- [CI Safety v0.3](docs/ci-safety-v0.3.md)
 - [Post-v0.2 Announcement Follow-up](docs/post-v0.2-announcement-follow-up-v0.1.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
@@ -334,13 +340,13 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 26 v0.3 implementation planning.
+Completed through Phase 27A GitHub Actions CI / Reliability.
 
 Next candidate phase:
 
-- Phase 27A: CI / reliability, pending owner approval
+- Phase 27B: Review/apply-plan usability polish
 
-Phase 27A has not started.
+Phase 27B has not started.
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
