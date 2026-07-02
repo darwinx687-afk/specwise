@@ -197,6 +197,11 @@ SpecWise v0.1 currently includes:
 - GitHub Actions CI for validation-only checks
 - review/apply-plan usability polish with review quality smoke checks
 - handoff pack readability polish with handoff quality smoke checks
+- deterministic workflow inference polish with workflow quality smoke checks
+
+Phase 27D improves deterministic workflow inference while preserving review-required, uncertainty-aware behavior.
+
+Phase 27D 改进 deterministic workflow inference，同时继续保留 review-required 和不确定性提示。
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 

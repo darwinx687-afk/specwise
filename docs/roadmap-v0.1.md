@@ -46,14 +46,14 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 27A: GitHub Actions CI / Reliability
 - Phase 27B: Review/apply-plan usability polish
 - Phase 27C: Handoff pack readability polish
+- Phase 27D: Deterministic workflow inference polish
 
 ## Next
 
-- Phase 27D: Deterministic workflow inference polish
 - Phase 27E: Docs consolidation
 - Phase 27F: v0.3 release readiness
 
-Phase 27D has not started.
+Phase 27D is complete.
 
 Phase 27E has not started.
 
@@ -121,7 +121,7 @@ Phase 27B polishes review/apply-plan usability with clearer review report groupi
 
 Phase 27C polishes handoff pack readability with clearer root README status, required reading order, grouped open questions, stronger implementation boundaries, manual apply plan summaries, machine artifact explanation, agent-specific boundary notes, strengthened handoff validation safety phrase checks, and a dependency-free `handoff:quality` smoke check. It does not call agents, generate code, generate implementation tasks, generate final spec-packs, add dependencies, publish npm, create tags, create releases, call AI providers, run a prompt runner, use OCR/vision/Web UI, or start Phase 27D.
 
-Phase 27D is planned as deterministic workflow inference polish.
+Phase 27D polishes deterministic workflow inference with status label grouping, arrow-chain transition candidates, branch/exception candidates, uncertainty-aware workflow questions, richer workflow Markdown, and a dependency-free `workflow:quality` smoke check. It does not call AI providers, run a prompt runner, use OCR/vision/Web UI, call coding agents, generate application code, generate final spec-packs, add dependencies, publish npm, create tags, create releases, or start Phase 27E.
 
 Phase 27E is planned as post-v0.2 docs consolidation.
 

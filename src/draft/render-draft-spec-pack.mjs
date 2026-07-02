@@ -13,6 +13,14 @@ function formatList(values) {
   return Array.isArray(values) && values.length ? values.join(", ") : "none";
 }
 
+function formatBoolean(value) {
+  return value ? "yes" : "no";
+}
+
+function formatEvidence(values) {
+  return Array.isArray(values) && values.length ? values.join(", ") : "none";
+}
+
 function fieldNote(field) {
   const notes = [];
   if (field.relationshipHint?.targetEntityName) {
@@ -116,7 +124,11 @@ function renderPermissions(draft) {
 }
 
 function renderWorkflows(draft) {
-  const { specPack, generatedNote } = draft;
+  const { specPack, generatedNote, workflowInference } = draft;
+  const statusLabels = workflowInference?.statusLabels ?? [];
+  const transitions = workflowInference?.transitions ?? [];
+  const branchCandidates = workflowInference?.branchCandidates ?? [];
+  const workflowQuestions = workflowInference?.openQuestions ?? [];
   const lines = [
     "# 04 Workflows",
     "",
@@ -127,6 +139,71 @@ function renderWorkflows(draft) {
     "- Workflow transitions are draft candidates only.",
     ""
   ];
+
+  lines.push("## Detected Workflow Signals");
+  for (const item of workflowInference?.summary ?? ["No workflow signals detected."]) {
+    lines.push(`- ${item}`);
+  }
+  lines.push("");
+
+  lines.push("## Status Labels Observed");
+  lines.push("");
+  lines.push("| Status | Display Label | Evidence | Notes |");
+  lines.push("|---|---|---|---|");
+  if (statusLabels.length === 0) {
+    lines.push("| none | none | none | No status labels were observed. |");
+  } else {
+    for (const status of statusLabels) {
+      lines.push(`| ${status.id} | ${status.displayLabel} | ${formatEvidence(status.evidenceIds)} | Observed label only; not a complete production enum. |`);
+    }
+  }
+  lines.push("");
+
+  lines.push("## Inferred Transition Candidates");
+  lines.push("");
+  lines.push("| From | To | Confidence | Evidence | Review Required |");
+  lines.push("|---|---|---|---|---|");
+  const linearTransitions = transitions.filter((transition) => !transition.branchCandidate);
+  if (linearTransitions.length === 0) {
+    lines.push("| none | none | none | none | yes |");
+  } else {
+    for (const transition of linearTransitions) {
+      lines.push(`| ${transition.fromState} | ${transition.toState} | ${transition.confidence} | ${formatEvidence(transition.evidenceIds)} | ${formatBoolean(transition.reviewRequired)} |`);
+    }
+  }
+  lines.push("");
+
+  lines.push("## Branch / Exception Candidates");
+  lines.push("");
+  lines.push("| State | Branch | Evidence | Question |");
+  lines.push("|---|---|---|---|");
+  if (branchCandidates.length === 0) {
+    lines.push("| none | none | none | No branch candidates detected. |");
+  } else {
+    for (const branch of branchCandidates) {
+      lines.push(`| ${branch.state} | ${branch.branch} | ${formatEvidence(branch.evidenceIds)} | ${branch.question} |`);
+    }
+  }
+  lines.push("");
+
+  lines.push("## Open Workflow Questions");
+  lines.push("");
+  if (workflowQuestions.length === 0) {
+    lines.push("- None detected.");
+  } else {
+    for (const question of workflowQuestions) {
+      lines.push(`- ${question.question}`);
+    }
+  }
+  lines.push("");
+
+  lines.push("## Safety Notes");
+  lines.push("");
+  lines.push("- Observed status labels are not complete production enums.");
+  lines.push("- Uncertain transitions remain questions.");
+  lines.push("- Branch and exception candidates are not confirmed workflow truth.");
+  lines.push("- Review is required before implementation.");
+  lines.push("");
 
   for (const workflow of specPack.workflows) {
     lines.push(`## Workflow: ${workflow.name}`);

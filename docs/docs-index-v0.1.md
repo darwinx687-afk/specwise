@@ -1,6 +1,6 @@
 # Docs Index v0.1
 
-Status: Phase 27A documentation map.
+Status: Phase 27D documentation map.
 
 ## First-time User Path
 
@@ -25,6 +25,7 @@ First-time user path:
 - [Command Decision Tree v0.2](command-decision-tree-v0.2.md)
 - [Full Workflow Guide](full-workflow-guide-v0.1.md)
 - [DX Polish Notes](dx-polish-notes-v0.1.md)
+- Workflow inference quality checks: `npm run workflow:quality`
 
 ## Examples
 
