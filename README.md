@@ -215,9 +215,9 @@ SpecWise v0.2.0-preview.0 已作为 GitHub pre-release 发布。
 
 Post-v0.2 feedback tracking is now documented.
 
-v0.3 planning has not started; current v0.3 notes are only planning input.
+v0.3 scope selection is now documented. The proposed direction prioritizes reliability, review usability, handoff readability, deterministic workflow inference, and public repo maintainability before real AI provider calls.
 
-v0.2 发布后的反馈追踪文档已加入。v0.3 尚未开始，当前 v0.3 内容只是规划输入。
+v0.2 发布后的反馈追踪文档已加入。v0.3 范围选择已记录。当前建议优先增强可靠性、审查体验、handoff 可读性、确定性 workflow 推断和公开仓库维护能力，而不是过早接入真实 AI provider。
 
 Early feedback is welcome through GitHub Issues. Please do not share sensitive business data or private screenshots in public issues.
 
@@ -313,6 +313,10 @@ Key docs:
 - [v0.2 Final Verification Report Template](docs/v0.2-final-verification-report-template.md)
 - [Post-v0.2 Feedback Report](docs/post-v0.2-feedback-report-v0.1.md)
 - [v0.3 Planning Input](docs/v0.3-planning-input-v0.1.md)
+- [v0.3 Scope Selection](docs/v0.3-scope-selection-v0.1.md)
+- [v0.3 Scope Decision Record](docs/v0.3-scope-decision-record.md)
+- [v0.3 Implementation Prerequisites](docs/v0.3-implementation-prerequisites.md)
+- [v0.3 Risk Register](docs/v0.3-risk-register.md)
 - [Post-v0.2 Announcement Follow-up](docs/post-v0.2-announcement-follow-up-v0.1.md)
 - [Privacy And Safety](docs/privacy-and-safety-v0.1.md)
 - [Known Limitations](docs/known-limitations-v0.1.md)
@@ -321,13 +325,13 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 24 Post-v0.2 feedback loop.
+Completed through Phase 25 v0.3 scope selection.
 
 Next candidate phase:
 
-- Phase 25: v0.3 scope selection
+- Phase 26: v0.3 implementation planning
 
-Phase 25 has not started.
+Phase 26 has not started.
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 
