@@ -1,6 +1,6 @@
 # Claude Code Handoff Boundary v0.1
 
-Status: Phase 10C polished skeleton boundary. No Claude Code integration is implemented.
+Status: Phase 27C readability-polished skeleton boundary. No Claude Code integration is implemented.
 
 ## 1. Claude Code Use Case
 
@@ -68,3 +68,15 @@ The generated file includes:
 - implementation blocker summaries from open questions and manual apply plan blocked items
 
 It does not include Claude Code commands and does not create automatic task language.
+
+## 7. Phase 27C Readability Polish
+
+Phase 27C keeps the Claude Code-specific file context-only while requiring clearer sections:
+
+- `Read First`
+- `Safe Uses`
+- `Do Not`
+- `Blocker Awareness`
+- `Permission Safety`
+
+The generated file explicitly says it is not an instruction to implement and must not be treated as authorization to code.

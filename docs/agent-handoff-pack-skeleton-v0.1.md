@@ -1,6 +1,6 @@
 # Agent Handoff Pack Skeleton v0.1
 
-Status: Phase 10C polished skeleton. No agent calls and no implementation.
+Status: Phase 27C readability-polished skeleton. No agent calls and no implementation.
 
 ## Purpose
 
@@ -71,6 +71,8 @@ The `machine/` files are copied source artifacts. The draft spec-pack is not mod
 
 Phase 10C generates the `agent-specific/` files from `templates/handoff/agent-specific/` plus shared safety templates under `templates/handoff/shared/`.
 
+Phase 27C adds `machine/README.md` so copied source artifacts are clearly described as traceability inputs, not generated application code or final implementation instructions.
+
 ## Handoff Gate
 
 Phase 10B computes a conservative gate:
@@ -115,6 +117,8 @@ The generated manifest must keep:
 
 `handoff validate` also checks that generated boundary files preserve key safety phrases, including `not an instruction to implement`, `not a generated Spec Kit task list`, and `Do not implement unresolved business rules`.
 
+Phase 27C strengthens validation so README, open questions, implementation boundaries, manual apply plan summary, machine README, and agent-specific notes must retain context-only safety language.
+
 ## Relationship To Manual Apply Plan
 
 The manual apply plan remains a human revision guide.
@@ -133,3 +137,17 @@ Phase 10C improves the generated agent-specific notes:
 - Spec Kit: future mapping, compatibility boundary, explicit no task-list generation
 
 These files are context and safety notes only. They are not agent commands and do not authorize implementation.
+
+## Phase 27C Readability Polish
+
+Phase 27C improves generated handoff packs with:
+
+- root README status summary and start-here navigation
+- `00_agent-instructions.md` non-negotiable boundaries
+- grouped `07_open-questions.md`
+- clearer `09_implementation-boundaries.md`
+- grouped `10_manual-apply-plan-summary.md`
+- `machine/README.md`
+- dependency-free `npm run handoff:quality`
+
+It does not call agents, generate implementation tasks, generate application code, auto-apply patches, or generate final spec-packs.

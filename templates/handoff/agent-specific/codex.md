@@ -2,6 +2,7 @@
 
 # Codex Boundary Notes
 
+This is not an instruction to implement.
 This file prepares reviewed SpecWise context for a future Codex session.
 It is not an instruction to implement.
 
@@ -29,7 +30,7 @@ It is not an instruction to implement.
 - Do not overwrite SpecWise source artifacts.
 - Do not create production-ready claims from incomplete materials.
 
-## Implementation Blockers
+## Blocker Awareness
 
 {{implementationBlockers}}
 

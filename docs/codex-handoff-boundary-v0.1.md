@@ -1,6 +1,6 @@
 # Codex Handoff Boundary v0.1
 
-Status: Phase 10C polished skeleton boundary. No Codex integration is implemented.
+Status: Phase 27C readability-polished skeleton boundary. No Codex integration is implemented.
 
 ## 1. Codex Use Case
 
@@ -79,3 +79,15 @@ The generated file includes:
 - permission safety notes for export, approve, delete, configure, cross-company, and cross-department access
 
 It does not include Codex commands and does not ask Codex to implement.
+
+## 6. Phase 27C Readability Polish
+
+Phase 27C keeps the Codex-specific file context-only while requiring clearer sections:
+
+- `Read First`
+- `Safe Uses`
+- `Do Not`
+- `Blocker Awareness`
+- `Permission Safety`
+
+The generated file explicitly says it is not an instruction to implement and must not be treated as authorization to code.

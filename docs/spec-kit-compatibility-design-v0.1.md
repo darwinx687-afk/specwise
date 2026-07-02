@@ -1,6 +1,6 @@
 # Spec Kit Compatibility Design v0.1
 
-Status: Phase 10C polished skeleton compatibility notes. No Spec Kit integration is implemented.
+Status: Phase 27C readability-polished skeleton compatibility notes. No Spec Kit integration is implemented.
 
 ## 1. Positioning
 
@@ -67,3 +67,15 @@ The generated file includes:
 - a `Not Generated in Phase 10C` section
 
 The file must say it is not a generated Spec Kit task list. It does not generate Spec Kit tasks, implementation plans, code, or agent calls.
+
+## 6. Phase 27C Readability Polish
+
+Phase 27C keeps the Spec Kit-specific file context-only while requiring clearer sections:
+
+- `Read First`
+- `Safe Uses`
+- `Do Not`
+- `Blocker Awareness`
+- `Permission Safety`
+
+The generated file must continue saying it is not a generated Spec Kit task list and must not be treated as authorization to create specs, tasks, or code.

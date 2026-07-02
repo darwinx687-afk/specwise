@@ -58,6 +58,7 @@ First-time user path:
 - [Agent Handoff Safety Rules](agent-handoff-safety-rules-v0.1.md)
 - [Agent Handoff Pack Skeleton](agent-handoff-pack-skeleton-v0.1.md)
 - [Handoff Manifest Format](handoff-manifest-format-v0.1.md)
+- Handoff readability quality checks: `npm run handoff:quality`
 - [Codex Handoff Boundary](codex-handoff-boundary-v0.1.md)
 - [Claude Code Handoff Boundary](claude-code-handoff-boundary-v0.1.md)
 - [Cursor Handoff Boundary](cursor-handoff-boundary-v0.1.md)

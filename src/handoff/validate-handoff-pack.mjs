@@ -22,14 +22,19 @@ const REQUIRED_ROOT_FILES = [
   "10_manual-apply-plan-summary.md"
 ];
 const REQUIRED_MACHINE_FILES = [
+  "machine/README.md",
   "machine/spec-pack.json",
   "machine/evidence-map.json",
   "machine/buildability-report.md",
   "machine/manual-apply-plan.json"
 ];
 const COMMON_SAFETY_PHRASE_CHECKS = [
+  ["README.md", "not an implementation request"],
   ["00_agent-instructions.md", "Do not implement unresolved business rules"],
-  ["09_implementation-boundaries.md", "Implementation is not authorized"]
+  ["07_open-questions.md", "must not be converted into implementation facts"],
+  ["09_implementation-boundaries.md", "Implementation is not authorized"],
+  ["10_manual-apply-plan-summary.md", "No patch was automatically applied"],
+  ["machine/README.md", "not generated application code"]
 ];
 const AGENT_SAFETY_PHRASE_CHECKS = {
   "codex": [["agent-specific/codex.md", "not an instruction to implement"]],

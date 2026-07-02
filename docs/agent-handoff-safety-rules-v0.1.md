@@ -1,6 +1,6 @@
 # Agent Handoff Safety Rules v0.1
 
-Status: Phase 10B safety rules for generated skeletons. No agent calls are made.
+Status: Phase 27C safety rules for generated skeletons. No agent calls are made.
 
 ## 1. No Silent Assumptions
 
@@ -81,3 +81,14 @@ The pack should help an AI coding agent understand reviewed context, plan respon
 Phase 10B must keep `noAgentCallsMade`, `noAutoImplementation`, and `noFinalSpecPackGenerated` true in `handoff-manifest.json`.
 
 Phase 10C validation fails if required safety phrases are missing from generated handoff files.
+
+Phase 27C also requires generated handoff packs to keep these safety phrases visible:
+
+- README: `not an implementation request`
+- agent instructions: `Do not implement unresolved business rules`
+- open questions: `must not be converted into implementation facts`
+- implementation boundaries: `Implementation is not authorized`
+- manual apply plan summary: `No patch was automatically applied`
+- machine README: `not generated application code`
+
+These checks protect readability polish from becoming implementation authorization.

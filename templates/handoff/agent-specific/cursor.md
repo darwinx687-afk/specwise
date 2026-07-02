@@ -2,10 +2,11 @@
 
 # Cursor Boundary Notes
 
+This is not an instruction to implement.
 This file prepares reviewed SpecWise context for a future Cursor workspace.
 It is not an instruction to implement.
 
-## Pin or Open First
+## Read First
 
 - `../07_open-questions.md`
 - `../09_implementation-boundaries.md`
@@ -32,11 +33,13 @@ It is not an instruction to implement.
 - Do not generate final database rules from uncertain fields.
 - Do not create production-ready code until blockers are resolved.
 
-## Current Blocker Summary
+## Blocker Awareness
 
 {{implementationBlockers}}
 
 {{openQuestionPolicy}}
+
+## Permission Safety
 
 {{permissionPolicy}}
 

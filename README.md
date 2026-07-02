@@ -196,6 +196,7 @@ SpecWise v0.1 currently includes:
 - first-time docs simplification with a Start Here map and command decision tree
 - GitHub Actions CI for validation-only checks
 - review/apply-plan usability polish with review quality smoke checks
+- handoff pack readability polish with handoff quality smoke checks
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
@@ -226,6 +227,8 @@ It runs validation only and does not publish, release, call AI providers, or cal
 
 Review/apply-plan output now includes clearer grouping for safe manual updates, business confirmation items, blocked readiness reasons, owner hints, and manual revision checklists.
 
+Phase 27C improves handoff pack readability while preserving context-only, no-agent-call, no-code-generation boundaries.
+
 v0.2 发布后的反馈追踪文档已加入。v0.3 范围选择已记录。当前建议优先增强可靠性、审查体验、handoff 可读性、确定性 workflow 推断和公开仓库维护能力，而不是过早接入真实 AI provider。
 
 v0.3 实施规划已记录。当前建议仍聚焦可靠性、审查体验、handoff 可读性、确定性 workflow 推断和文档收束。
@@ -233,6 +236,8 @@ v0.3 实施规划已记录。当前建议仍聚焦可靠性、审查体验、han
 CI 已用于 pull request 和 main push 的本地优先验证。它只运行验证，不发布、不 release、不调用 AI provider，也不调用 coding agent。
 
 Review/apply-plan 输出已改进分组、业务确认、阻塞项、owner hints 和人工修订 checklist 的可读性。
+
+Phase 27C 改进 handoff pack 可读性，同时继续保持仅上下文、不调用 agent、不生成代码的边界。
 
 Early feedback is welcome through GitHub Issues. Please do not share sensitive business data or private screenshots in public issues.
 
@@ -346,11 +351,11 @@ Key docs:
 
 ## Roadmap
 
-Completed through Phase 27B Review/apply-plan usability polish.
+Completed through Phase 27C Handoff pack readability polish.
 
 Next candidate phase:
 
-- Phase 27C: Handoff pack readability polish
+- Phase 27D: Deterministic workflow inference polish
 
 The `v0.1.0-preview.0` preview keeps npm publishing out of scope.
 

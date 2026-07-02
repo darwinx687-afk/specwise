@@ -58,6 +58,43 @@ function isWorkflowQuestion(question) {
   return question.category === "workflow" || text.includes("workflow") || text.includes("submitted") || text.includes("review") || text.includes("approval");
 }
 
+function textMatches(value, terms) {
+  const text = JSON.stringify(value).toLowerCase();
+  return terms.some((term) => text.includes(term));
+}
+
+function isDataQuestion(question) {
+  return question.category === "data" || question.category === "entity" || textMatches(question, ["entity", "field", "enum", "relationship", "foreign key", "data"]);
+}
+
+function isAssignmentQuestion(question) {
+  return textMatches(question, ["assignment", "assign", "owner", "ownership", "manager", "reviewer"]);
+}
+
+function isExportApprovalInactiveQuestion(question) {
+  return textMatches(question, ["export", "approve", "approval", "inactive", "deactivate", "delete", "reassign", "reassignment"]);
+}
+
+function renderQuestionGroup(title, questions) {
+  const lines = [`## ${title}`, ""];
+  if (questions.length === 0) {
+    lines.push("- No questions detected in this group.", "");
+    return lines;
+  }
+
+  for (const question of questions) {
+    lines.push(`### ${question.id}`);
+    lines.push(`- Priority: ${line(question.priority)}`);
+    lines.push(`- Category: ${line(question.category)}`);
+    lines.push(`- Question: ${line(question.question)}`);
+    lines.push(`- Suggested owner: ${line(question.suggestedOwner)}`);
+    lines.push(`- Why it matters: ${line(question.whyItMatters)}`);
+    lines.push(`- Evidence: ${renderEvidenceIds(question.evidenceIds)}`);
+    lines.push("");
+  }
+  return lines;
+}
+
 function summarizeTopItems(items, renderItem, emptyText) {
   if (!Array.isArray(items) || items.length === 0) return `- ${emptyText}`;
   return items.slice(0, 8).map(renderItem).join("\n");
@@ -109,30 +146,28 @@ function renderAgentBlockerSummary({ specPack, manualApplyPlan }) {
   ].join("\n");
 }
 
-export function renderPackReadme({ manifest }) {
+export function renderPackReadme({ manifest, specPack = {}, manualApplyPlan = {} }) {
+  const openQuestionCount = Array.isArray(specPack.openQuestions) ? specPack.openQuestions.length : 0;
+  const blockedItemCount = Array.isArray(manualApplyPlan.blockedItems) ? manualApplyPlan.blockedItems.length : 0;
+  const manualApplyPlanPresent = manualApplyPlan.mode === "manual_apply_plan_only" || Array.isArray(manualApplyPlan.manualSteps);
+
   return `${[
     "# SpecWise Agent Handoff Pack Skeleton",
     "",
     "This pack prepares reviewed SpecWise context for future AI coding agents.",
+    "It is not an implementation request.",
+    "It is not a final spec-pack.",
     "",
-    "## Current Status",
+    "## Status Summary",
     "",
     `- Handoff type: ${manifest.gates.handoffType}`,
     `- Implementation allowed: ${manifest.gates.implementationAllowed}`,
-    `- Status: ${statusLabel(manifest)}`,
-    "",
-    "## What This Pack Is",
-    "",
-    "- Reviewed context package",
-    "- Evidence-aware business/spec context",
-    "- Discovery handoff when blockers remain",
-    "",
-    "## What This Pack Is Not",
-    "",
-    "- Not an implementation instruction",
-    "- Not a final spec-pack",
-    "- Not an agent execution request",
-    "- Not a code generation request",
+    `- Spec status: ${line(manifest.source.specPackStatus)}`,
+    `- Buildability score: ${line(manifest.source.buildabilityScore)}`,
+    `- Open questions: ${openQuestionCount}`,
+    `- Blocked items: ${blockedItemCount}`,
+    `- Manual apply plan present: ${manualApplyPlanPresent}`,
+    `- Handoff status: ${statusLabel(manifest)}`,
     "",
     "## Start Here",
     "",
@@ -140,6 +175,22 @@ export function renderPackReadme({ manifest }) {
     "2. `07_open-questions.md`",
     "3. `09_implementation-boundaries.md`",
     "4. `10_manual-apply-plan-summary.md`",
+    "5. `06_acceptance-criteria.md`",
+    "",
+    "## What This Pack Is",
+    "",
+    "- Reviewed context package",
+    "- Evidence-aware business/spec context",
+    "- Discovery handoff when blockers remain",
+    "- Human-readable context for future planning",
+    "",
+    "## What This Pack Is Not",
+    "",
+    "- Not an instruction to implement",
+    "- Not a final spec-pack",
+    "- Not an agent execution request",
+    "- Not a code generation request",
+    "- Not permission to infer missing business rules",
     "",
     "## Safety",
     "",
@@ -147,14 +198,15 @@ export function renderPackReadme({ manifest }) {
     `- No auto implementation: ${manifest.safety.noAutoImplementation}`,
     `- No final spec-pack generated: ${manifest.safety.noFinalSpecPackGenerated}`,
     "",
-    "本 handoff pack 只用于未来 AI coding agent 的上下文准备，不会调用 agent，也不会生成代码。",
+    "本 handoff pack 只用于上下文准备，不授权实现，不生成代码。",
     "",
-    "## Machine Artifacts",
+    "## Source Artifacts",
     "",
-    "- machine/spec-pack.json",
-    "- machine/evidence-map.json",
+    "- `machine/spec-pack.json`",
+    "- `machine/evidence-map.json`",
     "- `machine/buildability-report.md`",
-    "- `machine/manual-apply-plan.json`"
+    "- `machine/manual-apply-plan.json`",
+    "- `machine/README.md`"
   ].join("\n")}\n`;
 }
 
@@ -164,17 +216,29 @@ export function renderAgentInstructions() {
     "",
     "You are receiving a SpecWise handoff pack.",
     "",
-    "Do not implement unresolved business rules.",
-    "Do not turn assumptions into facts.",
-    "Do not remove review_required labels.",
-    "Do not bypass permission questions.",
-    "Do not assume missing approval/export/delete/configure rules.",
-    "Do not generate production-ready claims from incomplete materials.",
+    "## Non-negotiable Boundaries",
     "",
-    "Start by reading:",
-    "1. 07_open-questions.md",
-    "2. 09_implementation-boundaries.md",
-    "3. 06_acceptance-criteria.md"
+    "- Do not implement unresolved business rules.",
+    "- Do not turn assumptions into facts.",
+    "- Do not remove `review_required` labels.",
+    "- Do not bypass permission questions.",
+    "- Do not infer approval/export/delete/configure rules.",
+    "- Do not generate production-ready claims from incomplete materials.",
+    "",
+    "## Required Reading Order",
+    "",
+    "1. `07_open-questions.md`",
+    "2. `09_implementation-boundaries.md`",
+    "3. `04_permissions-and-scopes.md`",
+    "4. `06_acceptance-criteria.md`",
+    "5. `10_manual-apply-plan-summary.md`",
+    "",
+    "## Before Any Future Implementation Planning",
+    "",
+    "- Identify unresolved questions.",
+    "- Identify permission blockers.",
+    "- Identify workflow blockers.",
+    "- Ask the user for explicit confirmation before planning code."
   ].join("\n")}\n`;
 }
 
@@ -341,63 +405,71 @@ export function renderOpenQuestions({ specPack, manualApplyPlan }) {
   const questions = specPack.openQuestions || [];
   const blockedItems = manualApplyPlan.blockedItems || [];
   const businessSteps = (manualApplyPlan.manualSteps || []).filter((step) => step.requiresBusinessConfirmation);
-  const permissionQuestions = questions.filter((question) => question.category === "permission" || JSON.stringify(question).toLowerCase().includes("permission"));
-  const workflowQuestions = questions.filter((question) => question.category === "workflow" || JSON.stringify(question).toLowerCase().includes("workflow"));
+  const remainingQuestions = [...questions];
+  const takeQuestions = (predicate) => {
+    const matched = remainingQuestions.filter(predicate);
+    for (const question of matched) {
+      const index = remainingQuestions.indexOf(question);
+      if (index >= 0) remainingQuestions.splice(index, 1);
+    }
+    return matched;
+  };
+  const highPriorityPermissionQuestions = takeQuestions((question) => question.priority === "high" && isPermissionQuestion(question));
+  const workflowQuestions = takeQuestions(isWorkflowQuestion);
+  const dataQuestions = takeQuestions(isDataQuestion);
+  const assignmentQuestions = takeQuestions(isAssignmentQuestion);
+  const exportApprovalInactiveQuestions = takeQuestions(isExportApprovalInactiveQuestion);
+  const otherQuestions = remainingQuestions;
 
   const lines = [
-    "# Open Questions And Blockers",
+    "# Open Questions",
     "",
-    "Open questions must stay visible. Do not implement unresolved business rules.",
+    "Open questions must remain visible.",
+    "They must not be converted into implementation facts.",
     "",
-    "## Spec-Pack Open Questions",
+    ...renderQuestionGroup("High Priority Permission / Scope Questions", highPriorityPermissionQuestions),
+    ...renderQuestionGroup("Workflow / State Questions", workflowQuestions),
+    ...renderQuestionGroup("Data / Entity Questions", dataQuestions),
+    ...renderQuestionGroup("Assignment / Ownership Questions", assignmentQuestions),
+    ...renderQuestionGroup("Export / Approval / Inactive / Reassignment Questions", exportApprovalInactiveQuestions),
+    ...renderQuestionGroup("Other Questions", otherQuestions),
+    "## Questions from Manual Apply Plan",
     ""
   ];
 
-  if (questions.length === 0) {
-    lines.push("- No unresolved questions detected.");
-  } else {
-    for (const question of questions) {
-      lines.push(`### ${question.id}`);
-      lines.push(`- Priority: ${line(question.priority)}`);
-      lines.push(`- Category: ${line(question.category)}`);
-      lines.push(`- Question: ${line(question.question)}`);
-      lines.push(`- Owner: ${line(question.suggestedOwner)}`);
-      lines.push(`- Why it matters: ${line(question.whyItMatters)}`);
-      lines.push(`- Evidence: ${renderEvidenceIds(question.evidenceIds)}`);
-      lines.push("");
-    }
-  }
-
-  lines.push("", "## Manual Apply Plan Blocked Items", "");
   if (blockedItems.length === 0) {
-    lines.push("- No manual apply plan blocked items detected.");
+    lines.push("- No manual apply plan blocked questions detected.");
   } else {
     for (const item of blockedItems) {
       lines.push(`- ${item.sourceCandidateId}: ${item.reason} Owner: ${item.requiredOwner}. Follow-up: ${line(item.suggestedFollowUpQuestion)}`);
     }
   }
 
-  lines.push("", "## Business Confirmation Items", "");
-  if (businessSteps.length === 0) {
-    lines.push("- No business confirmation items detected.");
-  } else {
-    for (const step of businessSteps) {
-      lines.push(`- ${step.sourceCandidateId}: ${step.description}`);
-    }
+  lines.push("", "## Suggested Confirmation Owners", "");
+  const ownerCounts = new Map();
+  for (const question of questions) {
+    const owner = line(question.suggestedOwner, "business_owner");
+    ownerCounts.set(owner, (ownerCounts.get(owner) || 0) + 1);
+  }
+  for (const step of businessSteps) {
+    const owner = line(step.suggestedOwner, "business_owner");
+    ownerCounts.set(owner, (ownerCounts.get(owner) || 0) + 1);
+  }
+  for (const item of blockedItems) {
+    const owner = line(item.requiredOwner, "business_owner");
+    ownerCounts.set(owner, (ownerCounts.get(owner) || 0) + 1);
   }
 
-  lines.push("", "## Permission Blockers", "");
-  if (permissionQuestions.length === 0) {
-    lines.push("- No permission blockers detected.");
+  if (ownerCounts.size === 0) {
+    lines.push("- Business owner: none detected");
+    lines.push("- System admin: none detected");
+    lines.push("- Department/team manager: none detected");
+    lines.push("- Developer/FDE reviewer: none detected");
   } else {
-    for (const question of permissionQuestions) lines.push(`- ${question.id}: ${question.question}`);
-  }
-
-  lines.push("", "## Workflow Blockers", "");
-  if (workflowQuestions.length === 0) {
-    lines.push("- No workflow blockers detected.");
-  } else {
-    for (const question of workflowQuestions) lines.push(`- ${question.id}: ${question.question}`);
+    lines.push(`- Business owner: ${ownerCounts.get("business_owner") || 0}`);
+    lines.push(`- System admin: ${ownerCounts.get("system_admin") || 0}`);
+    lines.push(`- Department/team manager: ${(ownerCounts.get("department_manager") || 0) + (ownerCounts.get("team_manager") || 0)}`);
+    lines.push(`- Developer/FDE reviewer: ${(ownerCounts.get("developer_reviewer") || 0) + (ownerCounts.get("fde_reviewer") || 0) + (ownerCounts.get("review_owner") || 0)}`);
   }
 
   return `${lines.join("\n")}\n`;
@@ -433,11 +505,26 @@ export function renderImplementationBoundaries({ manifest }) {
     "# Implementation Boundaries",
     "",
     "Implementation is not authorized for unresolved high-priority questions.",
-    "Permissions must not be inferred.",
-    "Export / approve / delete / configure rules require explicit confirmation.",
-    "Assumptions must stay marked.",
     "",
-    "## Phase 10B Gate",
+    "## Permission Boundaries",
+    "",
+    "- Export rules require explicit confirmation.",
+    "- Approval rules require explicit confirmation.",
+    "- Delete / inactive / reassignment rules require explicit confirmation.",
+    "- Cross-team / cross-department / cross-company access must not be inferred.",
+    "",
+    "## Workflow Boundaries",
+    "",
+    "- Uncertain transitions remain questions.",
+    "- Reopened / rejected / approved branches require confirmation if unclear.",
+    "",
+    "## Data Boundaries",
+    "",
+    "- Relationship hints are not confirmed foreign keys.",
+    "- Observed enum values are not complete production enums.",
+    "- Assumptions must stay marked.",
+    "",
+    "## Handoff Gate",
     "",
     `- Handoff type: ${manifest.gates.handoffType}`,
     `- Implementation allowed: ${manifest.gates.implementationAllowed}`,
@@ -446,15 +533,60 @@ export function renderImplementationBoundaries({ manifest }) {
     `- Blocked by low buildability: ${manifest.gates.blockedByLowBuildability}`,
     `- Blocked by high-risk permissions: ${manifest.gates.blockedByHighRiskPermissions}`,
     "",
-    "This pack prepares context only. It does not authorize implementation."
+    "## Handoff Boundary",
+    "",
+    "This handoff pack is context only.",
+    "It does not authorize implementation."
   ].join("\n")}\n`;
 }
 
+function stepsForGroup(manualApplyPlan, groupName, fallbackPredicate) {
+  const grouped = manualApplyPlan.groupedSteps?.[groupName];
+  if (Array.isArray(grouped) && grouped.length > 0 && grouped[0]?.id && !grouped[0]?.action) {
+    const byId = new Map((manualApplyPlan.manualSteps || []).map((step) => [step.id, step]));
+    return grouped.map((item) => byId.get(item.id)).filter(Boolean);
+  }
+  if (Array.isArray(grouped)) return grouped;
+  return (manualApplyPlan.manualSteps || []).filter(fallbackPredicate);
+}
+
+function renderManualStepList(steps, emptyText) {
+  if (!Array.isArray(steps) || steps.length === 0) return [`- ${emptyText}`];
+  return steps.map((step) => `- ${step.id}: ${step.description} Priority: ${line(step.priority, "medium")}. Owner: ${line(step.suggestedOwner, "review_owner")}. Auto-apply allowed: ${step.autoApplyAllowed}.`);
+}
+
 export function renderManualApplyPlanSummary({ manualApplyPlan }) {
+  const safeManualUpdates = stepsForGroup(
+    manualApplyPlan,
+    "safeManualUpdates",
+    (step) => ["manually_add", "manually_update", "convert_to_assumption", "convert_to_question"].includes(step.action) && !step.requiresBusinessConfirmation
+  );
+  const businessConfirmationRequired = stepsForGroup(
+    manualApplyPlan,
+    "businessConfirmationRequired",
+    (step) => step.requiresBusinessConfirmation && step.action !== "defer" && step.action !== "do_not_apply"
+  );
+  const developerReviewRequired = stepsForGroup(
+    manualApplyPlan,
+    "developerReviewRequired",
+    (step) => step.requiresDeveloperReview && !["keep_blocked", "defer", "do_not_apply"].includes(step.action)
+  );
+  const blockedOrDeferred = stepsForGroup(
+    manualApplyPlan,
+    "blockedOrDeferred",
+    (step) => ["keep_blocked", "defer", "do_not_apply"].includes(step.action)
+  );
+  const highestPriorityQuestions = (manualApplyPlan.blockedItems || [])
+    .filter((item) => item.priority === "high" && item.suggestedFollowUpQuestion)
+    .slice(0, 8);
+
   const lines = [
     "# Manual Apply Plan Summary",
     "",
-    "This summary is for review context only. It is not an implementation task list.",
+    "This summary comes from the manual apply plan.",
+    "No patch was automatically applied.",
+    "No final spec-pack was generated.",
+    "Accepted items are not automatically applied items.",
     "",
     "## Summary",
     "",
@@ -465,16 +597,63 @@ export function renderManualApplyPlanSummary({ manualApplyPlan }) {
     `- Do not apply: ${manualApplyPlan.summary?.doNotApply ?? 0}`,
     `- Blocks final spec: ${manualApplyPlan.summary?.blocksFinalSpec === true}`,
     "",
-    "## Manual Steps",
+    "## Safe Manual Updates",
+    "",
+    ...renderManualStepList(safeManualUpdates, "No safe manual updates detected."),
+    "",
+    "## Business Confirmation Required",
+    "",
+    ...renderManualStepList(businessConfirmationRequired, "No business confirmation items detected."),
+    "",
+    "## Developer Review Required",
+    "",
+    ...renderManualStepList(developerReviewRequired, "No developer review items detected."),
+    "",
+    "## Blocked or Deferred",
+    "",
+    ...renderManualStepList(blockedOrDeferred, "No blocked or deferred items detected."),
+    "",
+    "## Highest Priority Follow-up Questions",
     ""
   ];
 
-  for (const step of manualApplyPlan.manualSteps || []) {
-    lines.push(`- ${step.id}: ${step.action}; ${step.description}; autoApplyAllowed=${step.autoApplyAllowed}`);
+  if (highestPriorityQuestions.length === 0) {
+    lines.push("- No highest priority follow-up questions detected.");
+  } else {
+    for (const item of highestPriorityQuestions) {
+      lines.push(`- ${item.sourceCandidateId}: ${item.suggestedFollowUpQuestion} Owner: ${item.requiredOwner}.`);
+    }
   }
-  if (!Array.isArray(manualApplyPlan.manualSteps) || manualApplyPlan.manualSteps.length === 0) lines.push("- None.");
+
+  lines.push(
+    "",
+    "## Next Human Review Actions",
+    "",
+    "- Resolve business confirmation items before implementation planning.",
+    "- Keep blocked or deferred items out of implementation scope.",
+    "- Re-run handoff validation after any future manual spec revision.",
+    "- Ask the user for explicit approval before planning code."
+  );
 
   return `${lines.join("\n")}\n`;
+}
+
+export function renderMachineReadme() {
+  return `${[
+    "# Machine-readable Source Artifacts",
+    "",
+    "These files are copied from SpecWise source artifacts for traceability.",
+    "",
+    "They are not generated application code.",
+    "They are not final implementation instructions.",
+    "",
+    "## Files",
+    "",
+    "- `spec-pack.json`",
+    "- `evidence-map.json`",
+    "- `buildability-report.md`",
+    "- `manual-apply-plan.json`"
+  ].join("\n")}\n`;
 }
 
 export function renderAgentSpecific({ target, specPack, manualApplyPlan }) {

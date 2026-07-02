@@ -1,6 +1,6 @@
 # Handoff Manifest Format v0.1
 
-Status: Phase 10B skeleton manifest. No agent calls.
+Status: Phase 27C skeleton manifest and validation notes. No agent calls.
 
 ## Purpose
 
@@ -80,7 +80,9 @@ These names only control generated boundary notes under `agent-specific/`. They 
 - required Markdown files exist
 - required `machine/` artifacts exist
 - selected `agent-specific/` files exist
+- `machine/README.md` exists and explains copied source artifacts
 - copied manual apply plan is still valid
+- required context-only safety phrases remain visible in generated Markdown
 
 ## Example
 

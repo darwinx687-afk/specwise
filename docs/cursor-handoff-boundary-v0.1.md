@@ -1,6 +1,6 @@
 # Cursor Handoff Boundary v0.1
 
-Status: Phase 10C polished skeleton boundary. No Cursor integration is implemented.
+Status: Phase 27C readability-polished skeleton boundary. No Cursor integration is implemented.
 
 ## 1. Cursor Use Case
 
@@ -71,3 +71,15 @@ The generated file includes:
 - implementation blocker summaries from open questions and manual apply plan blocked items
 
 It does not include Cursor commands and does not create Cursor tasks.
+
+## 7. Phase 27C Readability Polish
+
+Phase 27C keeps the Cursor-specific file context-only while requiring clearer sections:
+
+- `Read First`
+- `Safe Uses`
+- `Do Not`
+- `Blocker Awareness`
+- `Permission Safety`
+
+The generated file explicitly says it is not an instruction to implement and must not be treated as authorization to code.

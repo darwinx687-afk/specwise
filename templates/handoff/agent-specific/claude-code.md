@@ -2,10 +2,11 @@
 
 # Claude Code Boundary Notes
 
+This is not an instruction to implement.
 This file prepares reviewed SpecWise context for a future Claude Code workspace.
 It is not an instruction to implement.
 
-## Suggested Context Reading Order
+## Read First
 
 1. `../01_project-context.md`
 2. `../07_open-questions.md`
@@ -34,11 +35,13 @@ It is not an instruction to implement.
 Claims without evidence should remain assumptions or questions.
 Conflicting evidence should become a blocker, not an implementation decision.
 
-## Current Blocker Summary
+## Blocker Awareness
 
 {{implementationBlockers}}
 
 {{openQuestionPolicy}}
+
+## Permission Safety
 
 {{permissionPolicy}}
 

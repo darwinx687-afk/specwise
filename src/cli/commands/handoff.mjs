@@ -9,6 +9,7 @@ import {
   renderEntitiesAndFields,
   renderEvidenceMapSummary,
   renderImplementationBoundaries,
+  renderMachineReadme,
   renderManualApplyPlanSummary,
   renderModulesAndPages,
   renderOpenQuestions,
@@ -139,6 +140,7 @@ function copySourceArtifacts({ pack, outputFolder }) {
   fs.copyFileSync(pack.sourceFiles.evidenceMapPath, path.join(machineFolder, "evidence-map.json"));
   fs.copyFileSync(pack.sourceFiles.buildabilityReportPath, path.join(machineFolder, "buildability-report.md"));
   fs.copyFileSync(pack.sourceFiles.manualApplyPlanPath, path.join(machineFolder, "manual-apply-plan.json"));
+  fs.writeFileSync(path.join(machineFolder, "README.md"), renderMachineReadme());
 }
 
 function writeHandoffPack({ pack, outputFolder }) {
@@ -146,7 +148,11 @@ function writeHandoffPack({ pack, outputFolder }) {
   fs.mkdirSync(path.join(outputFolder, "agent-specific"), { recursive: true });
 
   writeJson(path.join(outputFolder, "handoff-manifest.json"), pack.manifest);
-  fs.writeFileSync(path.join(outputFolder, "README.md"), renderPackReadme({ manifest: pack.manifest }));
+  fs.writeFileSync(path.join(outputFolder, "README.md"), renderPackReadme({
+    manifest: pack.manifest,
+    specPack: pack.specPack,
+    manualApplyPlan: pack.manualApplyPlan
+  }));
   fs.writeFileSync(path.join(outputFolder, "00_agent-instructions.md"), renderAgentInstructions());
   fs.writeFileSync(path.join(outputFolder, "01_project-context.md"), renderProjectContext({ specPack: pack.specPack, manifest: pack.manifest }));
   fs.writeFileSync(path.join(outputFolder, "02_modules-and-pages.md"), renderModulesAndPages({ specPack: pack.specPack }));
