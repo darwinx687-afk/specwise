@@ -44,16 +44,14 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 25: v0.3 scope selection
 - Phase 26: v0.3 implementation planning
 - Phase 27A: GitHub Actions CI / Reliability
+- Phase 27B: Review/apply-plan usability polish
 
 ## Next
 
-- Phase 27B: Review/apply-plan usability polish
 - Phase 27C: Handoff pack readability polish
 - Phase 27D: Deterministic workflow inference polish
 - Phase 27E: Docs consolidation
 - Phase 27F: v0.3 release readiness
-
-Phase 27B has not started.
 
 Phase 27C has not started.
 
@@ -121,7 +119,7 @@ Phase 26 plans v0.3 implementation phases, acceptance criteria, test strategy, C
 
 Phase 27A adds a minimal GitHub Actions CI workflow for pull requests and pushes to `main`. It runs validation only, uses read-only contents permission, and does not publish npm, create tags, create GitHub releases, use secrets, deploy, call AI providers, call coding agents, generate application code, generate final spec-packs, or auto-apply patches.
 
-Phase 27B is planned as review/apply-plan usability polish.
+Phase 27B polishes review/apply-plan usability with clearer review report grouping, follow-up question grouping, blocked readiness grouping, manual apply-plan priority and owner hints, checklist readability, blocked-items markdown readability, CLI success summaries, and a dependency-free `review:quality` smoke check. It does not auto-apply patches, generate final spec-packs, modify draft spec-packs, add dependencies, publish npm, create tags, create releases, call AI providers, call coding agents, run a prompt runner, use OCR/vision/Web UI, or generate application code.
 
 Phase 27C is planned as handoff pack readability polish.
 

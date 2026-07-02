@@ -1,6 +1,6 @@
 # Manual Apply Plan v0.1
 
-Status: Phase 9B skeleton. No auto-apply and no final spec-pack generation.
+Status: Phase 9B skeleton with Phase 27B readability polish. No auto-apply and no final spec-pack generation.
 
 ## Why Manual Apply Plan Exists
 
@@ -52,10 +52,21 @@ Every step must include:
 - target file
 - target section
 - action
+- priority
+- suggested owner
+- high-risk area hint
 - description
 - business confirmation requirement
 - developer review requirement
 - `autoApplyAllowed: false`
+
+Generated markdown groups steps into:
+
+- safe manual updates
+- business confirmation required
+- developer review required
+- blocked or deferred
+- all manual steps
 
 ## Blocked Items
 
@@ -65,6 +76,7 @@ Each blocked item should identify:
 
 - source candidate
 - priority
+- category
 - reason
 - required owner
 - suggested follow-up question
@@ -112,3 +124,9 @@ Because no final spec-pack is generated, there is also no current handoff pack s
 - `status` is `manual_revision_required` or `blocked`
 - no final spec-pack output path is declared
 - no step uses `auto_apply`
+
+The Phase 27B usability smoke check validates the local fixture flow:
+
+```bash
+npm run review:quality
+```

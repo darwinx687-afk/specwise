@@ -32,8 +32,9 @@
     "cli:dx": "node scripts/check-cli-dx.mjs",
     "draft:quality": "node scripts/check-draft-quality.mjs",
     "field:quality": "node scripts/check-field-inference.mjs",
+    "review:quality": "node scripts/check-review-apply-usability.mjs",
     "smoke": "node scripts/smoke-test-local.mjs",
-    "test": "npm run validate:examples && npm run validate:invalid && npm run draft:quality && npm run field:quality && npm run cli:dx"
+    "test": "npm run validate:examples && npm run validate:invalid && npm run draft:quality && npm run field:quality && npm run review:quality && npm run cli:dx"
   },
   "engines": {
     "node": ">=18"

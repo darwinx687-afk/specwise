@@ -1,6 +1,6 @@
 # Human Review Workflow v0.1
 
-Status: Phase 9A skeleton with Phase 9B manual apply planning. No auto-apply and no final spec-pack generation.
+Status: Phase 9A skeleton with Phase 9B manual apply planning and Phase 27B readability polish. No auto-apply and no final spec-pack generation.
 
 ## Why Human Review Exists
 
@@ -78,6 +78,17 @@ reviewed-handoff-plan.md
 
 The report summarizes accepted items, follow-up questions, deferred items, rejected items, and readiness blockers.
 
+Phase 27B also groups report output into:
+
+- safe to carry forward
+- needs business confirmation
+- deferred for later
+- do not apply
+- blocked readiness reasons
+- recommended next review actions
+
+High-risk permission, export, approval, workflow state, and configuration items stay visible as review-required items.
+
 ## Handoff Plan
 
 The reviewed handoff plan organizes decisions into:
@@ -101,6 +112,14 @@ blocked-items.md
 ```
 
 The manual apply plan tells humans how to revise the next spec-pack version. It does not edit the draft and does not create a final spec-pack.
+
+The review/apply usability smoke check is:
+
+```bash
+npm run review:quality
+```
+
+It runs the draft -> patch preview -> review report -> apply-plan flow using local fixtures only.
 
 ## Boundaries
 

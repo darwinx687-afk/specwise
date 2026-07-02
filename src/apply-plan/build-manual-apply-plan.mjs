@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { ApplyPlanWorkflowError } from "./apply-plan-errors.mjs";
 
-const HIGH_RISK_TERMS = ["permission", "export", "approve", "approval", "delete", "configure", "cross-department"];
+const HIGH_RISK_TERMS = ["permission", "export", "approve", "approval", "delete", "configure", "workflow state", "cross-department"];
 
 function slug(value) {
   return String(value)
@@ -56,10 +56,24 @@ function describeStep(item, action) {
   return `Manually update the next spec revision with this reviewed item: ${item.summary}`;
 }
 
+function priorityFor(item, action, requiresBusinessConfirmation, highRisk) {
+  if (item.priority === "high" || highRisk || action === "keep_blocked") return "high";
+  if (requiresBusinessConfirmation || action === "defer" || action === "do_not_apply") return "medium";
+  return item.priority ?? "medium";
+}
+
+function suggestedOwnerFor(item, action, requiresBusinessConfirmation, highRisk) {
+  if (action === "keep_blocked" || requiresBusinessConfirmation || highRisk) return "business_owner";
+  if (action === "defer" || action === "do_not_apply") return "review_owner";
+  return "developer_reviewer";
+}
+
 function buildManualStep(item) {
   const action = actionFor(item);
   const highRisk = isHighRisk(item);
   const requiresBusinessConfirmation = item.decision === "needs_more_info" || item.decision === "deferred" || (highRisk && item.decision !== "accepted");
+  const priority = priorityFor(item, action, requiresBusinessConfirmation, highRisk);
+  const suggestedOwner = suggestedOwnerFor(item, action, requiresBusinessConfirmation, highRisk);
 
   return {
     id: `step_${slug(action)}_${slug(item.candidateId)}`,
@@ -69,11 +83,30 @@ function buildManualStep(item) {
     targetFile: targetFileFor(item),
     targetSection: item.targetSection,
     action,
+    priority,
+    suggestedOwner,
+    highRisk,
     description: describeStep(item, action),
     requiresBusinessConfirmation,
     requiresDeveloperReview: true,
     autoApplyAllowed: false
   };
+}
+
+function blockedCategoryFor(item, step) {
+  const text = JSON.stringify({
+    targetSection: item.targetSection,
+    reason: item.reviewerNote || item.followUpQuestion || item.summary,
+    action: step?.action
+  }).toLowerCase();
+
+  if (step?.action === "defer") return "deferred";
+  if (["permission", "export", "approve", "approval", "delete", "configure", "cross-department"].some((term) => text.includes(term))) {
+    return "permission_scope";
+  }
+  if (text.includes("workflow") || text.includes("state")) return "workflow_state";
+  if (["entities", "fields", "data"].some((term) => text.includes(term))) return "data_entity";
+  return "business_confirmation";
 }
 
 function buildBlockedItems(report, manualSteps) {
@@ -83,9 +116,10 @@ function buildBlockedItems(report, manualSteps) {
     const step = byId.get(item.candidateId);
     return {
       sourceCandidateId: item.candidateId,
-      priority: item.priority,
+      priority: step?.priority ?? item.priority,
+      category: blockedCategoryFor(item, step),
       reason: item.reviewerNote || item.followUpQuestion || item.summary || "Review item blocks readiness.",
-      requiredOwner: step?.requiresBusinessConfirmation ? "business_owner" : "review_owner",
+      requiredOwner: step?.suggestedOwner ?? (step?.requiresBusinessConfirmation ? "business_owner" : "review_owner"),
       suggestedFollowUpQuestion: item.followUpQuestion ?? null
     };
   });
@@ -99,6 +133,12 @@ function buildRevisionChecklist(report, manualSteps) {
   const safeSteps = manualSteps.filter((step) => ["manually_add", "manually_update", "convert_to_assumption", "convert_to_question"].includes(step.action));
   const blockedSteps = manualSteps.filter((step) => step.requiresBusinessConfirmation);
   const checklist = [];
+
+  checklist.push(
+    checklistItem("check_review_source_report", "before_editing", "Read review-report.md and reviewed-handoff-plan.md before editing."),
+    checklistItem("check_manual_only_boundary", "before_editing", "Confirm this is a manual plan only; no patch may be auto-applied."),
+    checklistItem("check_owner_for_high_risk_items", "before_editing", "Confirm suggested owners for high-risk permission, export, approval, workflow state, or configuration items.")
+  );
 
   for (const step of safeSteps) {
     checklist.push(checklistItem(
@@ -128,6 +168,15 @@ function buildRevisionChecklist(report, manualSteps) {
   }
 
   return checklist;
+}
+
+function buildGroupedSteps(manualSteps) {
+  return {
+    safeManualUpdates: manualSteps.filter((step) => ["manually_add", "manually_update", "convert_to_assumption", "convert_to_question"].includes(step.action) && !step.requiresBusinessConfirmation),
+    businessConfirmationRequired: manualSteps.filter((step) => step.requiresBusinessConfirmation && step.action !== "defer" && step.action !== "do_not_apply"),
+    developerReviewRequired: manualSteps.filter((step) => step.requiresDeveloperReview && !["keep_blocked", "defer", "do_not_apply"].includes(step.action)),
+    blockedOrDeferred: manualSteps.filter((step) => ["keep_blocked", "defer", "do_not_apply"].includes(step.action))
+  };
 }
 
 function makePlanId(report) {
@@ -175,6 +224,7 @@ export function buildManualApplyPlan({ reviewReport, reviewReportPath, draftSpec
   const manualSteps = sourceItems.map(buildManualStep);
   const blockedItems = buildBlockedItems(reviewReport, manualSteps);
   const revisionChecklist = buildRevisionChecklist(reviewReport, manualSteps);
+  const groupedSteps = buildGroupedSteps(manualSteps);
 
   return {
     schemaVersion: "0.1.0",
@@ -193,6 +243,7 @@ export function buildManualApplyPlan({ reviewReport, reviewReportPath, draftSpec
       blocksFinalSpec: reviewReport.summary.blocksReadiness
     },
     manualSteps,
+    groupedSteps,
     blockedItems,
     revisionChecklist,
     status: reviewReport.summary.blocksReadiness ? "blocked" : "manual_revision_required",

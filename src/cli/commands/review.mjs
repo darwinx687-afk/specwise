@@ -256,7 +256,7 @@ function runReviewReport(args) {
     fs.writeFileSync(path.join(outputFolder, "review-report.md"), renderReviewReportMarkdown(report));
     fs.writeFileSync(path.join(outputFolder, "reviewed-handoff-plan.md"), renderReviewedHandoffPlan(report));
 
-    printSuccess("SpecWise human review report generated:", {
+    printSuccess("SpecWise review report generated:", {
       items: ["review-report.json", "review-report.md", "reviewed-handoff-plan.md"],
       lines: [
         "No patch was automatically applied.",

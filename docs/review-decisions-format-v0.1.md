@@ -1,6 +1,6 @@
 # Review Decisions Format v0.1
 
-Status: Phase 9A schema and validation format.
+Status: Phase 9A schema and validation format with Phase 27B review report readability notes.
 
 ## Schema Overview
 
@@ -124,3 +124,5 @@ Needs more info:
 ## Boundary
 
 Validated review decisions do not apply patches. They only support review reports and future manual revision planning.
+
+Phase 27B does not change the review decision JSON format. It improves generated report readability by grouping accepted, business-confirmation, deferred, rejected, follow-up, and blocked readiness items.

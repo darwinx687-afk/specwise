@@ -1,6 +1,6 @@
 # Spec Revision Checklist v0.1
 
-Status: Phase 9B manual checklist. Not an automatic editor.
+Status: Phase 9B manual checklist with Phase 27B readability polish. Not an automatic editor.
 
 ## How To Use
 
@@ -9,6 +9,17 @@ Use `spec-revision-checklist.md` when preparing the next manual spec-pack revisi
 The checklist is generated from a human review report and manual apply plan. It helps a reviewer decide what to edit by hand and what must remain blocked.
 
 This checklist is also a future handoff gate. Manual spec revision should happen before any agent handoff pack is considered.
+
+## Before Editing
+
+Before changing any future spec-pack by hand:
+
+- read `review-report.md`
+- read `reviewed-handoff-plan.md`
+- read `manual-apply-plan.md`
+- confirm suggested owners for high-risk items
+- confirm no patch is being auto-applied
+- confirm no final spec-pack is being generated
 
 ## Safe Manual Updates
 

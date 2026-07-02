@@ -2,12 +2,15 @@ function renderStep(step) {
   return [
     `### ${step.id}`,
     "",
+    `- Priority: ${step.priority ?? "medium"}`,
+    `- Suggested owner: ${step.suggestedOwner ?? "review_owner"}`,
     `- Source candidate: ${step.sourceCandidateId}`,
     `- Decision: ${step.decision}`,
     `- Accepted as: ${step.acceptedAs ?? "none"}`,
     `- Target file: ${step.targetFile}`,
     `- Target section: ${step.targetSection}`,
     `- Action: ${step.action}`,
+    `- High-risk area: ${step.highRisk ? "yes" : "no"}`,
     `- Description: ${step.description}`,
     `- Requires business confirmation: ${step.requiresBusinessConfirmation}`,
     `- Requires developer review: ${step.requiresDeveloperReview}`,
@@ -16,7 +19,30 @@ function renderStep(step) {
   ];
 }
 
+function groupedStepsFor(plan) {
+  return plan.groupedSteps ?? {
+    safeManualUpdates: plan.manualSteps.filter((step) => ["manually_add", "manually_update", "convert_to_assumption", "convert_to_question"].includes(step.action) && !step.requiresBusinessConfirmation),
+    businessConfirmationRequired: plan.manualSteps.filter((step) => step.requiresBusinessConfirmation && step.action !== "defer" && step.action !== "do_not_apply"),
+    developerReviewRequired: plan.manualSteps.filter((step) => step.requiresDeveloperReview && !["keep_blocked", "defer", "do_not_apply"].includes(step.action)),
+    blockedOrDeferred: plan.manualSteps.filter((step) => ["keep_blocked", "defer", "do_not_apply"].includes(step.action))
+  };
+}
+
+function renderStepGroup(title, steps, emptyText) {
+  const lines = [`## ${title}`, ""];
+  if (steps.length === 0) {
+    lines.push(`- ${emptyText}`, "");
+    return lines;
+  }
+
+  for (const step of steps) {
+    lines.push(...renderStep(step));
+  }
+  return lines;
+}
+
 export function renderManualApplyPlanMarkdown(plan) {
+  const groupedSteps = groupedStepsFor(plan);
   const lines = [
     "# SpecWise Manual Apply Plan",
     "",
@@ -34,8 +60,13 @@ export function renderManualApplyPlanMarkdown(plan) {
     `- Deferred: ${plan.summary.deferred}`,
     `- Do not apply: ${plan.summary.doNotApply}`,
     `- Blocks final spec: ${plan.summary.blocksFinalSpec}`,
+    `- Status: ${plan.status}`,
     "",
-    "## Manual Steps",
+    ...renderStepGroup("Safe Manual Updates", groupedSteps.safeManualUpdates, "None."),
+    ...renderStepGroup("Business Confirmation Required", groupedSteps.businessConfirmationRequired, "None."),
+    ...renderStepGroup("Developer Review Required", groupedSteps.developerReviewRequired, "None."),
+    ...renderStepGroup("Blocked or Deferred", groupedSteps.blockedOrDeferred, "None."),
+    "## All Manual Steps",
     ""
   ];
 
@@ -54,6 +85,7 @@ export function renderManualApplyPlanMarkdown(plan) {
     for (const item of plan.blockedItems) {
       lines.push(`### ${item.sourceCandidateId}`);
       lines.push(`- Priority: ${item.priority}`);
+      lines.push(`- Category: ${item.category ?? "business_confirmation"}`);
       lines.push(`- Reason: ${item.reason}`);
       lines.push(`- Required owner: ${item.requiredOwner}`);
       lines.push(`- Suggested follow-up question: ${item.suggestedFollowUpQuestion ?? "none"}`);
@@ -76,6 +108,7 @@ export function renderManualApplyPlanMarkdown(plan) {
 
 export function renderSpecRevisionChecklist(plan) {
   const groups = [
+    ["before_editing", "Before Editing"],
     ["safe_manual_updates", "Safe Manual Updates"],
     ["requires_business_confirmation", "Requires Business Confirmation"],
     ["developer_review_required", "Developer Review Required"],
@@ -101,7 +134,41 @@ export function renderSpecRevisionChecklist(plan) {
     lines.push("");
   }
 
+  lines.push(
+    "## Re-run After Manual Revision",
+    "",
+    "- [ ] Run `node bin/specwise.mjs validate <manual-spec-pack-folder>`.",
+    "- [ ] Run `npm test` before any future commit.",
+    "- [ ] Keep rejected, deferred, and unresolved business-confirmation items out of the manual revision.",
+    ""
+  );
+
   return `${lines.join("\n")}\n`;
+}
+
+function blockedGroupsFor(plan) {
+  return [
+    [
+      "High Priority Permission / Scope Blockers",
+      plan.blockedItems.filter((item) => item.category === "permission_scope")
+    ],
+    [
+      "Workflow / State Blockers",
+      plan.blockedItems.filter((item) => item.category === "workflow_state")
+    ],
+    [
+      "Data / Entity Blockers",
+      plan.blockedItems.filter((item) => item.category === "data_entity")
+    ],
+    [
+      "Business Confirmation Blockers",
+      plan.blockedItems.filter((item) => item.category === "business_confirmation")
+    ],
+    [
+      "Deferred Items",
+      plan.blockedItems.filter((item) => item.category === "deferred")
+    ]
+  ];
 }
 
 export function renderBlockedItemsMarkdown(plan) {
@@ -112,16 +179,8 @@ export function renderBlockedItemsMarkdown(plan) {
     ""
   ];
 
-  const groups = [
-    ["high", "High Priority"],
-    ["medium", "Medium Priority"],
-    ["low", "Low Priority"],
-    ["deferred", "Deferred"]
-  ];
-
-  for (const [priority, title] of groups) {
+  for (const [title, items] of blockedGroupsFor(plan)) {
     lines.push(`## ${title}`, "");
-    const items = plan.blockedItems.filter((item) => item.priority === priority || (priority === "deferred" && item.priority !== "high" && item.priority !== "medium" && item.priority !== "low"));
     if (items.length === 0) {
       lines.push("- None.", "");
       continue;
@@ -129,12 +188,24 @@ export function renderBlockedItemsMarkdown(plan) {
 
     for (const item of items) {
       lines.push(`### ${item.sourceCandidateId}`);
+      lines.push(`- Priority: ${item.priority}`);
       lines.push(`- Reason: ${item.reason}`);
       lines.push(`- Source candidate: ${item.sourceCandidateId}`);
       lines.push(`- Required owner: ${item.requiredOwner}`);
       lines.push(`- Suggested follow-up question: ${item.suggestedFollowUpQuestion ?? "none"}`);
       lines.push("");
     }
+  }
+
+  lines.push("## Suggested Follow-up Questions", "");
+  const questions = plan.blockedItems.filter((item) => item.suggestedFollowUpQuestion);
+  if (questions.length === 0) {
+    lines.push("- None.", "");
+  } else {
+    for (const item of questions) {
+      lines.push(`- ${item.sourceCandidateId}: ${item.suggestedFollowUpQuestion}`);
+    }
+    lines.push("");
   }
 
   return `${lines.join("\n")}\n`;

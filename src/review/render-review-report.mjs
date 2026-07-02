@@ -4,25 +4,76 @@ function renderItems(items, emptyText) {
   const lines = [];
   for (const item of items) {
     lines.push(`### ${item.candidateId}`);
-    lines.push(`- Summary: ${item.summary}`);
+    lines.push(`- Summary: ${item.summary ?? item.question ?? "Review item requires follow-up."}`);
     lines.push(`- Target: ${item.targetSection}`);
     lines.push(`- Priority: ${item.priority}`);
-    lines.push(`- Confidence: ${item.confidence}`);
+    lines.push(`- Confidence: ${item.confidence ?? "unknown"}`);
+    lines.push(`- High-risk area: ${item.highRisk ? "yes" : "no"}`);
     if (item.acceptedAs) lines.push(`- Accepted as: ${item.acceptedAs}`);
     if (item.followUpQuestion) lines.push(`- Follow-up question: ${item.followUpQuestion}`);
     if (item.reviewerNote) lines.push(`- Reviewer note: ${item.reviewerNote}`);
-    lines.push(`- Blocks readiness: ${item.blocksReadiness}`);
+    lines.push(`- Blocks readiness: ${item.blocksReadiness ?? false}`);
     lines.push("");
   }
   return lines;
 }
 
+function renderFollowUpQuestions(items) {
+  if (items.length === 0) return ["- None."];
+
+  const lines = [];
+  for (const item of items) {
+    lines.push(`### ${item.candidateId}`);
+    lines.push(`- Target: ${item.targetSection}`);
+    lines.push(`- Priority: ${item.priority}`);
+    lines.push(`- High-risk area: ${item.highRisk ? "yes" : "no"}`);
+    lines.push(`- Question: ${item.question}`);
+    lines.push(`- Reviewer note: ${item.reviewerNote}`);
+    lines.push("");
+  }
+  return lines;
+}
+
+function renderBlockedReadinessReasons(items) {
+  if (items.length === 0) return ["- None."];
+
+  const lines = [];
+  for (const item of items) {
+    lines.push(`### ${item.candidateId}`);
+    lines.push(`- Priority: ${item.priority}`);
+    lines.push(`- Target: ${item.targetSection}`);
+    lines.push(`- Suggested owner: ${item.suggestedOwner}`);
+    lines.push(`- High-risk area: ${item.highRisk ? "yes" : "no"}`);
+    lines.push(`- Reason: ${item.reason}`);
+    if (item.followUpQuestion) lines.push(`- Follow-up question: ${item.followUpQuestion}`);
+    lines.push("");
+  }
+  return lines;
+}
+
+function groupedItemsFor(report) {
+  return report.groupedItems ?? {
+    safeToCarryForward: report.acceptedItems,
+    needsBusinessConfirmation: report.followUpQuestions,
+    deferredForLater: report.deferredItems,
+    doNotApply: report.rejectedItems
+  };
+}
+
 export function renderReviewReportMarkdown(report) {
+  const groupedItems = groupedItemsFor(report);
+  const blockedReadinessReasons = report.blockedReadinessReasons ?? report.blockedItems;
+  const nextReviewActions = report.nextReviewActions ?? [
+    "Resolve all follow-up questions before final spec readiness.",
+    "Apply accepted items only by hand in a future manual spec revision."
+  ];
+
   const lines = [
     "# SpecWise Human Review Report",
     "",
     "No patch was automatically applied.",
     "No final spec-pack was generated.",
+    "Draft spec-pack was not modified.",
     "",
     "## Summary",
     "",
@@ -33,47 +84,44 @@ export function renderReviewReportMarkdown(report) {
     `- Rejected: ${report.summary.rejected}`,
     `- Blocks readiness: ${report.summary.blocksReadiness}`,
     "",
-    "## Accepted Items",
+    "## Review Status",
     "",
-    ...renderItems(report.acceptedItems, "None."),
+    `- Status: ${report.status}`,
+    `- Safe to carry forward: ${groupedItems.safeToCarryForward.length}`,
+    `- Needs business confirmation: ${groupedItems.needsBusinessConfirmation.length}`,
+    `- Deferred for later: ${groupedItems.deferredForLater.length}`,
+    `- Do not apply: ${groupedItems.doNotApply.length}`,
+    "",
+    "## Safe to Carry Forward",
+    "",
+    ...renderItems(groupedItems.safeToCarryForward, "None."),
+    "",
+    "## Needs Business Confirmation",
+    "",
+    ...renderItems(groupedItems.needsBusinessConfirmation, "None."),
     "",
     "## Follow-up Questions",
+    "",
+    ...renderFollowUpQuestions(report.followUpQuestions),
+    "",
+    "## Blocked Readiness Reasons",
+    "",
+    ...renderBlockedReadinessReasons(blockedReadinessReasons),
+    "",
+    "## Deferred for Later",
+    "",
+    ...renderItems(groupedItems.deferredForLater, "None."),
+    "",
+    "## Do Not Apply",
+    "",
+    ...renderItems(groupedItems.doNotApply, "None."),
+    "",
+    "## Recommended Next Review Actions",
     ""
   ];
 
-  if (report.followUpQuestions.length === 0) {
-    lines.push("- None.");
-  } else {
-    for (const item of report.followUpQuestions) {
-      lines.push(`### ${item.candidateId}`);
-      lines.push(`- Target: ${item.targetSection}`);
-      lines.push(`- Priority: ${item.priority}`);
-      lines.push(`- Question: ${item.question}`);
-      lines.push(`- Reviewer note: ${item.reviewerNote}`);
-      lines.push("");
-    }
-  }
-
-  lines.push(
-    "",
-    "## Deferred Items",
-    "",
-    ...renderItems(report.deferredItems, "None."),
-    "",
-    "## Rejected Items",
-    "",
-    ...renderItems(report.rejectedItems, "None."),
-    "",
-    "## Blocked Readiness Reasons",
-    ""
-  );
-
-  if (report.blockedItems.length === 0) {
-    lines.push("- None.");
-  } else {
-    for (const item of report.blockedItems) {
-      lines.push(`- ${item.candidateId}: ${item.reviewerNote || item.followUpQuestion || item.summary}`);
-    }
+  for (const action of nextReviewActions) {
+    lines.push(`- ${action}`);
   }
 
   lines.push("");
@@ -81,6 +129,12 @@ export function renderReviewReportMarkdown(report) {
 }
 
 export function renderReviewedHandoffPlan(report) {
+  const groupedItems = groupedItemsFor(report);
+  const blockedReadinessReasons = report.blockedReadinessReasons ?? report.blockedItems;
+  const nextReviewActions = report.nextReviewActions ?? [
+    "Resolve all follow-up questions.",
+    "Manually revise the next spec draft using accepted decisions only."
+  ];
   const lines = [
     "# Reviewed Handoff Plan",
     "",
@@ -91,10 +145,10 @@ export function renderReviewedHandoffPlan(report) {
     ""
   ];
 
-  if (report.acceptedItems.length === 0) {
+  if (groupedItems.safeToCarryForward.length === 0) {
     lines.push("- None yet.");
   } else {
-    for (const item of report.acceptedItems) {
+    for (const item of groupedItems.safeToCarryForward) {
       lines.push(`- ${item.candidateId}: include as ${item.acceptedAs} after updating the next spec revision by hand.`);
     }
   }
@@ -105,11 +159,12 @@ export function renderReviewedHandoffPlan(report) {
     ""
   );
 
-  if (report.followUpQuestions.length === 0) {
+  if (blockedReadinessReasons.length === 0) {
     lines.push("- None.");
   } else {
-    for (const item of report.followUpQuestions) {
-      lines.push(`- ${item.candidateId}: ${item.question}`);
+    for (const item of blockedReadinessReasons) {
+      lines.push(`- ${item.candidateId}: ${item.reason} Owner: ${item.suggestedOwner}.`);
+      if (item.followUpQuestion) lines.push(`  Follow-up: ${item.followUpQuestion}`);
     }
   }
 
@@ -119,7 +174,7 @@ export function renderReviewedHandoffPlan(report) {
     ""
   );
 
-  const doNotApply = [...report.deferredItems, ...report.rejectedItems];
+  const doNotApply = [...groupedItems.deferredForLater, ...groupedItems.doNotApply];
   if (doNotApply.length === 0) {
     lines.push("- None.");
   } else {
@@ -131,11 +186,14 @@ export function renderReviewedHandoffPlan(report) {
   lines.push(
     "",
     "## Recommended Next Actions",
-    "",
-    "1. Resolve all high-priority follow-up questions.",
-    "2. Manually revise the next spec draft using accepted decisions only.",
-    "3. Re-run SpecWise validation after any future manual spec revision.",
-    "4. Keep rejected and deferred candidates out of implementation scope until reviewed again.",
+    ""
+  );
+
+  nextReviewActions.forEach((action, index) => {
+    lines.push(`${index + 1}. ${action}`);
+  });
+
+  lines.push(
     "",
     "## Boundary",
     "",

@@ -23,6 +23,9 @@
       "targetFile": "03_permissions.md",
       "targetSection": "permissions",
       "action": "keep_blocked",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Keep Department Manager export scope blocked until the business owner confirms whether export covers all department records or only assigned records.",
       "requiresBusinessConfirmation": true,
       "requiresDeveloperReview": true,
@@ -36,6 +39,9 @@
       "targetFile": "03_permissions.md",
       "targetSection": "permissions",
       "action": "keep_blocked",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Keep cross-department visibility blocked until role data scope is confirmed.",
       "requiresBusinessConfirmation": true,
       "requiresDeveloperReview": true,
@@ -49,6 +55,9 @@
       "targetFile": "04_workflows.md",
       "targetSection": "workflows",
       "action": "keep_blocked",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Keep approval authority blocked until the approving role is confirmed.",
       "requiresBusinessConfirmation": true,
       "requiresDeveloperReview": true,
@@ -62,6 +71,9 @@
       "targetFile": "04_workflows.md",
       "targetSection": "workflows",
       "action": "keep_blocked",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Keep edit-after-submit behavior blocked until transition rules are confirmed.",
       "requiresBusinessConfirmation": true,
       "requiresDeveloperReview": true,
@@ -75,6 +87,9 @@
       "targetFile": "02_entities.md",
       "targetSection": "entities",
       "action": "convert_to_assumption",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Add a review-required assumption that employee records are deactivated rather than physically deleted.",
       "requiresBusinessConfirmation": false,
       "requiresDeveloperReview": true,
@@ -88,6 +103,9 @@
       "targetFile": "02_entities.md",
       "targetSection": "fields",
       "action": "defer",
+      "priority": "medium",
+      "suggestedOwner": "business_owner",
+      "highRisk": false,
       "description": "Defer risk level calculation until the scoring formula is confirmed.",
       "requiresBusinessConfirmation": true,
       "requiresDeveloperReview": true,
@@ -101,6 +119,9 @@
       "targetFile": "06_acceptance.md",
       "targetSection": "acceptanceCriteria",
       "action": "manually_add",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Add an acceptance criterion requiring audit logs to preserve submit, review, approve, reject, and edit actors.",
       "requiresBusinessConfirmation": false,
       "requiresDeveloperReview": true,
@@ -114,6 +135,9 @@
       "targetFile": "04_workflows.md",
       "targetSection": "workflows",
       "action": "keep_blocked",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Keep reviewed versus approved status semantics blocked until workflow ownership is confirmed.",
       "requiresBusinessConfirmation": true,
       "requiresDeveloperReview": true,
@@ -127,6 +151,9 @@
       "targetFile": "spec-pack.zh-CN.md / spec-pack.en.md",
       "targetSection": "bilingualSummary",
       "action": "manually_update",
+      "priority": "high",
+      "suggestedOwner": "business_owner",
+      "highRisk": true,
       "description": "Update bilingual summaries to preserve unresolved permission and workflow uncertainty.",
       "requiresBusinessConfirmation": false,
       "requiresDeveloperReview": true,
@@ -140,16 +167,102 @@
       "targetFile": "buildability-report.md",
       "targetSection": "buildability",
       "action": "defer",
+      "priority": "medium",
+      "suggestedOwner": "business_owner",
+      "highRisk": false,
       "description": "Defer buildability changes until permission and workflow blockers are answered.",
       "requiresBusinessConfirmation": true,
       "requiresDeveloperReview": true,
       "autoApplyAllowed": false
     }
   ],
+  "groupedSteps": {
+    "safeManualUpdates": [
+      {
+        "id": "step_deactivate_assumption_001",
+        "sourceCandidateId": "cand_assumption_employee_deactivate_001"
+      },
+      {
+        "id": "step_accept_audit_log_acceptance_001",
+        "sourceCandidateId": "cand_acceptance_audit_log_actor_001"
+      },
+      {
+        "id": "step_update_bilingual_summary_uncertainty_001",
+        "sourceCandidateId": "cand_bilingual_summary_uncertainty_001"
+      }
+    ],
+    "businessConfirmationRequired": [
+      {
+        "id": "step_keep_blocked_permission_export_scope_001",
+        "sourceCandidateId": "cand_permission_export_scope_001"
+      },
+      {
+        "id": "step_keep_blocked_cross_department_view_001",
+        "sourceCandidateId": "cand_permission_cross_department_view_001"
+      },
+      {
+        "id": "step_keep_blocked_approval_authority_001",
+        "sourceCandidateId": "cand_workflow_approval_authority_001"
+      },
+      {
+        "id": "step_keep_blocked_edit_submitted_001",
+        "sourceCandidateId": "cand_workflow_edit_submitted_001"
+      },
+      {
+        "id": "step_keep_blocked_status_conflict_001",
+        "sourceCandidateId": "cand_conflict_reviewed_approved_status_001"
+      }
+    ],
+    "developerReviewRequired": [
+      {
+        "id": "step_deactivate_assumption_001",
+        "sourceCandidateId": "cand_assumption_employee_deactivate_001"
+      },
+      {
+        "id": "step_accept_audit_log_acceptance_001",
+        "sourceCandidateId": "cand_acceptance_audit_log_actor_001"
+      },
+      {
+        "id": "step_update_bilingual_summary_uncertainty_001",
+        "sourceCandidateId": "cand_bilingual_summary_uncertainty_001"
+      }
+    ],
+    "blockedOrDeferred": [
+      {
+        "id": "step_keep_blocked_permission_export_scope_001",
+        "sourceCandidateId": "cand_permission_export_scope_001"
+      },
+      {
+        "id": "step_keep_blocked_cross_department_view_001",
+        "sourceCandidateId": "cand_permission_cross_department_view_001"
+      },
+      {
+        "id": "step_keep_blocked_approval_authority_001",
+        "sourceCandidateId": "cand_workflow_approval_authority_001"
+      },
+      {
+        "id": "step_keep_blocked_edit_submitted_001",
+        "sourceCandidateId": "cand_workflow_edit_submitted_001"
+      },
+      {
+        "id": "step_defer_risk_level_score_001",
+        "sourceCandidateId": "cand_assumption_risk_level_score_001"
+      },
+      {
+        "id": "step_keep_blocked_status_conflict_001",
+        "sourceCandidateId": "cand_conflict_reviewed_approved_status_001"
+      },
+      {
+        "id": "step_defer_buildability_rescore_001",
+        "sourceCandidateId": "cand_buildability_rescore_uncertainty_001"
+      }
+    ]
+  },
   "blockedItems": [
     {
       "sourceCandidateId": "cand_permission_export_scope_001",
       "priority": "high",
+      "category": "permission_scope",
       "reason": "Export scope is unresolved.",
       "requiredOwner": "business_owner",
       "suggestedFollowUpQuestion": "Can Department Managers export all department records, or only assigned records?"
@@ -157,6 +270,7 @@
     {
       "sourceCandidateId": "cand_permission_cross_department_view_001",
       "priority": "high",
+      "category": "permission_scope",
       "reason": "Cross-department visibility is unresolved.",
       "requiredOwner": "business_owner",
       "suggestedFollowUpQuestion": "Can Department Managers view records outside their own department?"
@@ -164,6 +278,7 @@
     {
       "sourceCandidateId": "cand_workflow_approval_authority_001",
       "priority": "high",
+      "category": "permission_scope",
       "reason": "Approval authority is unresolved.",
       "requiredOwner": "business_owner",
       "suggestedFollowUpQuestion": "After a record is reviewed, which role can approve it as final?"
@@ -171,6 +286,7 @@
     {
       "sourceCandidateId": "cand_workflow_edit_submitted_001",
       "priority": "high",
+      "category": "workflow_state",
       "reason": "Edit-after-submit behavior is unresolved.",
       "requiredOwner": "business_owner",
       "suggestedFollowUpQuestion": "Can a submitted record be edited before review starts?"
@@ -178,12 +294,31 @@
     {
       "sourceCandidateId": "cand_conflict_reviewed_approved_status_001",
       "priority": "high",
+      "category": "permission_scope",
       "reason": "Reviewed versus approved status semantics remain unclear.",
       "requiredOwner": "business_owner",
       "suggestedFollowUpQuestion": "What is the difference between reviewed and approved, and who can move records between those states?"
     }
   ],
   "revisionChecklist": [
+    {
+      "id": "check_review_source_report",
+      "group": "before_editing",
+      "text": "Read review-report.md and reviewed-handoff-plan.md before editing.",
+      "checked": false
+    },
+    {
+      "id": "check_manual_only_boundary",
+      "group": "before_editing",
+      "text": "Confirm this is a manual plan only; no patch may be auto-applied.",
+      "checked": false
+    },
+    {
+      "id": "check_owner_for_high_risk_items",
+      "group": "before_editing",
+      "text": "Confirm suggested owners for high-risk permission, export, approval, workflow state, or configuration items.",
+      "checked": false
+    },
     {
       "id": "check_audit_log_acceptance",
       "group": "safe_manual_updates",
@@ -215,6 +350,6 @@
       "checked": false
     }
   ],
-  "status": "manual_revision_required",
+  "status": "blocked",
   "createdAt": "2026-07-01T00:00:00.000Z"
 }

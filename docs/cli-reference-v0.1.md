@@ -333,6 +333,8 @@ Outputs: `review-report.json`, `review-report.md`, `reviewed-handoff-plan.md`.
 
 Safety notes: does not apply patches and does not generate final spec-pack.
 
+Readability notes: report markdown groups safe carry-forward items, business confirmation items, follow-up questions, blocked readiness reasons, deferred items, rejected items, and recommended next review actions.
+
 ### `specwise apply-plan create`
 
 Purpose: generate manual revision plan from human review report.
@@ -349,6 +351,8 @@ node bin/specwise.mjs apply-plan create ./tmp/review-report \
 Outputs: `manual-apply-plan.json`, `manual-apply-plan.md`, `spec-revision-checklist.md`, `blocked-items.md`.
 
 Safety notes: manual plan only; does not edit draft spec-pack.
+
+Readability notes: manual plan markdown includes priority, suggested owner, high-risk hints, grouped manual steps, a Before Editing checklist section, and grouped blocked-items markdown.
 
 ### `specwise apply-plan validate`
 

@@ -144,7 +144,8 @@ function runApplyPlanCreate(args) {
     printSuccess("SpecWise manual apply plan created:", {
       items: ["manual-apply-plan.json", "manual-apply-plan.md", "spec-revision-checklist.md", "blocked-items.md"],
       lines: [
-        "No patch was applied.",
+        `Status: ${plan.status === "blocked" ? "Blocked" : "Manual Revision Required"}`,
+        "No patch was automatically applied.",
         "No final spec-pack was generated."
       ]
     });
