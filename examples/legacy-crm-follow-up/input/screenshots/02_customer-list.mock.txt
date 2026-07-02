@@ -1,0 +1,27 @@
+Screen: Customer List
+
+Columns:
+- Customer ID
+- Customer Name
+- Segment
+- Owner
+- Last Follow-up Date
+- Next Follow-up Due
+- Status
+- Risk Level
+
+Actions:
+- View detail
+- Assign owner
+- Export selected
+- Mark inactive
+
+Filters:
+- Segment
+- Owner
+- Status
+- Risk Level
+
+Unclear:
+- Whether Sales Reps can export selected rows.
+- Whether Mark inactive requires manager approval.

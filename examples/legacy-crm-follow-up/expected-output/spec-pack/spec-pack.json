@@ -1,0 +1,555 @@
+{
+  "schemaVersion": "0.1.0",
+  "project": {
+    "name": "Legacy CRM Follow-up Admin System",
+    "nameZh": "旧版客户跟进后台系统",
+    "domain": "crm-follow-up",
+    "description": "A legacy internal CRM admin system for managing customers, sales reps, customer segments, follow-up records, assignment rules, and manager review.",
+    "primaryLanguage": "mixed",
+    "targetUsers": ["FDE", "AI full-stack developer", "business analyst"],
+    "status": "review_required"
+  },
+  "sourceMaterials": [
+    {
+      "id": "src_dashboard_mock",
+      "type": "txt",
+      "path": "input/screenshots/01_dashboard.mock.txt",
+      "language": "en",
+      "summary": "Mock CRM dashboard screenshot text with navigation, widgets, filters, and overdue attention signals.",
+      "detectedSignals": ["dashboard module", "overdue follow-ups", "customers without owner", "segment distribution", "completion rate"]
+    },
+    {
+      "id": "src_customer_list_mock",
+      "type": "txt",
+      "path": "input/screenshots/02_customer-list.mock.txt",
+      "language": "en",
+      "summary": "Mock customer list screenshot text with table columns and customer actions.",
+      "detectedSignals": ["customer entity", "segment field", "owner relation", "export action", "mark inactive action"]
+    },
+    {
+      "id": "src_customer_detail_mock",
+      "type": "txt",
+      "path": "input/screenshots/03_customer-detail.mock.txt",
+      "language": "en",
+      "summary": "Mock customer detail screenshot text with sections, contact preferences, owner assignment, timeline, notes, and risk flags.",
+      "detectedSignals": ["customer detail page", "owner assignment", "risk flags", "inactive uncertainty", "segment edit uncertainty"]
+    },
+    {
+      "id": "src_follow_up_records_mock",
+      "type": "txt",
+      "path": "input/screenshots/04_follow-up-records.mock.txt",
+      "language": "en",
+      "summary": "Mock follow-up records screenshot text with lifecycle states and workflow actions.",
+      "detectedSignals": ["follow-up records module", "draft status", "submitted status", "manager_reviewed status", "closed status", "reopened status"]
+    },
+    {
+      "id": "src_assignment_rules_mock",
+      "type": "txt",
+      "path": "input/screenshots/05_assignment-rules.mock.txt",
+      "language": "en",
+      "summary": "Mock assignment rules screenshot text with segment, unassigned, overdue, and VIP assignment rules.",
+      "detectedSignals": ["assignment rules", "segment A senior owner", "manager queue", "overdue reassignment", "VIP manager visibility"]
+    },
+    {
+      "id": "src_permission_settings_mock",
+      "type": "txt",
+      "path": "input/screenshots/06_permission-settings.mock.txt",
+      "language": "en",
+      "summary": "Mock permission settings screenshot text with roles, permission notes, and unclear export/cross-team/inactive permissions.",
+      "detectedSignals": ["five roles", "role configuration", "data scope", "export uncertainty", "inactive permission uncertainty"]
+    },
+    {
+      "id": "src_customers_csv",
+      "type": "csv",
+      "path": "input/data/customers.csv",
+      "language": "en",
+      "summary": "Synthetic customer data with customer ID, segment, owner, status, risk, and follow-up dates.",
+      "detectedSignals": ["customer fields", "owner relation", "segment field", "risk level", "next follow-up due"]
+    },
+    {
+      "id": "src_follow_up_records_csv",
+      "type": "csv",
+      "path": "input/data/follow_up_records.csv",
+      "language": "en",
+      "summary": "Synthetic follow-up record data with customer, rep, type, status, timestamps, reviewer, and next action due.",
+      "detectedSignals": ["follow-up record fields", "customer relation", "rep relation", "reviewer relation", "workflow states"]
+    },
+    {
+      "id": "src_sales_reps_csv",
+      "type": "csv",
+      "path": "input/data/sales_reps.csv",
+      "language": "en",
+      "summary": "Synthetic sales rep data with rep ID, name, team, role, and status.",
+      "detectedSignals": ["sales rep entity", "team field", "role field", "manager role", "director role"]
+    },
+    {
+      "id": "src_customer_segments_csv",
+      "type": "csv",
+      "path": "input/data/customer_segments.csv",
+      "language": "en",
+      "summary": "Synthetic customer segment data with priority, default follow-up days, and manager visibility requirements.",
+      "detectedSignals": ["customer segment entity", "priority field", "follow-up interval", "manager visibility"]
+    },
+    {
+      "id": "src_business_notes",
+      "type": "markdown",
+      "path": "input/notes/business-notes.md",
+      "language": "mixed",
+      "summary": "Bilingual business notes describing VIP/Segment A ownership, visibility uncertainty, export uncertainty, inactive uncertainty, and overdue behavior.",
+      "detectedSignals": ["owner may be empty", "cross-team visibility uncertainty", "export uncertainty", "inactive uncertainty", "overdue reminder uncertainty"]
+    },
+    {
+      "id": "src_roles_notes",
+      "type": "markdown",
+      "path": "input/notes/roles.md",
+      "language": "mixed",
+      "summary": "Role notes for System Admin, Sales Director, Sales Manager, Sales Rep, Viewer, and unclear permissions.",
+      "detectedSignals": ["five roles", "director all customer access", "manager team access", "rep assigned access", "viewer report access"]
+    },
+    {
+      "id": "src_workflow_notes",
+      "type": "markdown",
+      "path": "input/notes/workflow-notes.md",
+      "language": "mixed",
+      "summary": "Workflow notes for new customer, assigned, draft, submitted, manager reviewed, closed, and reopened states.",
+      "detectedSignals": ["customer follow-up workflow", "reopened uncertainty", "closed edit uncertainty", "overdue reminder uncertainty", "reassignment approval uncertainty"]
+    }
+  ],
+  "modules": [
+    {
+      "id": "mod_dashboard",
+      "name": "Dashboard",
+      "nameZh": "仪表盘",
+      "description": "Show CRM summary widgets, overdue follow-ups, unassigned customers, segment distribution, and completion rate.",
+      "pages": ["page_dashboard"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_dashboard_navigation", "ev_screenshot_dashboard_widgets"],
+      "needsReview": false
+    },
+    {
+      "id": "mod_customer_management",
+      "name": "Customer Management",
+      "nameZh": "客户管理",
+      "description": "Manage customer records, owner assignment, customer detail, risk flags, and inactive status.",
+      "pages": ["page_customer_list", "page_customer_detail"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_customer_list_columns", "ev_screenshot_customer_detail_sections", "ev_csv_customers_headers"],
+      "needsReview": true,
+      "openQuestionIds": ["q_inactive_authority"]
+    },
+    {
+      "id": "mod_follow_up_records",
+      "name": "Follow-up Records",
+      "nameZh": "跟进记录",
+      "description": "Create, submit, review, close, reopen, and export customer follow-up records.",
+      "pages": ["page_follow_up_records"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_screenshot_follow_up_actions", "ev_csv_follow_up_headers"],
+      "needsReview": true,
+      "openQuestionIds": ["q_sales_rep_edit_submitted", "q_reopened_behavior"]
+    },
+    {
+      "id": "mod_assignment_rules",
+      "name": "Assignment Rules",
+      "nameZh": "分配规则",
+      "description": "Define customer assignment and reassignment rules for segments, unassigned customers, overdue customers, and VIP customers.",
+      "pages": ["page_assignment_rules"],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_assignment_rules", "ev_notes_reassignment_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_reassignment_approval"]
+    },
+    {
+      "id": "mod_reports",
+      "name": "Reports",
+      "nameZh": "报表",
+      "description": "View CRM reports and follow-up completion summaries.",
+      "pages": ["page_reports"],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_dashboard_navigation", "ev_notes_export_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission"]
+    },
+    {
+      "id": "mod_permission_settings",
+      "name": "Permission Settings",
+      "nameZh": "权限设置",
+      "description": "Configure role permissions and data scopes.",
+      "pages": ["page_permission_settings"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_permission_roles", "ev_screenshot_permission_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_manager_cross_team_visibility", "q_export_permission", "q_inactive_authority"]
+    }
+  ],
+  "pages": [
+    {
+      "id": "page_dashboard",
+      "moduleId": "mod_dashboard",
+      "name": "CRM Dashboard",
+      "nameZh": "CRM 仪表盘",
+      "purpose": "Show follow-up and customer ownership summary widgets.",
+      "mainActions": ["view", "filter"],
+      "visibleFields": ["field_customer_segment", "field_customer_owner_rep_id", "field_customer_status", "field_customer_risk_level", "field_customer_next_follow_up_due"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_dashboard_navigation", "ev_screenshot_dashboard_widgets"],
+      "needsReview": false
+    },
+    {
+      "id": "page_customer_list",
+      "moduleId": "mod_customer_management",
+      "name": "Customer List",
+      "nameZh": "客户列表",
+      "purpose": "View, filter, assign, export, and mark customer records inactive.",
+      "mainActions": ["view", "filter", "assign", "export", "edit"],
+      "visibleFields": ["field_customer_id", "field_customer_name", "field_customer_segment", "field_customer_owner_rep_id", "field_customer_status", "field_customer_risk_level", "field_customer_last_follow_up_date", "field_customer_next_follow_up_due"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_customer_list_columns", "ev_screenshot_customer_list_actions", "ev_csv_customers_headers"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission", "q_inactive_authority"]
+    },
+    {
+      "id": "page_customer_detail",
+      "moduleId": "mod_customer_management",
+      "name": "Customer Detail",
+      "nameZh": "客户详情",
+      "purpose": "Review customer details, owner assignment, follow-up timeline, notes, and risk flags.",
+      "mainActions": ["view", "edit", "assign", "create", "mark_inactive"],
+      "visibleFields": ["field_customer_id", "field_customer_name", "field_customer_segment", "field_customer_owner_rep_id", "field_customer_risk_level"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_customer_detail_sections", "ev_screenshot_customer_detail_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_inactive_authority"]
+    },
+    {
+      "id": "page_follow_up_records",
+      "moduleId": "mod_follow_up_records",
+      "name": "Follow-up Records",
+      "nameZh": "跟进记录",
+      "purpose": "List, create, submit, review, reopen, and export follow-up records.",
+      "mainActions": ["view", "create", "submit", "approve", "export"],
+      "visibleFields": ["field_record_id", "field_record_customer_id", "field_record_rep_id", "field_record_follow_up_type", "field_record_status", "field_record_created_at", "field_record_submitted_at", "field_record_reviewed_by", "field_record_next_action_due"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_screenshot_follow_up_actions", "ev_csv_follow_up_headers"],
+      "needsReview": true,
+      "openQuestionIds": ["q_sales_rep_edit_submitted", "q_reopened_behavior", "q_export_permission"]
+    },
+    {
+      "id": "page_assignment_rules",
+      "moduleId": "mod_assignment_rules",
+      "name": "Assignment Rules",
+      "nameZh": "分配规则",
+      "purpose": "View and configure segment, unassigned, overdue, and VIP assignment rules.",
+      "mainActions": ["view", "create", "edit", "configure"],
+      "visibleFields": ["field_segment_name", "field_segment_priority", "field_segment_default_follow_up_days", "field_segment_manager_visibility_required"],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_assignment_rules", "ev_csv_segments_headers"],
+      "needsReview": true,
+      "openQuestionIds": ["q_reassignment_approval"]
+    },
+    {
+      "id": "page_permission_settings",
+      "moduleId": "mod_permission_settings",
+      "name": "Permission Settings",
+      "nameZh": "权限设置",
+      "purpose": "Configure roles, actions, and data scopes.",
+      "mainActions": ["view", "configure"],
+      "visibleFields": ["field_role_name", "field_permission_action", "field_permission_data_scope"],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_permission_roles", "ev_screenshot_permission_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_manager_cross_team_visibility", "q_export_permission", "q_inactive_authority"]
+    },
+    {
+      "id": "page_reports",
+      "moduleId": "mod_reports",
+      "name": "Reports",
+      "nameZh": "报表",
+      "purpose": "View customer and follow-up summary reports.",
+      "mainActions": ["view", "export"],
+      "visibleFields": ["field_customer_segment", "field_customer_risk_level", "field_record_status"],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_dashboard_navigation", "ev_notes_export_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_export_permission"]
+    }
+  ],
+  "entities": [
+    {
+      "id": "ent_customer",
+      "name": "Customer",
+      "nameZh": "客户",
+      "description": "A customer managed by the CRM follow-up workflow.",
+      "fields": ["field_customer_id", "field_customer_name", "field_customer_segment", "field_customer_owner_rep_id", "field_customer_status", "field_customer_risk_level", "field_customer_last_follow_up_date", "field_customer_next_follow_up_due"],
+      "relations": [
+        { "type": "belongs_to", "targetEntityId": "ent_customer_segment", "confidence": "high", "needsReview": false },
+        { "type": "assigned_to", "targetEntityId": "ent_sales_rep", "confidence": "high", "needsReview": true },
+        { "type": "has_many", "targetEntityId": "ent_follow_up_record", "confidence": "high", "needsReview": false }
+      ],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_customer_list_columns", "ev_csv_customers_headers"],
+      "needsReview": true,
+      "openQuestionIds": ["q_inactive_authority"]
+    },
+    {
+      "id": "ent_sales_rep",
+      "name": "SalesRep",
+      "nameZh": "销售人员",
+      "description": "A sales user who owns customers, creates follow-up records, or reviews team activity.",
+      "fields": ["field_rep_id", "field_rep_name", "field_rep_team", "field_rep_role", "field_rep_status"],
+      "relations": [
+        { "type": "owns_many", "targetEntityId": "ent_customer", "confidence": "high", "needsReview": true },
+        { "type": "creates_many", "targetEntityId": "ent_follow_up_record", "confidence": "high", "needsReview": false }
+      ],
+      "confidence": "high",
+      "evidenceIds": ["ev_csv_sales_reps_headers", "ev_screenshot_permission_roles"],
+      "needsReview": false
+    },
+    {
+      "id": "ent_customer_segment",
+      "name": "CustomerSegment",
+      "nameZh": "客户分层",
+      "description": "A customer classification controlling follow-up urgency and manager visibility.",
+      "fields": ["field_segment_name", "field_segment_description", "field_segment_priority", "field_segment_default_follow_up_days", "field_segment_manager_visibility_required"],
+      "relations": [
+        { "type": "has_many", "targetEntityId": "ent_customer", "confidence": "high", "needsReview": false }
+      ],
+      "confidence": "high",
+      "evidenceIds": ["ev_csv_segments_headers", "ev_screenshot_assignment_rules"],
+      "needsReview": false
+    },
+    {
+      "id": "ent_follow_up_record",
+      "name": "FollowUpRecord",
+      "nameZh": "跟进记录",
+      "description": "A follow-up activity record for a customer.",
+      "fields": ["field_record_id", "field_record_customer_id", "field_record_rep_id", "field_record_follow_up_type", "field_record_status", "field_record_created_at", "field_record_submitted_at", "field_record_reviewed_by", "field_record_next_action_due"],
+      "relations": [
+        { "type": "belongs_to", "targetEntityId": "ent_customer", "confidence": "high", "needsReview": false },
+        { "type": "created_by", "targetEntityId": "ent_sales_rep", "confidence": "high", "needsReview": false }
+      ],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_csv_follow_up_headers"],
+      "needsReview": true,
+      "openQuestionIds": ["q_sales_rep_edit_submitted", "q_reopened_behavior"]
+    },
+    {
+      "id": "ent_assignment_rule",
+      "name": "AssignmentRule",
+      "nameZh": "分配规则",
+      "description": "A rule used to assign or reassign customers based on segment, owner, overdue state, or VIP status.",
+      "fields": ["field_assignment_rule_name", "field_assignment_approval_required"],
+      "relations": [
+        { "type": "applies_to", "targetEntityId": "ent_customer_segment", "confidence": "medium", "needsReview": true },
+        { "type": "assigns_to", "targetEntityId": "ent_sales_rep", "confidence": "medium", "needsReview": true }
+      ],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_assignment_rules"],
+      "needsReview": true,
+      "openQuestionIds": ["q_reassignment_approval"]
+    },
+    {
+      "id": "ent_role",
+      "name": "Role",
+      "nameZh": "角色",
+      "description": "A permission role for CRM users.",
+      "fields": ["field_role_name"],
+      "relations": [
+        { "type": "has_many", "targetEntityId": "ent_permission", "confidence": "medium", "needsReview": true }
+      ],
+      "confidence": "high",
+      "evidenceIds": ["ev_screenshot_permission_roles"],
+      "needsReview": false
+    },
+    {
+      "id": "ent_permission",
+      "name": "Permission",
+      "nameZh": "权限",
+      "description": "A role-action-resource permission rule.",
+      "fields": ["field_permission_action", "field_permission_data_scope"],
+      "relations": [
+        { "type": "belongs_to", "targetEntityId": "ent_role", "confidence": "medium", "needsReview": true }
+      ],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_permission_roles", "ev_screenshot_permission_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_manager_cross_team_visibility", "q_export_permission", "q_inactive_authority"]
+    },
+    {
+      "id": "ent_audit_log",
+      "name": "AuditLog",
+      "nameZh": "审计日志",
+      "description": "A possible audit trail for assignments, exports, reviews, inactive marking, and reopened records.",
+      "fields": ["field_audit_actor", "field_audit_action", "field_audit_target", "field_audit_occurred_at"],
+      "relations": [
+        { "type": "may_reference", "targetEntityId": "ent_customer", "confidence": "low", "needsReview": true },
+        { "type": "may_reference", "targetEntityId": "ent_follow_up_record", "confidence": "low", "needsReview": true }
+      ],
+      "confidence": "low",
+      "evidenceIds": ["ev_notes_inactive_unclear", "ev_notes_export_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_inactive_authority", "q_reopened_behavior"]
+    }
+  ],
+  "fields": [
+    { "id": "field_customer_id", "entityId": "ent_customer", "name": "customer_id", "nameZh": "客户ID", "type": "string", "required": true, "examples": ["CUST-001"], "source": "input/data/customers.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_customers_headers"] },
+    { "id": "field_customer_name", "entityId": "ent_customer", "name": "customer_name", "nameZh": "客户名称", "type": "string", "required": true, "examples": ["Mock Customer Alpha"], "source": "input/data/customers.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_customers_headers"] },
+    { "id": "field_customer_segment", "entityId": "ent_customer", "name": "segment", "nameZh": "客户分层", "type": "relation", "required": "unknown", "examples": ["A", "VIP"], "source": "input/data/customers.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_customers_headers", "ev_csv_segments_headers"] },
+    { "id": "field_customer_owner_rep_id", "entityId": "ent_customer", "name": "owner_rep_id", "nameZh": "负责人ID", "type": "relation", "required": "unknown", "examples": ["REP-001"], "source": "input/data/customers.csv", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_csv_customers_owner"], "openQuestionIds": ["q_reassignment_approval"] },
+    { "id": "field_customer_status", "entityId": "ent_customer", "name": "status", "nameZh": "状态", "type": "enum", "required": "unknown", "examples": ["active", "inactive"], "possibleValues": ["active", "inactive"], "source": "input/data/customers.csv", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_csv_customers_headers"], "openQuestionIds": ["q_inactive_authority"] },
+    { "id": "field_customer_risk_level", "entityId": "ent_customer", "name": "risk_level", "nameZh": "风险等级", "type": "enum", "required": "unknown", "examples": ["low", "medium", "high"], "possibleValues": ["low", "medium", "high"], "source": "input/data/customers.csv", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_customer_list_columns"] },
+    { "id": "field_customer_last_follow_up_date", "entityId": "ent_customer", "name": "last_follow_up_date", "nameZh": "最近跟进日期", "type": "date", "required": "unknown", "examples": ["2026-06-20"], "source": "input/data/customers.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_customers_headers"] },
+    { "id": "field_customer_next_follow_up_due", "entityId": "ent_customer", "name": "next_follow_up_due", "nameZh": "下次跟进截止日期", "type": "date", "required": "unknown", "examples": ["2026-07-05"], "source": "input/data/customers.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_customers_headers"] },
+    { "id": "field_rep_id", "entityId": "ent_sales_rep", "name": "rep_id", "nameZh": "销售ID", "type": "string", "required": true, "examples": ["REP-001"], "source": "input/data/sales_reps.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_sales_reps_headers"] },
+    { "id": "field_rep_name", "entityId": "ent_sales_rep", "name": "rep_name", "nameZh": "销售名称", "type": "string", "required": true, "examples": ["Mock Rep One"], "source": "input/data/sales_reps.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_sales_reps_headers"] },
+    { "id": "field_rep_team", "entityId": "ent_sales_rep", "name": "team", "nameZh": "团队", "type": "string", "required": "unknown", "examples": ["Team North"], "source": "input/data/sales_reps.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_sales_reps_headers"] },
+    { "id": "field_rep_role", "entityId": "ent_sales_rep", "name": "role", "nameZh": "角色", "type": "enum", "required": "unknown", "examples": ["Sales Rep", "Sales Manager"], "source": "input/data/sales_reps.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_sales_reps_headers", "ev_screenshot_permission_roles"] },
+    { "id": "field_rep_status", "entityId": "ent_sales_rep", "name": "status", "nameZh": "状态", "type": "enum", "required": "unknown", "examples": ["active", "inactive"], "source": "input/data/sales_reps.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_sales_reps_headers"] },
+    { "id": "field_segment_name", "entityId": "ent_customer_segment", "name": "segment", "nameZh": "分层", "type": "string", "required": true, "examples": ["A", "VIP"], "source": "input/data/customer_segments.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_segments_headers"] },
+    { "id": "field_segment_description", "entityId": "ent_customer_segment", "name": "description", "nameZh": "说明", "type": "text", "required": "unknown", "examples": ["High-value growth customer"], "source": "input/data/customer_segments.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_segments_headers"] },
+    { "id": "field_segment_priority", "entityId": "ent_customer_segment", "name": "priority", "nameZh": "优先级", "type": "enum", "required": "unknown", "examples": ["high", "medium", "low"], "source": "input/data/customer_segments.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_segments_headers"] },
+    { "id": "field_segment_default_follow_up_days", "entityId": "ent_customer_segment", "name": "default_follow_up_days", "nameZh": "默认跟进天数", "type": "number", "required": "unknown", "examples": [14, 21, 7], "source": "input/data/customer_segments.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_segments_headers"] },
+    { "id": "field_segment_manager_visibility_required", "entityId": "ent_customer_segment", "name": "manager_visibility_required", "nameZh": "是否需要经理可见", "type": "boolean", "required": "unknown", "examples": [true, false], "source": "input/data/customer_segments.csv", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_csv_segments_headers", "ev_screenshot_assignment_rules"], "openQuestionIds": ["q_manager_cross_team_visibility"] },
+    { "id": "field_record_id", "entityId": "ent_follow_up_record", "name": "record_id", "nameZh": "记录ID", "type": "string", "required": true, "examples": ["FUP-001"], "source": "input/data/follow_up_records.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_record_customer_id", "entityId": "ent_follow_up_record", "name": "customer_id", "nameZh": "客户ID", "type": "relation", "required": true, "examples": ["CUST-001"], "source": "input/data/follow_up_records.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_record_rep_id", "entityId": "ent_follow_up_record", "name": "rep_id", "nameZh": "销售ID", "type": "relation", "required": true, "examples": ["REP-001"], "source": "input/data/follow_up_records.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_record_follow_up_type", "entityId": "ent_follow_up_record", "name": "follow_up_type", "nameZh": "跟进类型", "type": "enum", "required": "unknown", "examples": ["call", "email", "visit"], "source": "input/data/follow_up_records.csv", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_record_status", "entityId": "ent_follow_up_record", "name": "status", "nameZh": "状态", "type": "enum", "required": "unknown", "examples": ["draft", "submitted", "manager_reviewed", "closed", "reopened"], "possibleValues": ["draft", "submitted", "manager_reviewed", "closed", "reopened"], "source": "input/screenshots/04_follow-up-records.mock.txt", "confidence": "high", "needsReview": true, "evidenceIds": ["ev_screenshot_follow_up_statuses"], "openQuestionIds": ["q_reopened_behavior", "q_sales_rep_edit_submitted"] },
+    { "id": "field_record_created_at", "entityId": "ent_follow_up_record", "name": "created_at", "nameZh": "创建时间", "type": "datetime", "required": "unknown", "examples": ["2026-06-20T09:30:00Z"], "source": "input/data/follow_up_records.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_record_submitted_at", "entityId": "ent_follow_up_record", "name": "submitted_at", "nameZh": "提交时间", "type": "datetime", "required": "unknown", "examples": ["2026-06-20T10:00:00Z"], "source": "input/data/follow_up_records.csv", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_record_reviewed_by", "entityId": "ent_follow_up_record", "name": "reviewed_by", "nameZh": "复核人", "type": "relation", "required": "unknown", "examples": ["MGR-001"], "source": "input/data/follow_up_records.csv", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_record_next_action_due", "entityId": "ent_follow_up_record", "name": "next_action_due", "nameZh": "下次动作截止日期", "type": "date", "required": "unknown", "examples": ["2026-07-05"], "source": "input/data/follow_up_records.csv", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_follow_up_headers"] },
+    { "id": "field_assignment_rule_name", "entityId": "ent_assignment_rule", "name": "rule_name", "nameZh": "规则名称", "type": "string", "required": "unknown", "examples": ["Segment A senior owner"], "source": "input/screenshots/05_assignment-rules.mock.txt", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_assignment_rules"] },
+    { "id": "field_assignment_approval_required", "entityId": "ent_assignment_rule", "name": "approval_required", "nameZh": "是否需要审批", "type": "boolean", "required": "unknown", "examples": [], "source": "input/screenshots/05_assignment-rules.mock.txt", "confidence": "low", "needsReview": true, "evidenceIds": ["ev_notes_reassignment_unclear"], "openQuestionIds": ["q_reassignment_approval"] },
+    { "id": "field_role_name", "entityId": "ent_role", "name": "role_name", "nameZh": "角色名称", "type": "string", "required": true, "examples": ["Sales Manager"], "source": "input/screenshots/06_permission-settings.mock.txt", "confidence": "high", "needsReview": false, "evidenceIds": ["ev_screenshot_permission_roles"] },
+    { "id": "field_permission_action", "entityId": "ent_permission", "name": "action", "nameZh": "操作", "type": "enum", "required": "unknown", "examples": ["view", "export", "configure"], "source": "input/screenshots/06_permission-settings.mock.txt", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_permission_unclear"] },
+    { "id": "field_permission_data_scope", "entityId": "ent_permission", "name": "data_scope", "nameZh": "数据范围", "type": "enum", "required": "unknown", "examples": ["all", "team", "assigned", "reports_only"], "source": "input/screenshots/06_permission-settings.mock.txt", "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_permission_roles"], "openQuestionIds": ["q_manager_cross_team_visibility"] },
+    { "id": "field_audit_actor", "entityId": "ent_audit_log", "name": "actor", "nameZh": "操作人", "type": "string", "required": "unknown", "examples": [], "source": "input/notes/roles.md", "confidence": "low", "needsReview": true, "evidenceIds": ["ev_notes_inactive_unclear"] },
+    { "id": "field_audit_action", "entityId": "ent_audit_log", "name": "action", "nameZh": "操作", "type": "string", "required": "unknown", "examples": [], "source": "input/notes/roles.md", "confidence": "low", "needsReview": true, "evidenceIds": ["ev_notes_export_unclear"] },
+    { "id": "field_audit_target", "entityId": "ent_audit_log", "name": "target", "nameZh": "目标", "type": "string", "required": "unknown", "examples": [], "source": "input/notes/roles.md", "confidence": "low", "needsReview": true, "evidenceIds": ["ev_notes_inactive_unclear"] },
+    { "id": "field_audit_occurred_at", "entityId": "ent_audit_log", "name": "occurred_at", "nameZh": "发生时间", "type": "datetime", "required": "unknown", "examples": [], "source": "input/notes/workflow-notes.md", "confidence": "low", "needsReview": true, "evidenceIds": ["ev_workflow_notes_states"] }
+  ],
+  "roles": [
+    { "id": "role_system_admin", "name": "System Admin", "nameZh": "系统管理员", "description": "Configures roles and permission settings.", "scope": "global", "confidence": "high", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"], "needsReview": false },
+    { "id": "role_sales_director", "name": "Sales Director", "nameZh": "销售总监", "description": "Views all customers and likely exports customer and follow-up records.", "scope": "global", "confidence": "medium", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_export_unclear"], "needsReview": true, "openQuestionIds": ["q_export_permission"] },
+    { "id": "role_sales_manager", "name": "Sales Manager", "nameZh": "销售经理", "description": "Views team customers and reviews team follow-up records.", "scope": "group", "confidence": "medium", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"], "needsReview": true, "openQuestionIds": ["q_manager_cross_team_visibility", "q_export_permission"] },
+    { "id": "role_sales_rep", "name": "Sales Rep", "nameZh": "销售代表", "description": "Views assigned customers and creates follow-up records.", "scope": "assigned", "confidence": "high", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"], "needsReview": true, "openQuestionIds": ["q_sales_rep_edit_submitted"] },
+    { "id": "role_viewer", "name": "Viewer", "nameZh": "只读用户", "description": "Views reports only.", "scope": "none", "confidence": "medium", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"], "needsReview": false }
+  ],
+  "permissions": [
+    { "id": "perm_admin_configure_roles", "roleId": "role_system_admin", "resourceType": "Permission", "action": "configure", "dataScope": "all", "condition": "System Admin can configure roles and permission settings.", "confidence": "high", "evidenceIds": ["ev_screenshot_permission_roles"], "needsReview": false },
+    { "id": "perm_director_view_all_customers", "roleId": "role_sales_director", "resourceType": "Customer", "action": "view", "dataScope": "all", "condition": "Sales Director can view all customers.", "confidence": "high", "evidenceIds": ["ev_screenshot_permission_roles"], "needsReview": false },
+    { "id": "perm_sales_manager_view_team_customers", "roleId": "role_sales_manager", "resourceType": "Customer", "action": "view", "dataScope": "group", "condition": "Sales Manager can view team customers; cross-team visibility is unclear.", "confidence": "medium", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"], "needsReview": true, "openQuestionIds": ["q_manager_cross_team_visibility"] },
+    { "id": "perm_sales_rep_view_assigned_customers", "roleId": "role_sales_rep", "resourceType": "Customer", "action": "view", "dataScope": "assigned", "condition": "Sales Rep can view assigned customers.", "confidence": "high", "evidenceIds": ["ev_screenshot_permission_roles"], "needsReview": false },
+    { "id": "perm_sales_rep_create_follow_up", "roleId": "role_sales_rep", "resourceType": "FollowUpRecord", "action": "create", "dataScope": "assigned", "condition": "Sales Rep can create follow-up records for assigned customers.", "confidence": "high", "evidenceIds": ["ev_screenshot_follow_up_actions", "ev_notes_roles_scope"], "needsReview": false },
+    { "id": "perm_manager_review_follow_up", "roleId": "role_sales_manager", "resourceType": "FollowUpRecord", "action": "approve", "dataScope": "group", "condition": "Sales Manager can review submitted follow-up records for team customers.", "confidence": "medium", "evidenceIds": ["ev_screenshot_follow_up_actions", "ev_notes_roles_scope"], "needsReview": true, "openQuestionIds": ["q_manager_cross_team_visibility"] },
+    { "id": "perm_sales_director_export_records", "roleId": "role_sales_director", "resourceType": "Customer", "action": "export", "dataScope": "all", "condition": "Director export is likely but not fully confirmed.", "confidence": "medium", "evidenceIds": ["ev_notes_export_unclear", "ev_screenshot_customer_list_actions"], "needsReview": true, "openQuestionIds": ["q_export_permission"] },
+    { "id": "perm_viewer_view_reports", "roleId": "role_viewer", "resourceType": "Report", "action": "view", "dataScope": "none", "condition": "Viewer can view reports only.", "confidence": "medium", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"], "needsReview": false }
+  ],
+  "workflows": [
+    {
+      "id": "wf_customer_follow_up",
+      "name": "Customer Follow-up Lifecycle",
+      "nameZh": "客户跟进生命周期",
+      "trigger": "A new customer is created or an existing customer reaches next follow-up due.",
+      "actors": ["role_sales_rep", "role_sales_manager"],
+      "steps": [
+        { "id": "wf_step_new_customer", "name": "New customer", "actor": "role_sales_rep", "action": "create_or_import_customer", "fromState": "none", "toState": "new_customer", "confidence": "medium" },
+        { "id": "wf_step_assign_owner", "name": "Assign owner", "actor": "role_sales_manager", "action": "assign_owner", "fromState": "new_customer", "toState": "assigned", "confidence": "medium" },
+        { "id": "wf_step_create_draft", "name": "Create follow-up draft", "actor": "role_sales_rep", "action": "create_follow_up", "fromState": "assigned", "toState": "follow_up_draft", "confidence": "high" },
+        { "id": "wf_step_submit", "name": "Submit follow-up", "actor": "role_sales_rep", "action": "submit_follow_up", "fromState": "follow_up_draft", "toState": "submitted", "confidence": "high" },
+        { "id": "wf_step_manager_review", "name": "Manager review", "actor": "role_sales_manager", "action": "review_follow_up", "fromState": "submitted", "toState": "manager_reviewed", "confidence": "high" },
+        { "id": "wf_step_close", "name": "Close follow-up", "actor": "role_sales_manager", "action": "close_follow_up", "fromState": "manager_reviewed", "toState": "closed", "confidence": "medium" },
+        { "id": "wf_step_reopen", "name": "Reopen follow-up", "actor": "role_sales_manager", "action": "reopen_follow_up", "fromState": "closed", "toState": "reopened", "confidence": "medium" }
+      ],
+      "states": ["new_customer", "assigned", "follow_up_draft", "submitted", "manager_reviewed", "closed", "reopened"],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_screenshot_follow_up_actions", "ev_workflow_notes_states"],
+      "needsReview": true,
+      "openQuestionIds": ["q_sales_rep_edit_submitted", "q_reopened_behavior"]
+    },
+    {
+      "id": "wf_assignment_reassignment",
+      "name": "Customer Assignment and Reassignment",
+      "nameZh": "客户分配与重分配",
+      "trigger": "A customer has no owner, becomes overdue, or matches a segment assignment rule.",
+      "actors": ["role_sales_manager", "role_sales_director", "role_sales_rep"],
+      "steps": [
+        { "id": "wf_step_unassigned_queue", "name": "Unassigned customer enters queue", "actor": "role_sales_manager", "action": "review_unassigned_customer", "fromState": "unassigned", "toState": "manager_queue", "confidence": "medium" },
+        { "id": "wf_step_owner_assigned", "name": "Owner assigned", "actor": "role_sales_manager", "action": "assign_owner", "fromState": "manager_queue", "toState": "owner_assigned", "confidence": "medium" },
+        { "id": "wf_step_overdue_review", "name": "Overdue customer reviewed", "actor": "role_sales_manager", "action": "review_overdue_customer", "fromState": "owner_assigned", "toState": "follow_up_due", "confidence": "medium" },
+        { "id": "wf_step_reassignment_review", "name": "Reassignment review", "actor": "role_sales_manager", "action": "review_reassignment", "fromState": "follow_up_due", "toState": "reassignment_review", "confidence": "low" }
+      ],
+      "states": ["unassigned", "manager_queue", "owner_assigned", "follow_up_due", "reassignment_review"],
+      "confidence": "medium",
+      "evidenceIds": ["ev_screenshot_assignment_rules", "ev_csv_customers_owner", "ev_notes_reassignment_unclear"],
+      "needsReview": true,
+      "openQuestionIds": ["q_reassignment_approval", "q_manager_cross_team_visibility"]
+    }
+  ],
+  "acceptanceCriteria": [
+    { "id": "ac_manager_scope_enforced", "title": "Manager customer scope is enforced", "description": "A Sales Manager sees only customers within the confirmed manager scope.", "category": "permission", "priority": "high", "relatedModuleIds": ["mod_customer_management", "mod_permission_settings"], "relatedQuestionIds": ["q_manager_cross_team_visibility"], "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"] },
+    { "id": "ac_export_permission_confirmed", "title": "Export permission follows confirmed roles", "description": "Export buttons and APIs are available only for confirmed roles.", "category": "security", "priority": "high", "relatedModuleIds": ["mod_customer_management", "mod_follow_up_records", "mod_reports"], "relatedQuestionIds": ["q_export_permission"], "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_notes_export_unclear", "ev_screenshot_customer_list_actions"] },
+    { "id": "ac_inactive_requires_confirmed_rule", "title": "Inactive customer marking follows confirmed rule", "description": "Only confirmed roles can mark a customer inactive, with any required approval or audit behavior.", "category": "business_rule", "priority": "high", "relatedModuleIds": ["mod_customer_management"], "relatedQuestionIds": ["q_inactive_authority"], "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_customer_detail_unclear", "ev_notes_inactive_unclear"] },
+    { "id": "ac_reassignment_rule_confirmed", "title": "Reassignment approval rule is confirmed", "description": "Customer reassignment follows the confirmed approval and audit rule.", "category": "workflow", "priority": "high", "relatedModuleIds": ["mod_assignment_rules"], "relatedQuestionIds": ["q_reassignment_approval"], "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_assignment_rules", "ev_notes_reassignment_unclear"] },
+    { "id": "ac_submitted_record_edit_rule", "title": "Submitted record edit behavior is controlled", "description": "Sales Rep edit access after submission follows the confirmed business rule.", "category": "workflow", "priority": "high", "relatedModuleIds": ["mod_follow_up_records"], "relatedQuestionIds": ["q_sales_rep_edit_submitted"], "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_follow_up_actions", "ev_workflow_notes_states"] },
+    { "id": "ac_reopened_transition_confirmed", "title": "Reopened transition is confirmed", "description": "Closed follow-up records reopen into a confirmed state with clear edit and review behavior.", "category": "workflow", "priority": "high", "relatedModuleIds": ["mod_follow_up_records"], "relatedQuestionIds": ["q_reopened_behavior"], "confidence": "medium", "needsReview": true, "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_workflow_notes_reopened_unclear"] },
+    { "id": "ac_synthetic_data_only", "title": "Mock example data remains synthetic", "description": "The example contains no real customer, employee, company, phone, email, or private business data.", "category": "security", "priority": "high", "relatedModuleIds": [], "relatedQuestionIds": [], "confidence": "high", "needsReview": false, "evidenceIds": ["ev_csv_customers_headers", "ev_csv_sales_reps_headers"] }
+  ],
+  "openQuestions": [
+    { "id": "q_manager_cross_team_visibility", "question": "Can Sales Managers view customers outside their team?", "questionZh": "Sales Manager 是否可以查看团队外客户？", "category": "permission", "priority": "high", "blockedItems": ["perm_sales_manager_view_team_customers", "ac_manager_scope_enforced", "page_permission_settings"], "suggestedOwner": "business_owner", "whyItMatters": "This affects data scope, dashboards, list filtering, exports, and review queues.", "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"] },
+    { "id": "q_export_permission", "question": "Which roles can export customer and follow-up records?", "questionZh": "哪些角色可以导出客户和跟进记录？", "category": "permission", "priority": "high", "blockedItems": ["perm_sales_director_export_records", "ac_export_permission_confirmed", "page_reports"], "suggestedOwner": "business_owner", "whyItMatters": "Export may expose customer records and needs explicit authorization.", "evidenceIds": ["ev_notes_export_unclear", "ev_screenshot_customer_list_actions"] },
+    { "id": "q_inactive_authority", "question": "Who can mark a customer inactive?", "questionZh": "谁可以将客户标记为 inactive？", "category": "business_rule", "priority": "high", "blockedItems": ["ac_inactive_requires_confirmed_rule", "ent_customer", "page_customer_detail"], "suggestedOwner": "product_manager", "whyItMatters": "Inactive customer marking affects follow-up obligations and audit behavior.", "evidenceIds": ["ev_screenshot_customer_detail_unclear", "ev_notes_inactive_unclear"] },
+    { "id": "q_reassignment_approval", "question": "Does customer reassignment require manager approval?", "questionZh": "客户重分配是否需要主管审批？", "category": "workflow", "priority": "high", "blockedItems": ["wf_assignment_reassignment", "ac_reassignment_rule_confirmed", "ent_assignment_rule"], "suggestedOwner": "product_manager", "whyItMatters": "Reassignment changes ownership and may require audit or approval.", "evidenceIds": ["ev_screenshot_assignment_rules", "ev_notes_reassignment_unclear"] },
+    { "id": "q_sales_rep_edit_submitted", "question": "Can Sales Reps edit submitted follow-up records?", "questionZh": "Sales Rep 是否可以编辑已提交的跟进记录？", "category": "workflow", "priority": "high", "blockedItems": ["wf_customer_follow_up", "ac_submitted_record_edit_rule", "field_record_status"], "suggestedOwner": "product_manager", "whyItMatters": "Submitted edits affect review integrity and audit behavior.", "evidenceIds": ["ev_screenshot_follow_up_actions", "ev_workflow_notes_states"] },
+    { "id": "q_reopened_behavior", "question": "What happens when a closed follow-up is reopened?", "questionZh": "closed 跟进记录 reopened 后进入哪个状态？", "category": "workflow", "priority": "high", "blockedItems": ["wf_customer_follow_up", "ac_reopened_transition_confirmed", "field_record_status"], "suggestedOwner": "product_manager", "whyItMatters": "Reopened records need a clear next state and edit behavior.", "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_workflow_notes_reopened_unclear"] },
+    { "id": "q_overdue_reminder", "question": "Does overdue follow-up trigger automatic reminder?", "questionZh": "逾期跟进是否自动提醒？", "category": "business_rule", "priority": "medium", "blockedItems": ["asm_overdue_attention_queue"], "suggestedOwner": "product_manager", "whyItMatters": "Reminder behavior affects manager queues and follow-up expectations.", "evidenceIds": ["ev_screenshot_dashboard_widgets", "ev_workflow_notes_overdue_unclear"] }
+  ],
+  "assumptions": [
+    { "id": "asm_segment_a_needs_owner", "statement": "Segment A and VIP customers should not remain unassigned.", "statementZh": "Segment A 和 VIP 客户不应长期没有负责人。", "reason": "Business notes and assignment rules emphasize Segment A senior owner and VIP manager visibility.", "confidence": "medium", "needsReview": true, "relatedQuestionIds": ["q_reassignment_approval"], "evidenceIds": ["ev_screenshot_assignment_rules", "ev_notes_reassignment_unclear"] },
+    { "id": "asm_overdue_attention_queue", "statement": "Overdue follow-ups should appear in manager attention areas.", "statementZh": "逾期跟进应进入经理关注区域。", "reason": "Dashboard widgets and workflow notes mention overdue follow-ups, but automatic reminder behavior is unclear.", "confidence": "medium", "needsReview": true, "relatedQuestionIds": ["q_overdue_reminder"], "evidenceIds": ["ev_screenshot_dashboard_widgets", "ev_workflow_notes_overdue_unclear"] },
+    { "id": "asm_viewer_reports_only", "statement": "Viewer should only view reports and should not edit CRM data.", "statementZh": "Viewer 应只能查看报表，不能编辑 CRM 数据。", "reason": "Permission settings and role notes both say Viewer can view reports only.", "confidence": "medium", "needsReview": false, "relatedQuestionIds": [], "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"] }
+  ],
+  "buildability": {
+    "score": 70,
+    "status": "review_required",
+    "dimensionScores": {
+      "moduleClarity": 13,
+      "entityClarity": 12,
+      "fieldClarity": 10,
+      "permissionClarity": 8,
+      "workflowClarity": 10,
+      "evidenceCoverage": 11,
+      "ambiguityControl": 6
+    },
+    "mainBlockers": [
+      "Sales Manager cross-team visibility is unclear.",
+      "Export permission by role is unclear.",
+      "Customer inactive marking authority is unclear.",
+      "Customer reassignment approval is unclear.",
+      "Submitted-record edit and reopened-record behavior are unclear."
+    ],
+    "recommendedNextActions": [
+      "Confirm customer visibility scope for Sales Manager and Sales Director.",
+      "Confirm export permission by role.",
+      "Confirm inactive customer rules and audit expectations.",
+      "Confirm reassignment approval requirements.",
+      "Confirm submitted and reopened follow-up transitions."
+    ]
+  },
+  "handoff": {
+    "recommendedNextStep": "Human review before implementation planning.",
+    "codingAgentReadiness": "review_required",
+    "suggestedImplementationOrder": [
+      "Confirm permissions and workflow questions.",
+      "Model Customer, SalesRep, CustomerSegment, and FollowUpRecord.",
+      "Implement assignment and follow-up workflows only after rules are confirmed."
+    ],
+    "blockedByQuestions": ["q_manager_cross_team_visibility", "q_export_permission", "q_inactive_authority", "q_reassignment_approval", "q_sales_rep_edit_submitted", "q_reopened_behavior"]
+  },
+  "generatedAt": "2026-07-02T00:00:00.000Z",
+  "generator": {
+    "name": "SpecWise curated example pack",
+    "version": "0.2.0-planning"
+  }
+}

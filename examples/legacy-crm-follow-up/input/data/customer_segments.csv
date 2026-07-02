@@ -1,0 +1,5 @@
+segment,description,priority,default_follow_up_days,manager_visibility_required
+A,High-value growth customer,high,14,true
+B,Standard active customer,medium,21,false
+C,Low-touch or inactive customer,low,30,false
+VIP,Strategic account requiring manager visibility,high,7,true

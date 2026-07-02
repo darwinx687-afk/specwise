@@ -129,6 +129,7 @@ See [CLI Reference](docs/cli-reference-v0.1.md).
 
 - [Minimal Spec Pack](examples/minimal/spec-pack/) - smallest valid fixture.
 - [Legacy Staff Evaluation Example](examples/legacy-staff-evaluation/README.md) - realistic mock legacy-system scenario.
+- [Legacy CRM Follow-up Example](examples/legacy-crm-follow-up/README.md) - second realistic mock business scenario for CRM follow-up admin.
 - [Invalid Missing Buildability Fixture](examples/invalid/missing-buildability/spec-pack/) - proves validation failure behavior.
 - [Mock AI Patch](examples/ai-patches/legacy-staff-evaluation.mock-ai-patch.json) - offline fixture, not provider output.
 - [Review Decisions](examples/reviews/legacy-staff-evaluation.review-decisions.example.json) - human review fixture.
@@ -172,6 +173,7 @@ SpecWise v0.1 currently includes:
 - polished agent-specific boundary notes
 - release readiness docs and local smoke test
 - public preview docs and community templates
+- synthetic Legacy CRM Follow-up example pack
 
 AI extraction is not implemented yet. Real provider calls and real coding agent calls remain outside the current boundary.
 
@@ -206,6 +208,10 @@ v0.2 scope selection is now tracked in [docs/v0.2-scope-selection-v0.1.md](docs/
 The proposed v0.2 direction focuses on examples, deterministic quality, and developer experience before real AI provider calls.
 
 v0.2 范围选择已记录在 [docs/v0.2-scope-selection-v0.1.md](docs/v0.2-scope-selection-v0.1.md)。当前建议优先改进示例、确定性草案质量和开发者体验，而不是过早接入真实 AI provider。
+
+Legacy CRM Follow-up example is now available as a second realistic mock scenario.
+
+新增 Legacy CRM Follow-up 示例，作为第二个更真实的 mock 业务场景。
 
 v0.2 implementation planning is now available:
 

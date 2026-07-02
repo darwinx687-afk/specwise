@@ -1,0 +1,29 @@
+Screen: Customer Detail
+
+Sections:
+- Basic information
+- Contact preferences
+- Owner assignment
+- Follow-up timeline
+- Notes
+- Risk flags
+
+Fields:
+- Customer ID
+- Customer Name
+- Segment
+- Owner
+- Preferred Channel
+- Risk Level
+- Last Follow-up Date
+- Next Follow-up Due
+
+Actions:
+- Edit notes
+- Assign owner
+- Create follow-up
+- Mark inactive
+
+Unclear:
+- Whether sales reps can edit segment.
+- Whether manager approval is required before marking inactive.

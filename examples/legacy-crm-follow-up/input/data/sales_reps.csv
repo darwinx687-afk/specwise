@@ -1,0 +1,7 @@
+rep_id,rep_name,team,role,status
+REP-001,Mock Rep One,Team North,Sales Rep,active
+REP-002,Mock Rep Two,Team North,Sales Rep,active
+REP-003,Mock Rep Three,Team South,Sales Rep,inactive
+MGR-001,Mock Manager One,Team North,Sales Manager,active
+MGR-002,Mock Manager Two,Team South,Sales Manager,active
+DIR-001,Mock Director One,All Teams,Sales Director,active

@@ -1,0 +1,31 @@
+Screen: Follow-up Records
+
+Columns:
+- Record ID
+- Customer ID
+- Customer Name
+- Sales Rep
+- Follow-up Type
+- Status
+- Created At
+- Submitted At
+- Reviewed By
+- Next Action Due
+
+Status labels:
+- draft
+- submitted
+- manager_reviewed
+- closed
+- reopened
+
+Actions:
+- Create follow-up
+- Submit follow-up
+- Manager review
+- Reopen
+- Export records
+
+Unclear:
+- Whether submitted records can be edited by Sales Rep.
+- Whether reopened records return to draft or submitted state.

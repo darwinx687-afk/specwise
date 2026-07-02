@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "0.1.0",
+  "evidenceItems": [
+    {
+      "id": "ev_screenshot_dashboard_navigation",
+      "sourceMaterialId": "src_dashboard_mock",
+      "type": "menu_label",
+      "quoteOrDescription": "Dashboard navigation lists Dashboard, Customers, Follow-up Records, Assignment Rules, Reports, and Permission Settings.",
+      "location": { "file": "input/screenshots/01_dashboard.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_dashboard_widgets",
+      "sourceMaterialId": "src_dashboard_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Dashboard widgets include overdue follow-ups, customers without owner, segment distribution, and completion rate.",
+      "location": { "file": "input/screenshots/01_dashboard.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_customer_list_columns",
+      "sourceMaterialId": "src_customer_list_mock",
+      "type": "table_header",
+      "quoteOrDescription": "Customer list columns include Customer ID, Customer Name, Segment, Owner, follow-up dates, Status, and Risk Level.",
+      "location": { "file": "input/screenshots/02_customer-list.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_customer_list_actions",
+      "sourceMaterialId": "src_customer_list_mock",
+      "type": "button_label",
+      "quoteOrDescription": "Customer list actions include view detail, assign owner, export selected, and mark inactive.",
+      "location": { "file": "input/screenshots/02_customer-list.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_customer_detail_sections",
+      "sourceMaterialId": "src_customer_detail_mock",
+      "type": "ui_text",
+      "quoteOrDescription": "Customer detail sections include basic information, contact preferences, owner assignment, timeline, notes, and risk flags.",
+      "location": { "file": "input/screenshots/03_customer-detail.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_customer_detail_unclear",
+      "sourceMaterialId": "src_customer_detail_mock",
+      "type": "business_note",
+      "quoteOrDescription": "Customer detail notes say segment edit and inactive approval behavior are unclear.",
+      "location": { "file": "input/screenshots/03_customer-detail.mock.txt" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_screenshot_follow_up_statuses",
+      "sourceMaterialId": "src_follow_up_records_mock",
+      "type": "status_label",
+      "quoteOrDescription": "Follow-up statuses include draft, submitted, manager_reviewed, closed, and reopened.",
+      "location": { "file": "input/screenshots/04_follow-up-records.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_follow_up_actions",
+      "sourceMaterialId": "src_follow_up_records_mock",
+      "type": "button_label",
+      "quoteOrDescription": "Follow-up actions include create follow-up, submit follow-up, manager review, reopen, and export records.",
+      "location": { "file": "input/screenshots/04_follow-up-records.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_assignment_rules",
+      "sourceMaterialId": "src_assignment_rules_mock",
+      "type": "business_note",
+      "quoteOrDescription": "Assignment rules mention Segment A senior owner, unassigned manager queue, overdue reassignment, and VIP manager visibility.",
+      "location": { "file": "input/screenshots/05_assignment-rules.mock.txt" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_screenshot_permission_roles",
+      "sourceMaterialId": "src_permission_settings_mock",
+      "type": "role_description",
+      "quoteOrDescription": "Permission settings list System Admin, Sales Director, Sales Manager, Sales Rep, and Viewer roles.",
+      "location": { "file": "input/screenshots/06_permission-settings.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_screenshot_permission_unclear",
+      "sourceMaterialId": "src_permission_settings_mock",
+      "type": "business_note",
+      "quoteOrDescription": "Permission settings explicitly mark export permission, cross-team visibility, and inactive marking authority as unclear.",
+      "location": { "file": "input/screenshots/06_permission-settings.mock.txt" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_csv_customers_headers",
+      "sourceMaterialId": "src_customers_csv",
+      "type": "table_header",
+      "quoteOrDescription": "customers.csv headers define customer_id, customer_name, segment, owner_rep_id, status, risk_level, last_follow_up_date, and next_follow_up_due.",
+      "location": { "file": "input/data/customers.csv", "row": 1 },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_csv_customers_owner",
+      "sourceMaterialId": "src_customers_csv",
+      "type": "table_value",
+      "quoteOrDescription": "customers.csv contains a customer with empty owner_rep_id, showing owner can be missing in mock data.",
+      "location": { "file": "input/data/customers.csv", "row": 4, "column": "owner_rep_id" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_csv_follow_up_headers",
+      "sourceMaterialId": "src_follow_up_records_csv",
+      "type": "table_header",
+      "quoteOrDescription": "follow_up_records.csv headers define record_id, customer_id, rep_id, follow_up_type, status, created_at, submitted_at, reviewed_by, and next_action_due.",
+      "location": { "file": "input/data/follow_up_records.csv", "row": 1 },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_csv_sales_reps_headers",
+      "sourceMaterialId": "src_sales_reps_csv",
+      "type": "table_header",
+      "quoteOrDescription": "sales_reps.csv headers define rep_id, rep_name, team, role, and status.",
+      "location": { "file": "input/data/sales_reps.csv", "row": 1 },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_csv_segments_headers",
+      "sourceMaterialId": "src_customer_segments_csv",
+      "type": "table_header",
+      "quoteOrDescription": "customer_segments.csv headers define segment, description, priority, default_follow_up_days, and manager_visibility_required.",
+      "location": { "file": "input/data/customer_segments.csv", "row": 1 },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_notes_export_unclear",
+      "sourceMaterialId": "src_business_notes",
+      "type": "business_note",
+      "quoteOrDescription": "Business notes say export may have been director-only, but some managers also exported.",
+      "location": { "file": "input/notes/business-notes.md" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_notes_inactive_unclear",
+      "sourceMaterialId": "src_business_notes",
+      "type": "business_note",
+      "quoteOrDescription": "Business notes say inactive marking may require manager confirmation, but this is unclear.",
+      "location": { "file": "input/notes/business-notes.md" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_notes_roles_scope",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "role_description",
+      "quoteOrDescription": "Role notes describe all-customer director scope, team manager scope, assigned customer rep scope, and reports-only viewer scope.",
+      "location": { "file": "input/notes/roles.md" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_notes_reassignment_unclear",
+      "sourceMaterialId": "src_roles_notes",
+      "type": "business_note",
+      "quoteOrDescription": "Role notes list reassignment approval and rep self-reassignment as unclear permissions.",
+      "location": { "file": "input/notes/roles.md" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_workflow_notes_states",
+      "sourceMaterialId": "src_workflow_notes",
+      "type": "workflow_note",
+      "quoteOrDescription": "Workflow notes define new customer, assigned, follow-up draft, submitted, manager reviewed, closed, and reopened.",
+      "location": { "file": "input/notes/workflow-notes.md" },
+      "reliability": "high"
+    },
+    {
+      "id": "ev_workflow_notes_reopened_unclear",
+      "sourceMaterialId": "src_workflow_notes",
+      "type": "workflow_note",
+      "quoteOrDescription": "Workflow notes say it is unclear whether reopened returns to draft.",
+      "location": { "file": "input/notes/workflow-notes.md" },
+      "reliability": "medium"
+    },
+    {
+      "id": "ev_workflow_notes_overdue_unclear",
+      "sourceMaterialId": "src_workflow_notes",
+      "type": "workflow_note",
+      "quoteOrDescription": "Workflow notes say overdue automatic reminder behavior is unclear.",
+      "location": { "file": "input/notes/workflow-notes.md" },
+      "reliability": "medium"
+    }
+  ],
+  "claimMappings": [
+    {
+      "claimId": "mod_customer_management",
+      "claimType": "module",
+      "claim": "The system contains a Customer Management module.",
+      "evidenceIds": ["ev_screenshot_customer_list_columns", "ev_screenshot_customer_detail_sections", "ev_csv_customers_headers"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Customer list, customer detail, and customer CSV materials directly identify customer management behavior."
+    },
+    {
+      "claimId": "mod_follow_up_records",
+      "claimType": "module",
+      "claim": "The system contains a Follow-up Records module.",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_screenshot_follow_up_actions", "ev_csv_follow_up_headers"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Follow-up records screen and CSV headers support a dedicated follow-up record area."
+    },
+    {
+      "claimId": "mod_assignment_rules",
+      "claimType": "module",
+      "claim": "The system contains an Assignment Rules module.",
+      "evidenceIds": ["ev_screenshot_assignment_rules"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Assignment rule screen lists rules, actions, and open reassignment questions."
+    },
+    {
+      "claimId": "mod_permission_settings",
+      "claimType": "module",
+      "claim": "The system contains a Permission Settings module.",
+      "evidenceIds": ["ev_screenshot_permission_roles", "ev_screenshot_permission_unclear"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Permission settings screen names roles and unclear permission boundaries."
+    },
+    {
+      "claimId": "ent_customer",
+      "claimType": "entity",
+      "claim": "Customer is a core entity.",
+      "evidenceIds": ["ev_screenshot_customer_list_columns", "ev_csv_customers_headers"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Customer list columns and CSV headers directly define customer data."
+    },
+    {
+      "claimId": "ent_follow_up_record",
+      "claimType": "entity",
+      "claim": "FollowUpRecord is a core entity.",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_csv_follow_up_headers"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "Follow-up records UI and CSV headers define the entity and states."
+    },
+    {
+      "claimId": "ent_customer_segment",
+      "claimType": "entity",
+      "claim": "CustomerSegment is a core configuration entity.",
+      "evidenceIds": ["ev_csv_segments_headers", "ev_screenshot_assignment_rules"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Segment CSV and assignment rules both use segment as a control dimension."
+    },
+    {
+      "claimId": "field_record_status",
+      "claimType": "field",
+      "claim": "Follow-up record status uses draft, submitted, manager_reviewed, closed, and reopened values.",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_workflow_notes_states"],
+      "confidence": "high",
+      "needsReview": true,
+      "reasoningSummary": "UI and workflow notes agree on status labels, but reopened transition remains unclear."
+    },
+    {
+      "claimId": "perm_sales_manager_view_team_customers",
+      "claimType": "permission",
+      "claim": "Sales Managers can view team customers, but cross-team visibility is unclear.",
+      "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Role notes and permission screen support team scope but do not settle cross-team access."
+    },
+    {
+      "claimId": "perm_sales_director_export_records",
+      "claimType": "permission",
+      "claim": "Sales Director likely can export records, but export by role is unresolved.",
+      "evidenceIds": ["ev_notes_export_unclear", "ev_screenshot_customer_list_actions"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Export action is visible and notes mention director export, but manager export behavior is unclear."
+    },
+    {
+      "claimId": "wf_customer_follow_up",
+      "claimType": "workflow",
+      "claim": "Customer follow-up follows new customer, assigned, draft, submitted, manager reviewed, closed, and reopened states.",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_screenshot_follow_up_actions", "ev_workflow_notes_states"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "UI and notes provide the lifecycle but not all transition rules."
+    },
+    {
+      "claimId": "wf_assignment_reassignment",
+      "claimType": "workflow",
+      "claim": "Unassigned and overdue customers can enter assignment or reassignment review.",
+      "evidenceIds": ["ev_screenshot_assignment_rules", "ev_csv_customers_owner", "ev_notes_reassignment_unclear"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Assignment rules and empty owner data support a queue/reassignment workflow, but approval is unclear."
+    },
+    {
+      "claimId": "q_export_permission",
+      "claimType": "question",
+      "claim": "Which roles can export customer and follow-up records?",
+      "evidenceIds": ["ev_notes_export_unclear", "ev_screenshot_customer_list_actions"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Export is visible but role authority is contradictory or incomplete."
+    },
+    {
+      "claimId": "q_manager_cross_team_visibility",
+      "claimType": "question",
+      "claim": "Can Sales Managers view customers outside their team?",
+      "evidenceIds": ["ev_screenshot_permission_roles", "ev_notes_roles_scope"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Manager team scope is stated, but cross-team access is not settled."
+    },
+    {
+      "claimId": "q_reopened_behavior",
+      "claimType": "question",
+      "claim": "What happens when a closed follow-up is reopened?",
+      "evidenceIds": ["ev_screenshot_follow_up_statuses", "ev_workflow_notes_reopened_unclear"],
+      "confidence": "medium",
+      "needsReview": true,
+      "reasoningSummary": "Reopened exists as a status, but the return state is unclear."
+    },
+    {
+      "claimId": "ac_synthetic_data_only",
+      "claimType": "acceptance",
+      "claim": "Mock example data remains synthetic.",
+      "evidenceIds": ["ev_csv_customers_headers", "ev_csv_sales_reps_headers"],
+      "confidence": "high",
+      "needsReview": false,
+      "reasoningSummary": "Fixture names use mock customer and mock rep identifiers only."
+    }
+  ],
+  "coverageSummary": {
+    "totalClaims": 16,
+    "claimsWithEvidence": 16,
+    "claimsWithoutEvidence": 0,
+    "highConfidenceClaims": 8,
+    "mediumConfidenceClaims": 8,
+    "lowConfidenceClaims": 0,
+    "unknownConfidenceClaims": 0,
+    "evidenceCoverageRate": 1
+  }
+}

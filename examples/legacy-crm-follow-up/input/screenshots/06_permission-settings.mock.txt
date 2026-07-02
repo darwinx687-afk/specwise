@@ -1,0 +1,20 @@
+Screen: Permission Settings
+
+Roles:
+- System Admin
+- Sales Director
+- Sales Manager
+- Sales Rep
+- Viewer
+
+Permission notes:
+- System Admin can configure roles.
+- Sales Director can view all customers.
+- Sales Manager can view team customers.
+- Sales Rep can view assigned customers.
+- Viewer can view reports only.
+
+Unclear:
+- Export permission by role.
+- Cross-team customer visibility.
+- Who can mark customer inactive.

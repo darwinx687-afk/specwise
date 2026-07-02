@@ -34,6 +34,23 @@ Expected result: expected output validates; deterministic draft is generated wit
 
 Notes: mock screenshots are text files, not OCR or vision inputs.
 
+## `examples/legacy-crm-follow-up`
+
+Purpose: second realistic mock business scenario for a legacy CRM follow-up admin system.
+
+Run:
+
+```bash
+node bin/specwise.mjs validate examples/legacy-crm-follow-up/expected-output/spec-pack
+node bin/specwise.mjs draft examples/legacy-crm-follow-up/input --out ./tmp/crm-draft --force
+node bin/specwise.mjs validate ./tmp/crm-draft/spec-pack
+rm -rf ./tmp/crm-draft
+```
+
+Expected result: curated expected output validates; deterministic draft is generated with `review_required` status and validates.
+
+Notes: inputs are synthetic mock screenshot text, CSV fixtures, and messy bilingual notes. This example does not use OCR, vision, real AI providers, real company data, or real customer data.
+
 ## `examples/invalid`
 
 Purpose: negative fixture proving validation failure behavior.
@@ -114,4 +131,3 @@ node bin/specwise.mjs provider doctor --config examples/config/specwise.openai-c
 Expected result: config doctor passes, but placeholder provider remains guarded from extraction.
 
 Notes: configs use placeholder key names and invalid example URLs only. No real API keys should be committed.
-

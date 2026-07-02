@@ -1,0 +1,6 @@
+customer_id,customer_name,segment,owner_rep_id,status,risk_level,last_follow_up_date,next_follow_up_due
+CUST-001,Mock Customer Alpha,A,REP-001,active,medium,2026-06-20,2026-07-05
+CUST-002,Mock Customer Beta,B,REP-002,active,low,2026-06-28,2026-07-12
+CUST-003,Mock Customer Gamma,A,,active,high,2026-06-10,2026-06-25
+CUST-004,Mock Customer Delta,C,REP-003,inactive,medium,2026-05-30,2026-06-30
+CUST-005,Mock Customer Echo,VIP,REP-001,active,high,2026-06-22,2026-07-03

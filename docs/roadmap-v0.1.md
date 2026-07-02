@@ -33,10 +33,10 @@ This roadmap is directional. Later phases are not implemented until explicitly b
 - Phase 19: First feedback triage system
 - Phase 20: v0.2 scope selection baseline
 - Phase 21: v0.2 implementation planning
+- Phase 22A: Example Pack Expansion
 
 ## Next
 
-- Phase 22A: Example Pack Expansion
 - Phase 22B: Deterministic Draft Heuristic Polish
 - Phase 22C: CSV/XLSX Field Inference Polish
 - Phase 22D: CLI Error and First-run DX Polish
@@ -78,3 +78,5 @@ Phase 19 prepares the feedback triage system, GitHub issue triage playbook, v0.2
 Phase 20 selects a v0.2 baseline scope focused on examples, deterministic quality, CSV/XLSX inference polish, CLI/DX polish, and docs simplification. It does not start v0.2 implementation, create new tags, create new releases, publish to npm, add dependencies, call a real AI provider, call a coding agent, or generate final spec-packs.
 
 Phase 21 plans the v0.2 implementation phases, acceptance criteria, test strategy, risk register, and Codex loop drafts. It does not start Phase 22 implementation, modify runtime feature logic, create new tags, create new releases, publish to npm, add dependencies, call a real AI provider, call a coding agent, or generate final spec-packs.
+
+Phase 22A adds the synthetic Legacy CRM Follow-up example pack, docs links, and example validation coverage. It does not add runtime AI/provider behavior, OCR, vision, Web UI, coding agent calls, generated application code, final spec-pack generation, tags, releases, npm publication, or dependencies.

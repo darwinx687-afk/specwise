@@ -1,0 +1,18 @@
+Screen: Assignment Rules
+
+Rules:
+- Segment A customers should have senior sales owner.
+- Unassigned customers should appear in manager queue.
+- Overdue customers may be reassigned.
+- VIP customers require manager visibility.
+
+Actions:
+- Create rule
+- Edit rule
+- Disable rule
+- Preview affected customers
+
+Unclear:
+- Whether reassignment requires approval.
+- Whether sales reps can reassign their own customers.
+- Whether VIP visibility means all managers or only Sales Director.

@@ -16,6 +16,7 @@ Status: Phase 21 documentation map.
 ## Examples
 
 - [Examples Guide](examples-guide-v0.1.md)
+- [Legacy CRM Follow-up Example](../examples/legacy-crm-follow-up/README.md)
 
 ## Provider / AI Preview Design
 

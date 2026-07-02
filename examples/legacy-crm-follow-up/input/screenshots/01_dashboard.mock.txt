@@ -1,0 +1,26 @@
+Screen: CRM Dashboard
+
+Navigation:
+- Dashboard
+- Customers
+- Follow-up Records
+- Assignment Rules
+- Reports
+- Permission Settings
+
+Widgets:
+- New customers this week
+- Overdue follow-ups
+- Customers without owner
+- Segment distribution
+- Follow-up completion rate
+
+Filters:
+- Team
+- Segment
+- Owner
+- Date range
+
+Notes:
+- Dashboard shows overdue follow-ups and unassigned customers as manager attention items.
+- Completion rate appears to be calculated from submitted or closed follow-up records, but the exact denominator is unclear.
